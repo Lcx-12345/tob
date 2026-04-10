@@ -1,0 +1,57 @@
+{
+  "$schema": "https://schemas.cybozu.com/json-canvas/1.0",
+  "nodes": [
+    {
+      "id": "node1",
+      "type": "text",
+      "x": 100,
+      "y": 100,
+      "width": 200,
+      "height": 100,
+      "content": "Sample Node 1"
+    },
+    {
+      "id": "node2",
+      "type": "text",
+      "x": 400,
+      "y": 100,
+      "width": 200,
+      "height": 100,
+      "content": "Sample Node 2"
+    },
+    {
+      "id": "node3",
+      "type": "text",
+      "x": 250,
+      "y": 300,
+      "width": 200,
+      "height": 100,
+      "content": "Sample Node 3"
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge1",
+      "fromNode": "node1",
+      "toNode": "node2",
+      "label": "Connection 1"
+    },
+    {
+      "id": "edge2",
+      "fromNode": "node1",
+      "toNode": "node3",
+      "label": "Connection 2"
+    },
+    {
+      "id": "edge3",
+      "fromNode": "node2",
+      "toNode": "node3",
+      "label": "Connection 3"
+    }
+  ],
+  "file": {
+    "name": "Sample JSON Canvas",
+    "created_at": "2026-04-10",
+    "format": ".canvas"
+  }
+}

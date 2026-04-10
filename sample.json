@@ -1,0 +1,37 @@
+{
+  "file": {
+    "name": "Sample JSON File",
+    "created_at": "2026-04-10",
+    "format": ".json"
+  },
+  "person": {
+    "name": "John Doe",
+    "age": 30,
+    "email": "john@example.com",
+    "address": {
+      "street": "123 Main St",
+      "city": "New York",
+      "country": "USA"
+    },
+    "hobbies": ["reading", "coding", "hiking"]
+  },
+  "products": [
+    {
+      "id": 1,
+      "name": "Product 1",
+      "price": 19.99,
+      "in_stock": true
+    },
+    {
+      "id": 2,
+      "name": "Product 2",
+      "price": 29.99,
+      "in_stock": false
+    }
+  ],
+  "settings": {
+    "theme": "dark",
+    "notifications": true,
+    "language": "en"
+  }
+}
