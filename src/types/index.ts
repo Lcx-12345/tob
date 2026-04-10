@@ -29,3 +29,15 @@ export interface Playlist {
   tracks: Track[];
   createdAt: string;
 }
+
+export interface Image {
+  id: string;
+  title: string;
+  url: string;
+  description: string;
+  tags: string[];
+  createdAt: string;
+  width: number;
+  height: number;
+  size: number;
+}
