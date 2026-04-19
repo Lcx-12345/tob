@@ -4,7 +4,11 @@ import { Image } from '../types';
 import { useImage } from '../hooks/useImage';
 import { Upload, Search, Filter } from 'lucide-react';
 
-export function ImageGallery() {
+interface ImageGalleryProps {
+  onImageSelect?: (image: Image) => void;
+}
+
+export function ImageGallery({ onImageSelect }: ImageGalleryProps) {
   const {
     images,
     searchQuery,
@@ -170,7 +174,10 @@ export function ImageGallery() {
               key={image.id}
               image={image}
               index={index}
-              onSelect={selectImage}
+              onSelect={(image) => {
+                selectImage(image);
+                onImageSelect?.(image);
+              }}
               onDelete={removeImage}
             />
           ))}
