@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 const Navigation = () => {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -12,36 +14,48 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <button 
-              onClick={() => scrollToSection('hero')}
+            <Link 
+              to="/"
               className="text-2xl font-bold bg-gradient-to-r from-[#4ecca3] to-purple-400 bg-clip-text text-transparent hover:scale-105 transition-transform font-accent"
             >
               Portfolio
-            </button>
+            </Link>
           </div>
           
           {/* 导航链接 */}
-          <div className="hidden md:flex items-center space-x-8 font-navigation">
-            <button 
-              onClick={() => scrollToSection('hero')}
+          <div className="hidden md:flex items-center gap-6 font-navigation">
+            <Link 
+              to="/"
               className="text-gray-300 hover:text-[#4ecca3] transition-colors"
             >
               首页
-            </button>
-            <button 
-              onClick={() => scrollToSection('works')}
+            </Link>
+            <Link 
+              to="/snake"
               className="text-gray-300 hover:text-[#4ecca3] transition-colors"
             >
-              作品
-            </button>
+              贪吃蛇游戏
+            </Link>
             <button 
-              onClick={() => scrollToSection('about')}
+              onClick={() => {
+                window.location.href = '/';
+                setTimeout(() => {
+                  const aboutSection = document.getElementById('about');
+                  if (aboutSection) aboutSection.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+              }}
               className="text-gray-300 hover:text-[#4ecca3] transition-colors"
             >
               关于
             </button>
             <button 
-              onClick={() => scrollToSection('contact')}
+              onClick={() => {
+                window.location.href = '/';
+                setTimeout(() => {
+                  const contactSection = document.getElementById('contact');
+                  if (contactSection) contactSection.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+              }}
               className="px-4 py-2 bg-[#4ecca3] text-[#1a1a2e] font-semibold rounded-lg hover:scale-105 transition-transform font-accent"
             >
               联系我
