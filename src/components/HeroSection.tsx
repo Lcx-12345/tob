@@ -30,13 +30,13 @@ const HeroSection = () => {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <a 
             href="#works" 
-            className="px-8 py-4 bg-[#4ecca3] text-[#1a1a2e] font-semibold rounded-lg hover:scale-105 hover:shadow-lg hover:shadow-[#4ecca3]/30 transition-all duration-300"
+            className="px-8 py-4 bg-[#4ecca3] text-[#1a1a2e] font-semibold rounded-lg hover:scale-105 hover:shadow-lg hover:shadow-[#4ecca3]/30 transition-all duration-300 font-accent"
           >
             查看作品
           </a>
           <a 
             href="#about" 
-            className="px-8 py-4 border-2 border-white/30 text-white font-semibold rounded-lg hover:bg-white/10 hover:border-white transition-all duration-300"
+            className="px-8 py-4 border-2 border-white/30 text-white font-semibold rounded-lg hover:bg-white/10 hover:border-white transition-all duration-300 font-accent"
           >
             了解更多
           </a>

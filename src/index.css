@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Lora:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -15,8 +15,24 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* 标题字体 */
 h1, h2, h3 {
   font-family: 'Playfair Display', serif;
+}
+
+/* 强调文本字体 */
+.font-accent {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* 正文和段落字体 */
+.font-body {
+  font-family: 'Lora', serif;
+}
+
+/* 导航和按钮字体 */
+.font-navigation {
+  font-family: 'Montserrat', sans-serif;
 }
 
 @keyframes float {

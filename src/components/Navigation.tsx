@@ -14,14 +14,14 @@ const Navigation = () => {
           <div className="flex-shrink-0">
             <button 
               onClick={() => scrollToSection('hero')}
-              className="text-2xl font-bold bg-gradient-to-r from-[#4ecca3] to-purple-400 bg-clip-text text-transparent hover:scale-105 transition-transform"
+              className="text-2xl font-bold bg-gradient-to-r from-[#4ecca3] to-purple-400 bg-clip-text text-transparent hover:scale-105 transition-transform font-accent"
             >
               Portfolio
             </button>
           </div>
           
           {/* 导航链接 */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-8 font-navigation">
             <button 
               onClick={() => scrollToSection('hero')}
               className="text-gray-300 hover:text-[#4ecca3] transition-colors"
@@ -42,7 +42,7 @@ const Navigation = () => {
             </button>
             <button 
               onClick={() => scrollToSection('contact')}
-              className="px-4 py-2 bg-[#4ecca3] text-[#1a1a2e] font-semibold rounded-lg hover:scale-105 transition-transform"
+              className="px-4 py-2 bg-[#4ecca3] text-[#1a1a2e] font-semibold rounded-lg hover:scale-105 transition-transform font-accent"
             >
               联系我
             </button>

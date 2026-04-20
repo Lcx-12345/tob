@@ -21,7 +21,7 @@ export default function Home() {
             <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white via-[#4ecca3] to-purple-300 bg-clip-text text-transparent">
               精选作品
             </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto font-body">
               探索我最近完成的一些项目，每个作品都融入了独特的设计理念和技术实现。
             </p>
           </div>
@@ -48,11 +48,11 @@ export default function Home() {
               <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white via-[#4ecca3] to-purple-300 bg-clip-text text-transparent">
                 关于我
               </h2>
-              <p className="text-gray-300 text-lg mb-6 leading-relaxed">
+              <p className="text-gray-300 text-lg mb-6 leading-relaxed font-body">
                 我是一名热爱设计的全栈开发者，专注于创造美观且功能强大的数字产品。
                 我相信优秀的设计应该是形式与功能的完美结合，让用户在使用产品的同时获得愉悦的体验。
               </p>
-              <p className="text-gray-300 text-lg mb-8 leading-relaxed">
+              <p className="text-gray-300 text-lg mb-8 leading-relaxed font-body">
                 拥有5年以上的开发经验，我曾与多个团队合作，参与从概念设计到产品上线的完整流程。
               </p>
               
@@ -110,13 +110,13 @@ export default function Home() {
           <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white via-[#4ecca3] to-purple-300 bg-clip-text text-transparent">
             让我们一起合作
           </h2>
-          <p className="text-gray-300 text-lg mb-10 max-w-2xl mx-auto">
+          <p className="text-gray-300 text-lg mb-10 max-w-2xl mx-auto font-body">
             有一个有趣的项目？或者只是想打个招呼？随时联系我！
           </p>
           
           <a 
             href="mailto:hello@example.com"
-            className="inline-flex items-center gap-3 px-10 py-5 bg-[#4ecca3] text-[#1a1a2e] font-bold text-lg rounded-lg hover:scale-105 hover:shadow-xl hover:shadow-[#4ecca3]/30 transition-all duration-300"
+            className="inline-flex items-center gap-3 px-10 py-5 bg-[#4ecca3] text-[#1a1a2e] font-bold text-lg rounded-lg hover:scale-105 hover:shadow-xl hover:shadow-[#4ecca3]/30 transition-all duration-300 font-accent"
           >
             <Mail size={24} />
             发送邮件
