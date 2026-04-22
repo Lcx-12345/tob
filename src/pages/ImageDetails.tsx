@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Image } from '../types';
 import { useImageStore } from '../store/imageStore';
-import { X, Tag, Calendar, FileSize, Monitor, Edit, Save, Cancel, Info } from 'lucide-react';
+import { X, Tag, Calendar, HardDrive, Monitor, Edit, Save, XCircle, Info } from 'lucide-react';
 
 interface ImageDetailsProps {
   image: Image;
@@ -134,7 +134,7 @@ export function ImageDetails({ image, onClose }: ImageDetailsProps) {
                           }}
                           className="flex-1 px-4 py-3 rounded-lg bg-white/10 hover:bg-white/20 text-white font-semibold transition-colors flex items-center justify-center gap-2"
                         >
-                          <Cancel className="h-4 w-4" />
+                          <XCircle className="h-4 w-4" />
                           <span>Cancel</span>
                         </button>
                       </div>
@@ -180,7 +180,7 @@ export function ImageDetails({ image, onClose }: ImageDetailsProps) {
                       </div>
                     </div>
                     <div className="flex items-start gap-3 p-3 rounded-lg hover:bg-white/5 transition-colors">
-                      <FileSize className="h-5 w-5 text-green-400 flex-shrink-0 mt-0.5" />
+                      <HardDrive className="h-5 w-5 text-green-400 flex-shrink-0 mt-0.5" />
                       <div>
                         <p className="text-sm text-neutral-400">File Size</p>
                         <p className="text-white font-medium">{formatFileSize(image.size)}</p>
