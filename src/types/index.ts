@@ -5,6 +5,7 @@ export interface Track {
   artwork: string;
   url: string;
   duration: number;
+  genre: string;
 }
 
 export interface Artist {
