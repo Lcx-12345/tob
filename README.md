@@ -1,57 +1,147 @@
-# React + TypeScript + Vite
+# 电商商品价格自动化采集与对比工具
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+一个功能强大的电商商品价格自动化采集与对比工具，支持从京东、淘宝、拼多多批量抓取商品信息，并进行价格对比、趋势分析和性价比推荐。
 
-Currently, two official plugins are available:
+## 功能特性
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **多平台支持**：支持京东、淘宝、拼多多三大电商平台
+- **批量采集**：按关键词批量抓取商品信息
+- **数据清洗**：自动清洗去重数据，确保数据质量
+- **价格对比**：按价格从低到高排序，展示商品横向对比
+- **数据可视化**：生成价格趋势图表、平台分布图表和商品对比图表
+- **性价比推荐**：基于价格、销量、店铺评分计算性价比，提供推荐标注
+- **命令行工具**：支持通过命令行执行采集任务
+- **演示网页**：提供直观的网页界面，支持现场运行脚本和展示结果
 
-## Expanding the ESLint configuration
+## 技术栈
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **后端**：TypeScript、Node.js
+- **爬虫**：Puppeteer、Axios、Cheerio
+- **前端**：React、Tailwind CSS、Chart.js
+- **命令行**：Commander.js
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 安装
+
+### 1. 克隆项目
+
+```bash
+git clone <repository-url>
+cd <project-directory>
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. 安装依赖
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  extends: [
-    // other configs...
-    // Enable lint rules for React
-    reactX.configs['recommended-typescript'],
-    // Enable lint rules for React DOM
-    reactDom.configs.recommended,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+npm install
 ```
+
+### 3. 构建项目
+
+```bash
+npm run build
+```
+
+## 使用方法
+
+### 命令行工具
+
+#### 搜索商品
+
+```bash
+# 搜索关键词为"手机"的商品，从所有平台采集
+npm run scrape:dev search -- -k 手机
+
+# 从指定平台采集
+npm run scrape:dev search -- -k 手机 -p jd
+
+# 指定页码数
+npm run scrape:dev search -- -k 手机 -n 2
+
+# 输出结果到文件
+npm run scrape:dev search -- -k 手机 -o result.json
+```
+
+### 网页界面
+
+1. 启动开发服务器
+
+```bash
+npm run dev
+```
+
+2. 打开浏览器访问 `http://localhost:5173`
+
+3. 在搜索表单中输入关键词，选择平台和页码数，点击"开始搜索"
+
+4. 查看搜索结果、图表和推荐商品
+
+## 项目结构
+
+```
+src/
+├── scraper/            # 数据采集模块
+│   ├── platforms/      # 各平台采集实现
+│   ├── utils/          # 采集工具函数
+│   └── index.ts        # 采集模块入口
+├── processor/          # 数据处理模块
+│   ├── cleaner.ts      # 数据清洗
+│   ├── deduplicator.ts # 数据去重
+│   ├── sorter.ts       # 数据排序
+│   ├── analyzer.ts     # 数据分析
+│   └── index.ts        # 处理模块入口
+├── visualizer/         # 数据可视化模块
+│   ├── charts.ts       # 图表生成
+│   ├── comparisons.ts  # 商品对比
+│   └── index.ts        # 可视化模块入口
+├── cli/                # 命令行工具
+│   ├── commands.ts     # 命令定义
+│   └── index.ts        # 命令行入口
+├── web/                # 演示网页
+│   ├── components/     # 网页组件
+│   ├── pages/          # 网页页面
+│   └── index.ts        # 网页入口
+├── types/              # 类型定义
+│   └── index.ts        # 类型声明
+└── utils/              # 通用工具
+    └── index.ts        # 工具函数
+```
+
+## 核心功能
+
+### 数据采集
+
+- **请求处理**：模拟浏览器请求头，处理反爬机制
+- **页面解析**：使用XPath或CSS选择器解析页面，提取商品信息
+- **批量采集**：支持多线程/异步采集，控制采集频率
+
+### 数据处理
+
+- **数据清洗**：去除无效数据，统一数据格式，处理缺失值
+- **去重**：基于商品ID或名称去重，保留价格最低的重复商品
+- **排序**：按价格从低到高排序，支持其他排序方式
+- **性价比计算**：基于价格、销量、店铺评分计算性价比
+
+### 数据可视化
+
+- **价格趋势图表**：展示不同价格区间的商品数量分布
+- **平台分布图表**：展示各平台的商品数量分布
+- **商品横向对比**：对比不同商品的价格、销量、评分等指标
+- **性价比推荐**：标注高性价比商品，生成推荐理由
+
+## 注意事项
+
+1. **合法性**：遵守各平台的robots.txt规则，避免过度请求影响平台服务
+2. **稳定性**：处理各种异常情况，确保系统稳定运行
+3. **准确性**：定期更新采集规则，确保数据采集的准确性
+4. **安全性**：保护用户输入的关键词，避免存储敏感信息
+
+## 扩展建议
+
+1. **平台扩展**：添加更多电商平台，如天猫、苏宁等
+2. **功能扩展**：支持更多数据指标，如评论数、收藏数等
+3. **部署扩展**：部署到服务器，支持定时任务自动采集
+4. **API扩展**：提供API接口，方便其他应用调用
+
+## 许可证
+
+MIT
