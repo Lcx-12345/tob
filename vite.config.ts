@@ -11,4 +11,12 @@ export default defineConfig({
       ],
     },
   }), tsconfigPaths()],
+  optimizeDeps: {
+    exclude: ['puppeteer', '@puppeteer/browsers', 'proxy-agent', 'pac-proxy-agent', 'http-proxy-agent', 'socks-proxy-agent']
+  },
+  build: {
+    rollupOptions: {
+      external: ['puppeteer', '@puppeteer/browsers', 'proxy-agent', 'pac-proxy-agent', 'http-proxy-agent', 'socks-proxy-agent']
+    }
+  }
 })
