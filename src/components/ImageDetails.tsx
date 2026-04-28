@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Image } from '../types';
 import { useImageStore } from '../store/imageStore';
-import { X, Tag, Calendar, FileSize, Monitor } from 'lucide-react';
+import { X, Tag, Calendar, HardDrive, Monitor } from 'lucide-react';
 
 interface ImageDetailsProps {
   image: Image;
@@ -153,7 +153,7 @@ export function ImageDetails({ image, onClose }: ImageDetailsProps) {
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <FileSize className="h-4 w-4 text-neutral-400" />
+                  <HardDrive className="h-4 w-4 text-neutral-400" />
                   <span className="text-sm text-neutral-400">
                     Size: {formatFileSize(image.size)}
                   </span>
