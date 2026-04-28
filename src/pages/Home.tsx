@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Play, TrendingUp, Music } from 'lucide-react';
+import { Play, TrendingUp, Music, Gamepad2 } from 'lucide-react';
 import { useMusicStore } from '@/store/musicStore';
 import { mockTracks, mockArtists, mockAlbums, mockPlaylists, genres } from '@/data/mockData';
 import { TrackCard } from '@/components/TrackCard';
@@ -51,6 +51,14 @@ export default function Home() {
                   to="/browse"
                   className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-full font-semibold transition-colors text-center"
                 >Start Exploring</Link>
+                {/* Game button */}
+                <Link
+                  to="/game"
+                  className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full font-semibold transition-colors flex items-center justify-center space-x-2"
+                >
+                  <Gamepad2 className="w-5 h-5" />
+                  <span>玩快跑小游戏</span>
+                </Link>
                 {/* Featured track play button */}
                 <button
                   onClick={() => playTrack(featuredTrack)}
