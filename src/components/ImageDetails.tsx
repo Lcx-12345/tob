@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Image } from '../types';
 import { useImageStore } from '../store/imageStore';
-import { X, Tag, Calendar, FileSize, Monitor } from 'lucide-react';
+import { X, Tag, Calendar, HardDrive, Monitor } from 'lucide-react';
 
 interface ImageDetailsProps {
   image: Image;
