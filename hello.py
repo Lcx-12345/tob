@@ -2,8 +2,14 @@
 
 
 def main():
-    print("Hello, World!")
-    print("Python 版本: 3.x")
+    messages = ["Hello", "World", "Python", "Loop", "Demo"]
+
+    for i, msg in enumerate(messages, 1):
+        print(f"{i}. {msg}")
+
+    print("\n逆序输出:")
+    for msg in reversed(messages):
+        print(f"- {msg}")
 
 
 if __name__ == "__main__":

@@ -1,6 +1,14 @@
 public class Hello {
     public static void main(String[] args) {
-        System.out.println("Hello, World!");
-        System.out.println("Java 版本: " + System.getProperty("java.version"));
+        String[] messages = {"Hello", "World", "Java", "Loop", "Demo"};
+
+        for (int i = 0; i < messages.length; i++) {
+            System.out.println((i + 1) + ". " + messages[i]);
+        }
+
+        System.out.println("\n逆序输出:");
+        for (int i = messages.length - 1; i >= 0; i--) {
+            System.out.println("- " + messages[i]);
+        }
     }
 }
