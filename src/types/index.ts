@@ -30,6 +30,13 @@ export interface Playlist {
   createdAt: string;
 }
 
+export interface ExifData {
+  camera?: string;
+  aperture?: string;
+  shutterSpeed?: string;
+  iso?: number;
+}
+
 export interface Image {
   id: string;
   title: string;
@@ -40,4 +47,7 @@ export interface Image {
   width: number;
   height: number;
   size: number;
+  format?: string;
+  colorSpace?: string;
+  exif?: ExifData;
 }
