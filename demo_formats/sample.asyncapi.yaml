@@ -1,0 +1,17 @@
+asyncapi: 2.6.0
+info:
+  title: 工具演示 AsyncAPI
+  version: 1.0.0
+  description: AsyncAPI规范示例文件
+channels:
+  tool/created:
+    subscribe:
+      message:
+        description: 当新工具被创建时通知
+        payload:
+          type: object
+          properties:
+            name:
+              type: string
+            category:
+              type: string

@@ -1,0 +1,18 @@
+type Tool {
+  id: ID!
+  name: String!
+  category: String!
+  description: String!
+  active: Boolean!
+}
+
+type Query {
+  tools(category: String, active: Boolean): [Tool!]!
+  tool(id: ID!): Tool
+}
+
+type Mutation {
+  createTool(name: String!, category: String!, description: String!): Tool!
+  updateTool(id: ID!, name: String, category: String, description: String): Tool!
+  deleteTool(id: ID!): Boolean!
+}

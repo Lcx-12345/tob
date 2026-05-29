@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "demo-project"
+version = "1.0.0"
+description = "Python项目配置示例"
+authors = ["SOLO AI"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+requests = "^2.31"
+
+[tool.poetry.dev-dependencies]
+pytest = "^8.0"
+ruff = "^0.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

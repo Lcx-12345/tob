@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Tool",
+  "type": "object",
+  "required": ["name", "category", "description"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "category": {
+      "type": "string",
+      "enum": ["文件操作", "命令执行", "网络", "调度"]
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

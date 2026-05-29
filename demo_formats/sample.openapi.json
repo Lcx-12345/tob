@@ -1,0 +1,20 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "工具演示 API",
+    "version": "1.0.0",
+    "description": "OpenAPI规范示例文件"
+  },
+  "paths": {
+    "/tools": {
+      "get": {
+        "summary": "获取工具列表",
+        "responses": {
+          "200": {
+            "description": "成功返回工具列表"
+          }
+        }
+      }
+    }
+  }
+}
