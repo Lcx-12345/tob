@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOLO 工具演示</title>
+    <style>
+        body { font-family: system-ui, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: #f5f5f5; }
+        h1 { color: #333; border-bottom: 2px solid #4CAF50; padding-bottom: 10px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #4CAF50; color: white; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+        .badge { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 12px; color: white; }
+        .badge-search { background: #2196F3; }
+        .badge-file { background: #FF9800; }
+        .badge-cmd { background: #9C27B0; }
+        .badge-interact { background: #E91E63; }
+        .badge-schedule { background: #009688; }
+    </style>
+</head>
+<body>
+    <h1>🔧 SOLO 内置工具全览</h1>
+    <p>这是 HTML 格式文件演示，展示了所有内置工具的分类和说明。</p>
+    <table>
+        <thead>
+            <tr><th>工具名</th><th>分类</th><th>说明</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>TodoWrite</td><td><span class="badge badge-interact">交互</span></td><td>创建和管理任务列表</td></tr>
+            <tr><td>Skill</td><td><span class="badge badge-cmd">命令</span></td><td>调用内置技能</td></tr>
+            <tr><td>SearchCodebase</td><td><span class="badge badge-search">搜索</span></td><td>语义搜索代码库</td></tr>
+            <tr><td>Glob</td><td><span class="badge badge-file">文件</span></td><td>按模式匹配文件</td></tr>
+            <tr><td>LS</td><td><span class="badge badge-file">文件</span></td><td>列出目录内容</td></tr>
+            <tr><td>Grep</td><td><span class="badge badge-search">搜索</span></td><td>正则搜索文件内容</td></tr>
+            <tr><td>Read</td><td><span class="badge badge-file">文件</span></td><td>读取文件内容</td></tr>
+            <tr><td>WebSearch</td><td><span class="badge badge-search">搜索</span></td><td>搜索互联网</td></tr>
+            <tr><td>WebFetch</td><td><span class="badge badge-search">搜索</span></td><td>获取网页内容</td></tr>
+            <tr><td>RunCommand</td><td><span class="badge badge-cmd">命令</span></td><td>执行终端命令</td></tr>
+            <tr><td>Write</td><td><span class="badge badge-file">文件</span></td><td>写入文件</td></tr>
+            <tr><td>SearchReplace</td><td><span class="badge badge-file">文件</span></td><td>搜索替换文件内容</td></tr>
+            <tr><td>DeleteFile</td><td><span class="badge badge-file">文件</span></td><td>删除文件</td></tr>
+            <tr><td>AskUserQuestion</td><td><span class="badge badge-interact">交互</span></td><td>向用户提问</td></tr>
+            <tr><td>Schedule</td><td><span class="badge badge-schedule">调度</span></td><td>管理定时调度</td></tr>
+            <tr><td>Task</td><td><span class="badge badge-cmd">命令</span></td><td>启动子代理执行任务</td></tr>
+        </tbody>
+    </table>
+</body>
+</html>

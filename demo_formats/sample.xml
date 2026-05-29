@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<demo>
+  <name>工具演示</name>
+  <version>1.0.0</version>
+  <description>XML格式文件演示</description>
+  <tools>
+    <tool name="TodoWrite" type="任务管理"/>
+    <tool name="Skill" type="技能调用"/>
+    <tool name="SearchCodebase" type="代码搜索"/>
+    <tool name="Glob" type="文件匹配"/>
+    <tool name="LS" type="目录列表"/>
+    <tool name="Grep" type="内容搜索"/>
+    <tool name="Read" type="文件读取"/>
+    <tool name="WebSearch" type="网络搜索"/>
+    <tool name="WebFetch" type="网页获取"/>
+    <tool name="RunCommand" type="命令执行"/>
+    <tool name="Write" type="文件写入"/>
+    <tool name="SearchReplace" type="文件编辑"/>
+    <tool name="DeleteFile" type="文件删除"/>
+    <tool name="AskUserQuestion" type="用户交互"/>
+    <tool name="Schedule" type="定时任务"/>
+    <tool name="Task" type="子代理"/>
+  </tools>
+  <metadata>
+    <created>2026-05-29</created>
+    <author>SOLO AI Assistant</author>
+  </metadata>
+</demo>

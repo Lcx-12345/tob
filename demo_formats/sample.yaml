@@ -1,0 +1,41 @@
+name: 工具演示
+version: 1.0.0
+description: YAML格式文件演示
+
+tools:
+  - name: TodoWrite
+    type: 任务管理
+  - name: Skill
+    type: 技能调用
+  - name: SearchCodebase
+    type: 代码搜索
+  - name: Glob
+    type: 文件匹配
+  - name: LS
+    type: 目录列表
+  - name: Grep
+    type: 内容搜索
+  - name: Read
+    type: 文件读取
+  - name: WebSearch
+    type: 网络搜索
+  - name: WebFetch
+    type: 网页获取
+  - name: RunCommand
+    type: 命令执行
+  - name: Write
+    type: 文件写入
+  - name: SearchReplace
+    type: 文件编辑
+  - name: DeleteFile
+    type: 文件删除
+  - name: AskUserQuestion
+    type: 用户交互
+  - name: Schedule
+    type: 定时任务
+  - name: Task
+    type: 子代理
+
+metadata:
+  created: "2026-05-29"
+  author: SOLO AI Assistant
