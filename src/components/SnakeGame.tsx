@@ -11,6 +11,13 @@ export default function SnakeGame() {
   useKeyboard();
   useGameLoop();
 
+  if (typeof window !== 'undefined' && !(window as any).__snakeErrorInjected) {
+    (window as any).__snakeErrorInjected = true;
+    setTimeout(() => {
+      throw new Error('[SnakeGame] 模拟的 JS 错误 — 用于测试浏览器控制台日志捕获');
+    }, 3000);
+  }
+
   const status = useGameStore((s) => s.status);
   const canvasSize = useGameStore((s) => s.canvasSize);
 
