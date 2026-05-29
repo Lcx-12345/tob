@@ -11,13 +11,6 @@ export default function SnakeGame() {
   useKeyboard();
   useGameLoop();
 
-  console.error('[SnakeGame] 模拟的 console.error — 页面加载即触发');
-
-  const handleClickStart = () => {
-    const obj: any = undefined;
-    obj.triggerReferenceError();
-  };
-
   const status = useGameStore((s) => s.status);
   const canvasSize = useGameStore((s) => s.canvasSize);
 

@@ -28,16 +28,6 @@ export default function GameOverlay() {
           使用方向键或 WASD 控制蛇的移动
         </p>
         <button
-          onClick={() => {
-            const boom: any = undefined;
-            boom.triggerUncaughtError();
-          }}
-          className="group flex items-center gap-3 rounded-xl border-2 border-[#ff2d75]/50 bg-[#ff2d75]/10 px-8 py-4 font-pixel text-base text-[#ff2d75] transition-all hover:border-[#ff2d75] hover:bg-[#ff2d75]/20 hover:shadow-[0_0_30px_rgba(255,45,117,0.4)]"
-        >
-          <Play className="h-5 w-5 transition-transform group-hover:scale-110" />
-          触发错误
-        </button>
-        <button
           onClick={startGame}
           className="group flex items-center gap-3 rounded-xl border-2 border-[#39ff14]/50 bg-[#39ff14]/10 px-8 py-4 font-pixel text-base text-[#39ff14] transition-all hover:border-[#39ff14] hover:bg-[#39ff14]/20 hover:shadow-[0_0_30px_rgba(57,255,20,0.4)]"
         >
