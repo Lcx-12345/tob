@@ -1,0 +1,10 @@
+{
+  "title": "格式示例（JSON）",
+  "generated_at": "2026-06-04",
+  "items": [
+    { "type": "text", "formats": ["md", "html", "svg", "py", "json"] },
+    { "type": "binary", "formats": ["pptx", "zip"] }
+  ],
+  "note": "JSON 属于纯文本数据格式，便于解析与版本管理。"
+}
+
