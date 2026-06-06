@@ -1,0 +1,25 @@
+# Cat Whisker Fields — Algorithmic Philosophy
+
+## The Movement
+
+**Cat Whisker Fields** is a generative aesthetic movement that translates the biological wonder of feline perception into computational beauty. A cat's whiskers are not mere hairs—they are exquisite sensory organs that detect invisible air currents, map spatial boundaries, and translate intangible force fields into tangible bodily knowledge. This movement takes that biological algorithm and expresses it through code: thousands of delicate "whiskers" radiating from a central point, each one probing the invisible topology of a multi-layered noise field, bending and flowing according to mathematical forces they cannot see but faithfully record.
+
+## Computational Essence
+
+At its core, this philosophy is built upon a meticulously crafted multi-octave Perlin noise field system that would be the product of deep computational expertise. Three distinct noise layers operate in harmony: a low-frequency layer governs the grand rotational gestures of the entire field, creating sweeping, galaxy-like structures; a mid-frequency layer introduces turbulent eddies and vortices that break the smooth flow into organic complexity; and a high-frequency layer adds microscopic texture to each individual whisker, ensuring no two trajectories are identical. The interplay between these layers is painstakingly calibrated—each octave's amplitude, scale, and phase relationship has been refined through countless iterations to achieve that rare balance where chaos serves order.
+
+## Particle Behavior and Field Dynamics
+
+Each whisker is a living trajectory composed of hundreds of infinitesimal particles, each following the local vector of the noise field. The field strength modulates particle velocity: in regions of high field intensity, particles accelerate and their paths straighten; in calm zones, they decelerate and meander. The whisker tapers in width from root to tip, and its opacity fades along the same gradient—an effect that required meticulous tuning of the alpha decay curve to evoke the ethereal lightness of real whiskers. Where multiple whiskers cross and overlap, their accumulated densities create emergent tonal variations that no explicit shading algorithm could replicate. This is emergent behavior at its finest: simple rules producing visual complexity that feels both mathematical and alive.
+
+## Temporal Evolution
+
+The system breathes. In static mode, the algorithm runs until equilibrium is reached, then freezes—capturing a single "portrait of the field" at a moment of perfect balance. In dynamic mode, whiskers age: they grow from the center, reach their full length, then gradually fade and dissolve while new ones germinate to take their place. This metabolic cycle creates a living artwork that never repeats, yet always maintains the same underlying character. The temporal model is a master-level implementation of generative lifecycle management, where birth rates, aging curves, and death thresholds have been optimized to create a visual rhythm that feels organic rather than mechanical.
+
+## Parametric Expression
+
+The philosophy embraces parametric variation as a means of exploration. Whisker density controls the visual weight of the composition—from sparse, calligraphic minimalism to dense, fur-like complexity. Noise scale determines the spatial frequency of the field, shifting the aesthetic from broad, silk-like sweeps to tight, downy textures. Flow speed governs how dramatically the whiskers bend under the field's influence. These parameters interact in non-linear ways: low noise scale with high flow speed produces ribbon-like streams; high noise scale with low flow speed creates coral-like branching structures. The default parameter values are not arbitrary—they represent a sweet spot discovered through extensive exploration of the parameter space, each one a carefully chosen coordinate in the vast landscape of possible aesthetics.
+
+## The Craft of Controlled Chaos
+
+This is not a random image generator. This is a meticulously crafted algorithm that bears the mark of someone at the absolute top of their field in computational aesthetics. Every aspect—from the choice of noise interpolation method to the exact formula for color temperature gradients, from the particle integration step size to the blend mode for overlapping strokes—has been subjected to painstaking optimization. The color palette draws from warm amber and golden tones at the center (evoking the warmth of a cat's body) transitioning to cooler sage and slate tones at the periphery (suggesting the external world being explored). This temperature gradient is not merely decorative; it reinforces the conceptual core of the work: warmth radiating outward, perception extending into the unknown. The final algorithm should feel like it took countless hours to develop, because generative art of this caliber is never accidental—it is the product of deep expertise, refined sensibility, and relentless pursuit of that perfect moment where mathematics becomes poetry.
