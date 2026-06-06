@@ -1,15 +1,13 @@
 import { Eye, Trash2, Tag } from "lucide-react";
 import { Image } from "../types";
-import { useImageStore } from "../store/imageStore";
 
 interface ImageCardProps {
   image: Image;
-  index: number;
   onSelect: (image: Image) => void;
   onDelete: (id: string) => void;
 }
 
-export function ImageCard({ image, index, onSelect, onDelete }: ImageCardProps) {
+export function ImageCard({ image, onSelect, onDelete }: ImageCardProps) {
   return (
     <div 
       className="group relative flex flex-col gap-2 rounded-lg bg-white/5 p-3 hover:bg-white/10 transition-all cursor-pointer"

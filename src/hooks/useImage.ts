@@ -1,18 +1,16 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { useImageStore } from '@/store/imageStore';
 import { Image } from '@/types';
 
 export function useImage() {
   const {
-    images,
+    images: rawImages,
     currentImage,
     searchQuery,
     selectedTags,
     isLoading,
     error,
-    setImages,
     addImage,
-    updateImage,
     deleteImage,
     setCurrentImage,
     setSearchQuery,
@@ -24,20 +22,35 @@ export function useImage() {
 
   const [uploadProgress, setUploadProgress] = useState<number | null>(null);
 
-  // 上传图片
+  const filteredImages = useMemo(() => {
+    let result = rawImages;
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      result = result.filter(
+        (img) =>
+          img.title.toLowerCase().includes(query) ||
+          img.description.toLowerCase().includes(query)
+      );
+    }
+    if (selectedTags.length > 0) {
+      result = result.filter((img) =>
+        selectedTags.some((tag) => img.tags.includes(tag))
+      );
+    }
+    return result;
+  }, [rawImages, searchQuery, selectedTags]);
+
   const uploadImage = useCallback(async (file: File): Promise<Image | null> => {
     try {
       setLoading(true);
       setError(null);
       setUploadProgress(0);
 
-      // 模拟上传过程
       return new Promise((resolve) => {
         const reader = new FileReader();
         reader.onload = (e) => {
           const url = e.target?.result as string;
-          
-          // 模拟上传进度
+
           let progress = 0;
           const interval = setInterval(() => {
             progress += 10;
@@ -45,7 +58,7 @@ export function useImage() {
             if (progress >= 100) {
               clearInterval(interval);
               setUploadProgress(null);
-              
+
               const newImage: Image = {
                 id: Date.now().toString(),
                 title: file.name,
@@ -53,11 +66,11 @@ export function useImage() {
                 description: '',
                 tags: [],
                 createdAt: new Date().toISOString(),
-                width: 0, // 实际应用中应从图片获取
-                height: 0, // 实际应用中应从图片获取
+                width: 0,
+                height: 0,
                 size: file.size
               };
-              
+
               addImage(newImage);
               setLoading(false);
               resolve(newImage);
@@ -66,43 +79,36 @@ export function useImage() {
         };
         reader.readAsDataURL(file);
       });
-    } catch (err) {
-      setError('上传图片失败');
+    } catch {
+      setError('Failed to upload image');
       setLoading(false);
       setUploadProgress(null);
       return null;
     }
   }, [addImage, setError, setLoading]);
 
-  // 搜索图片
   const searchImages = useCallback((query: string) => {
     setSearchQuery(query);
-    // 实际应用中应调用API进行搜索
   }, [setSearchQuery]);
 
-  // 筛选图片
   const filterImages = useCallback((tags: string[]) => {
     setSelectedTags(tags);
-    // 实际应用中应根据标签筛选图片
   }, [setSelectedTags]);
 
-  // 删除图片
   const removeImage = useCallback((id: string) => {
     deleteImage(id);
   }, [deleteImage]);
 
-  // 选择图片
   const selectImage = useCallback((image: Image) => {
     setCurrentImage(image);
   }, [setCurrentImage]);
 
-  // 清除错误
   const handleClearError = useCallback(() => {
     clearError();
   }, [clearError]);
 
   return {
-    images,
+    images: filteredImages,
     currentImage,
     searchQuery,
     selectedTags,
@@ -114,6 +120,7 @@ export function useImage() {
     filterImages,
     removeImage,
     selectImage,
+    setCurrentImage,
     clearError: handleClearError
   };
 }

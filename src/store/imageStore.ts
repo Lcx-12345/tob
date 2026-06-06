@@ -2,7 +2,6 @@ import { create } from 'zustand';
 import { Image } from '@/types';
 
 interface ImageStore {
-  // 状态
   images: Image[];
   currentImage: Image | null;
   searchQuery: string;
@@ -10,7 +9,6 @@ interface ImageStore {
   isLoading: boolean;
   error: string | null;
 
-  // 动作
   setImages: (images: Image[]) => void;
   addImage: (image: Image) => void;
   updateImage: (id: string, updates: Partial<Image>) => void;
@@ -21,11 +19,9 @@ interface ImageStore {
   setLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
   clearError: () => void;
-  getState: () => ImageStore;
 }
 
-export const useImageStore = create<ImageStore>((set, get) => ({
-  // 初始状态
+export const useImageStore = create<ImageStore>((set) => ({
   images: [],
   currentImage: null,
   searchQuery: '',
@@ -33,7 +29,6 @@ export const useImageStore = create<ImageStore>((set, get) => ({
   isLoading: false,
   error: null,
 
-  // 动作实现
   setImages: (images) => set({ images }),
   addImage: (image) => set((state) => ({ images: [...state.images, image] })),
   updateImage: (id, updates) => set((state) => ({
@@ -49,6 +44,5 @@ export const useImageStore = create<ImageStore>((set, get) => ({
   setSelectedTags: (tags) => set({ selectedTags: tags }),
   setLoading: (loading) => set({ isLoading: loading }),
   setError: (error) => set({ error }),
-  clearError: () => set({ error: null }),
-  getState: () => get()
+  clearError: () => set({ error: null })
 }));
