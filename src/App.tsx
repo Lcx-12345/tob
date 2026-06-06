@@ -3,9 +3,9 @@ import Home from "@/pages/Home";
 import { ImagePage } from "@/pages/ImagePage";
 import { Navbar } from "@/components/Navbar";
 
-export default function App() {
+export function AppRoutes() {
   return (
-    <Router>
+    <>
       <Navbar />
       <div className="pt-16">
         <Routes>
@@ -13,6 +13,14 @@ export default function App() {
           <Route path="/image" element={<ImagePage />} />
         </Routes>
       </div>
+    </>
+  );
+}
+
+export default function App() {
+  return (
+    <Router>
+      <AppRoutes />
     </Router>
   );
 }
