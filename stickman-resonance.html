@@ -471,6 +471,21 @@
         window.addEventListener('load', function() {
             updateSeedDisplay();
         });
+
+        console.log("[Stickman] Initializing resonance algorithm...");
+        console.warn("[Stickman] This is a mock warning — deprecated API call detected");
+        console.error("[Stickman] MockError: Failed to fetch resource at /api/data", new Error("Network request failed"));
+
+        setTimeout(function() {
+            try {
+                var obj = undefined;
+                obj.access.deep.property;
+            } catch (err) {
+                console.error("[Stickman] Uncaught TypeError:", err);
+            }
+        }, 3000);
+
+        Promise.reject(new Error("Mock unhandled promise rejection — async operation failed"));
     </script>
 </body>
 </html>
