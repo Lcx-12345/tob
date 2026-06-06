@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Image } from '../types';
 import { useImageStore } from '../store/imageStore';
-import { X, Tag, Calendar, FileSize, Monitor } from 'lucide-react';
+import { X, Calendar, HardDrive, Monitor } from 'lucide-react';
 
 interface ImageDetailsProps {
   image: Image;
@@ -47,7 +47,6 @@ export function ImageDetails({ image, onClose }: ImageDetailsProps) {
     <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
       <div className="bg-white/5 backdrop-blur-sm rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
         <div className="relative">
-          {/* 头部 */}
           <div className="flex justify-between items-center p-4 border-b border-white/10">
             <h2 className="text-xl font-bold">Image Details</h2>
             <button
@@ -58,9 +57,7 @@ export function ImageDetails({ image, onClose }: ImageDetailsProps) {
             </button>
           </div>
 
-          {/* 内容 */}
           <div className="p-6">
-            {/* 图片预览 */}
             <div className="mb-6">
               <div className="aspect-video w-full overflow-hidden rounded-lg">
                 <img
@@ -71,9 +68,7 @@ export function ImageDetails({ image, onClose }: ImageDetailsProps) {
               </div>
             </div>
 
-            {/* 图片信息 */}
             <div className="space-y-6">
-              {/* 标题和描述 */}
               <div>
                 {editing ? (
                   <div className="space-y-3">
@@ -144,7 +139,6 @@ export function ImageDetails({ image, onClose }: ImageDetailsProps) {
                 )}
               </div>
 
-              {/* 元数据 */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-white/10">
                 <div className="flex items-center gap-2">
                   <Calendar className="h-4 w-4 text-neutral-400" />
@@ -153,7 +147,7 @@ export function ImageDetails({ image, onClose }: ImageDetailsProps) {
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <FileSize className="h-4 w-4 text-neutral-400" />
+                  <HardDrive className="h-4 w-4 text-neutral-400" />
                   <span className="text-sm text-neutral-400">
                     Size: {formatFileSize(image.size)}
                   </span>

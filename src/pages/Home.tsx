@@ -6,9 +6,8 @@ import { mockTracks, mockArtists, mockAlbums, mockPlaylists, genres } from '@/da
 import { TrackCard } from '@/components/TrackCard';
 
 export default function Home() {
-  const { tracks, playTrack, setSearchQuery, setSelectedGenre } = useMusicStore();
+  const { playTrack, setSearchQuery, setSelectedGenre } = useMusicStore();
 
-  // Initialize store with mock data
   useEffect(() => {
     const store = useMusicStore.getState();
     if (store.tracks.length === 0) {
@@ -32,26 +31,21 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-purple-600 via-purple-700 to-orange-500 text-white">
         <div className="absolute inset-0 bg-black bg-opacity-20"></div>
         <div className="relative max-w-7xl mx-auto px-4 py-20 sm:py-32">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              {/* Main title - Core value proposition */}
               <h1 className="text-4xl sm:text-6xl font-bold mb-6">
                 Discover Your
                 <span className="block text-orange-300">Perfect Sound</span>
               </h1>
-              {/* Subtitle - Platform features */}
-              <p className="text-xl mb-8 text-purple-100">畅听数百万首歌曲，创建播放列表，在我们沉浸式音乐平台中探索新艺术家。。</p>
+              <p className="text-xl mb-8 text-purple-100">Listen to millions of songs, create playlists, and discover new artists on our immersive music platform.</p>
               <div className="flex flex-col sm:flex-row gap-4">
-                {/* Primary CTA - Start exploring */}
                 <Link
-                  to="/browse"
+                  to="/"
                   className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-full font-semibold transition-colors text-center"
                 >Start Exploring</Link>
-                {/* Featured track play button */}
                 <button
                   onClick={() => playTrack(featuredTrack)}
                   className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-8 py-3 rounded-full font-semibold transition-colors flex items-center justify-center space-x-2"
@@ -87,20 +81,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Trending Tracks */}
       <section className="max-w-7xl mx-auto px-4 py-16">
         <div className="flex items-center space-x-3 mb-8">
           <TrendingUp className="w-6 h-6 text-purple-600" />
           <h2 className="text-3xl font-bold text-gray-900">Trending Now</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {trendingTracks.map((track, index) => (
-            <TrackCard key={track.id} track={track} index={index} />
+          {trendingTracks.map((track) => (
+            <TrackCard key={track.id} track={track} />
           ))}
         </div>
         <div className="text-center mt-8">
           <Link
-            to="/browse"
+            to="/"
             className="inline-flex items-center space-x-2 text-purple-600 hover:text-purple-700 font-semibold"
           >
             <span>View All Trending</span>
@@ -109,7 +102,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Music Categories */}
       <section className="bg-white py-16">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center space-x-3 mb-8">
@@ -135,7 +127,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Recent Albums */}
       <section className="max-w-7xl mx-auto px-4 py-16">
         <h2 className="text-3xl font-bold text-gray-900 mb-8">Recent Albums</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

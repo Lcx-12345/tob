@@ -4,7 +4,6 @@ import { useMusicStore } from "../store/musicStore";
 
 interface TrackCardProps {
   track: Track;
-  index: number;
 }
 
 export function TrackCard({ track }: TrackCardProps) {
