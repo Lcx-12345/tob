@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "@/pages/Home";
 import { ImagePage } from "@/pages/ImagePage";
+import TetrisPage from "@/pages/TetrisPage";
 import { Navbar } from "@/components/Navbar";
 
 export default function App() {
@@ -11,6 +12,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/image" element={<ImagePage />} />
+          <Route path="/tetris" element={<TetrisPage />} />
         </Routes>
       </div>
     </Router>
