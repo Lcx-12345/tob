@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Play, TrendingUp, Music } from 'lucide-react';
+import { Play, TrendingUp, Music, Gamepad2 } from 'lucide-react';
 import { useMusicStore } from '@/store/musicStore';
 import { mockTracks, mockArtists, mockAlbums, mockPlaylists, genres } from '@/data/mockData';
 import { TrackCard } from '@/components/TrackCard';
@@ -123,6 +123,33 @@ export default function Home() {
                 </div>
               </button>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 py-16">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex items-center space-x-3 mb-8">
+            <Gamepad2 className="w-8 h-8 text-cyan-400" />
+            <h2 className="text-3xl font-bold text-white">Pixel Mech Battle</h2>
+          </div>
+          <div className="bg-gray-800 bg-opacity-50 rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="text-center md:text-left">
+              <h3 className="text-2xl font-bold text-cyan-400 mb-4">像素风机甲对战游戏</h3>
+              <p className="text-gray-300 mb-6">双人对战，支持移动、跳跃、攻击、防御等操作，体验复古像素风的机甲战斗！</p>
+              <div className="flex flex-wrap justify-center md:justify-start gap-4 text-sm text-gray-400">
+                <span className="bg-gray-700 px-3 py-1 rounded">🎮 双人本地对战</span>
+                <span className="bg-gray-700 px-3 py-1 rounded">⚡ 炫酷技能</span>
+                <span className="bg-gray-700 px-3 py-1 rounded">🎨 复古像素风</span>
+              </div>
+            </div>
+            <Link
+              to="/game"
+              className="bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded-lg font-bold text-lg transition-colors flex items-center space-x-2"
+            >
+              <Gamepad2 className="w-6 h-6" />
+              <span>开始游戏</span>
+            </Link>
           </div>
         </div>
       </section>
