@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { Music, Image, Disc3 } from 'lucide-react';
+import { Music, Image, Disc3, Gamepad2 } from 'lucide-react';
 
 export function Navbar() {
   return (
@@ -32,6 +32,17 @@ export function Navbar() {
           >
             <Image className="w-4 h-4" />
             <span>Images</span>
+          </NavLink>
+          <NavLink
+            to="/snake"
+            className={({ isActive }) =>
+              `flex items-center gap-1.5 font-medium transition-colors ${
+                isActive ? 'text-green-500' : 'text-gray-300 hover:text-white'
+              }`
+            }
+          >
+            <Gamepad2 className="w-4 h-4" />
+            <span>Snake</span>
           </NavLink>
         </div>
       </div>
