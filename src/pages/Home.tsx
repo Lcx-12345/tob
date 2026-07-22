@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Play, TrendingUp, Music } from 'lucide-react';
+import { Play, TrendingUp, Music, Gamepad2 } from 'lucide-react';
 import { useMusicStore } from '@/store/musicStore';
 import { mockTracks, mockArtists, mockAlbums, mockPlaylists, genres } from '@/data/mockData';
 import { TrackCard } from '@/components/TrackCard';
@@ -82,6 +82,25 @@ export default function Home() {
       </section>
 
       <section className="max-w-7xl mx-auto px-4 py-16">
+        <div className="mb-8 rounded-3xl bg-gray-900 px-6 py-6 text-white shadow-xl">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <p className="text-sm uppercase tracking-[0.35em] text-green-300">New Demo</p>
+              <h2 className="mt-3 text-3xl font-bold">Try the Tetris arcade demo</h2>
+              <p className="mt-2 max-w-2xl text-gray-300">
+                A playable Tetris mini-game that also showcases supported human checkpoints such as document review, clarification, authorization, and risky-operation approval.
+              </p>
+            </div>
+            <Link
+              to="/tetris"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-green-500 px-6 py-3 font-semibold text-gray-950 transition hover:bg-green-400"
+            >
+              <Gamepad2 className="h-5 w-5" />
+              <span>Open Tetris</span>
+            </Link>
+          </div>
+        </div>
+
         <div className="flex items-center space-x-3 mb-8">
           <TrendingUp className="w-6 h-6 text-purple-600" />
           <h2 className="text-3xl font-bold text-gray-900">Trending Now</h2>
