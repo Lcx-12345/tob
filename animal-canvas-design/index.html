@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>动物设计画布 · 连线预览</title>
+<style>
+  :root {
+    --bg: #f0f2f5;
+    --card-bg: #ffffff;
+    --primary: #6c5ce7;
+    --primary-light: #a29bfe;
+    --line-color: #6c5ce7;
+    --text-main: #2d3436;
+    --text-sub: #636e72;
+    --cat-color: #ff9ff3;
+    --cat-bg: #fdefff;
+    --cow-color: #ffb142;
+    --cow-bg: #fff6e8;
+    --intro-color: #26de81;
+    --intro-bg: #eafff4;
+    --shadow: 0 10px 40px rgba(0,0,0,0.08);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--bg);
+    min-height: 100vh;
+    color: var(--text-main);
+    overflow-x: hidden;
+  }
+
+  /* 顶部设计系统栏 */
+  .topbar {
+    background: #fff;
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 1px 10px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .topbar .logo {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 700; font-size: 16px;
+  }
+  .logo-dot {
+    width: 28px; height: 28px; border-radius: 8px;
+    background: linear-gradient(135deg, var(--primary), var(--cat-color));
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 14px;
+  }
+  .topbar .meta { font-size: 12px; color: var(--text-sub); display: flex; gap: 18px; }
+  .topbar .meta span b { color: var(--primary); }
+
+  /* 画布区域标题 */
+  .board-header {
+    text-align: center;
+    padding: 48px 20px 12px;
+  }
+  .board-header h1 {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 1px;
+  }
+  .board-header h1 .gradient {
+    background: linear-gradient(90deg, var(--cat-color), var(--primary), var(--cow-color), var(--intro-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .board-header p {
+    margin-top: 10px;
+    color: var(--text-sub);
+    font-size: 14px;
+  }
+
+  /* 画布艺术板 */
+  .artboard {
+    position: relative;
+    max-width: 1280px;
+    margin: 30px auto 60px;
+    padding: 40px 60px;
+    background:
+      radial-gradient(circle at 1px 1px, #dfe6e9 1px, transparent 0) 0 0 / 24px 24px,
+      #fafbfc;
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+    min-height: 620px;
+  }
+
+  /* 画布卡片布局 */
+  .canvas-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 0;
+    position: relative;
+    z-index: 2;
+  }
+
+  .canvas-card {
+    width: 320px;
+    background: var(--card-bg);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.10);
+    cursor: pointer;
+    transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s;
+    border: 2px solid transparent;
+    position: relative;
+  }
+  .canvas-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+  }
+  .canvas-card.active {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 6px rgba(108,92,231,0.15), 0 20px 50px rgba(0,0,0,0.18);
+  }
+
+  /* 画布顶栏 - 模拟设计工具窗口 */
+  .canvas-titlebar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-bottom: 1px solid #f1f2f6;
+    background: #fbfbfd;
+  }
+  .titlebar-dots { display: flex; gap: 6px; }
+  .titlebar-dots i {
+    width: 10px; height: 10px; border-radius: 50%;
+    display: inline-block;
+  }
+  .titlebar-dots i:nth-child(1) { background: #ff6b6b; }
+  .titlebar-dots i:nth-child(2) { background: #feca57; }
+  .titlebar-dots i:nth-child(3) { background: #1dd1a1; }
+  .canvas-titlebar .name {
+    font-size: 12px; font-weight: 600; color: var(--text-sub);
+    margin-left: 6px;
+  }
+
+  /* 画布内容 */
+  .canvas-body { position: relative; }
+  .canvas-img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    display: block;
+    background: #eee;
+  }
+
+  .canvas-info {
+    padding: 18px 20px 20px;
+  }
+  .canvas-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 999px;
+    letter-spacing: .5px;
+  }
+  .canvas-info h3 {
+    margin-top: 12px;
+    font-size: 20px;
+    font-weight: 800;
+  }
+  .canvas-info p {
+    margin-top: 8px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--text-sub);
+  }
+  .canvas-footer {
+    margin-top: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .canvas-size {
+    font-size: 11px;
+    color: #b2bec3;
+    font-family: 'SF Mono', Consolas, monospace;
+  }
+  .preview-btn {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: all .3s;
+  }
+  .canvas-card:hover .preview-btn {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* 主题色 */
+  .theme-cat .canvas-tag { background: var(--cat-bg); color: #e84393; }
+  .theme-cow .canvas-tag { background: var(--cow-bg); color: #e58e26; }
+  .theme-intro .canvas-tag { background: var(--intro-bg); color: #10ac84; }
+
+  /* SVG 连线层 */
+  .link-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .link-layer path.flow {
+    fill: none;
+    stroke: var(--line-color);
+    stroke-width: 2.5;
+    stroke-dasharray: 8 8;
+    animation: dashflow 1.2s linear infinite;
+  }
+  .link-layer .link-label {
+    font-size: 11px;
+    fill: var(--primary);
+    font-weight: 700;
+  }
+  .link-layer circle.pulse {
+    fill: var(--primary);
+  }
+  @keyframes dashflow {
+    to { stroke-dashoffset: -32; }
+  }
+
+  /* 点击涟漪 */
+  .canvas-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 18px;
+    pointer-events: none;
+  }
+
+  /* 连线预览说明 */
+  .link-legend {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-sub);
+    background: #fff;
+    padding: 8px 16px;
+    border-radius: 999px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  }
+  .legend-item .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+  }
+
+  /* 预览模态框 */
+  .modal-mask {
+    position: fixed;
+    inset: 0;
+    background: rgba(30, 30, 46, 0.72);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .3s, visibility .3s;
+  }
+  .modal-mask.show { opacity: 1; visibility: visible; }
+
+  .modal-box {
+    width: min(920px, 92vw);
+    background: #fff;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+    transform: scale(.92) translateY(16px);
+    transition: transform .35s cubic-bezier(.22,1,.36,1);
+    display: flex;
+    flex-direction: column;
+  }
+  .modal-mask.show .modal-box { transform: scale(1) translateY(0); }
+
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 28px;
+    border-bottom: 1px solid #f1f2f6;
+  }
+  .modal-header h3 { font-size: 18px; font-weight: 800; }
+  .modal-header .sub { font-size: 12px; color: var(--text-sub); margin-top: 4px; }
+  .modal-close {
+    width: 36px; height: 36px;
+    border: none;
+    border-radius: 10px;
+    background: #f1f2f6;
+    color: var(--text-main);
+    font-size: 18px;
+    cursor: pointer;
+    transition: all .2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .modal-close:hover { background: #ff6b6b; color: #fff; transform: rotate(90deg); }
+
+  .modal-body {
+    display: flex;
+    min-height: 420px;
+  }
+  .modal-img-wrap {
+    flex: 1.4;
+    background: #fafbfc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .modal-img-wrap img {
+    max-width: 100%;
+    max-height: 460px;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  }
+  .modal-detail {
+    flex: 1;
+    padding: 30px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+  }
+  .modal-detail .tag {
+    align-self: flex-start;
+  }
+  .modal-detail h2 { font-size: 26px; font-weight: 800; }
+  .modal-detail .desc {
+    font-size: 14px;
+    line-height: 1.9;
+    color: var(--text-sub);
+  }
+  .spec-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 6px;
+  }
+  .spec-item {
+    background: #f8f9fb;
+    border-radius: 10px;
+    padding: 10px 14px;
+  }
+  .spec-item .k {
+    font-size: 11px; color: #b2bec3; margin-bottom: 3px;
+  }
+  .spec-item .v {
+    font-size: 13px; font-weight: 700;
+    font-family: 'SF Mono', Consolas, monospace;
+  }
+
+  /* 模态框中的连线导航 */
+  .modal-links {
+    display: flex;
+    gap: 12px;
+    padding: 16px 28px 22px;
+    border-top: 1px solid #f1f2f6;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .modal-links .hint {
+    font-size: 12px;
+    color: var(--text-sub);
+  }
+  .link-nav-btns { display: flex; gap: 10px; }
+  .nav-btn {
+    padding: 10px 18px;
+    border-radius: 12px;
+    border: 2px solid #eee;
+    background: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all .25s;
+    color: var(--text-main);
+  }
+  .nav-btn:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
+  .nav-btn .dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  /* 响应式 */
+  @media (max-width: 1080px) {
+    .canvas-row { flex-direction: column; align-items: center; gap: 40px; }
+    .canvas-card { width: min(360px, 90vw); }
+    .modal-body { flex-direction: column; }
+    .artboard { padding: 30px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 顶部栏 -->
+<div class="topbar">
+  <div class="logo">
+    <div class="logo-dot">✦</div>
+    Trae Design · 动物画布系统
+  </div>
+  <div class="meta">
+    <span>设计系统: <b>Animal Canvas DS v1.0</b></span>
+    <span>画布: <b>3</b></span>
+    <span>连线: <b>2</b></span>
+  </div>
+</div>
+
+<div class="board-header">
+  <h1>🐾 动物主题 <span class="gradient">三画布连线预览</span></h1>
+  <p>点击任意画布查看大图预览 · 画布之间已建立设计流连线</p>
+</div>
+
+<!-- 艺术板 -->
+<div class="artboard" id="artboard">
+  <!-- SVG 连线层 -->
+  <svg class="link-layer" id="linkLayer">
+    <defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
+              markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#6c5ce7"/>
+      </marker>
+    </defs>
+    <!-- 连线由 JS 动态绘制 -->
+  </svg>
+
+  <!-- 三张画布 -->
+  <div class="canvas-row">
+
+    <!-- 画布1: 小猫 -->
+    <div class="canvas-card theme-cat" data-index="0" id="card-cat">
+      <div class="canvas-titlebar">
+        <div class="titlebar-dots"><i></i><i></i><i></i></div>
+        <span class="name">cat-canvas.design</span>
+      </div>
+      <div class="canvas-body">
+        <img class="canvas-img" id="img-cat" alt="小猫设计画布">
+      </div>
+      <div class="canvas-info">
+        <span class="canvas-tag">🐱 画布一 · 小猫</span>
+        <h3>小猫主题画布</h3>
+        <p>以可爱猫咪为主角的插画设计画布，采用粉紫渐变主色，圆润的卡片语言传递温暖治愈的品牌气质。</p>
+        <div class="canvas-footer">
+          <span class="canvas-size">1440 × 1024</span>
+          <span class="preview-btn">预览大图 →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 画布2: 小牛 -->
+    <div class="canvas-card theme-cow" data-index="1" id="card-cow">
+      <div class="canvas-titlebar">
+        <div class="titlebar-dots"><i></i><i></i><i></i></div>
+        <span class="name">cow-canvas.design</span>
+      </div>
+      <div class="canvas-body">
+        <img class="canvas-img" id="img-cow" alt="小牛设计画布">
+      </div>
+      <div class="canvas-info">
+        <span class="canvas-tag">🐮 画布二 · 小牛</span>
+        <h3>小牛主题画布</h3>
+        <p>憨态可掬的小牛插画设计，暖橙色调搭配奶油底色，展现田园牧歌般的轻松与活力。</p>
+        <div class="canvas-footer">
+          <span class="canvas-size">1440 × 1024</span>
+          <span class="preview-btn">预览大图 →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 画布3: 动物介绍 -->
+    <div class="canvas-card theme-intro" data-index="2" id="card-intro">
+      <div class="canvas-titlebar">
+        <div class="titlebar-dots"><i></i><i></i><i></i></div>
+        <span class="name">animal-intro.design</span>
+      </div>
+      <div class="canvas-body">
+        <img class="canvas-img" id="img-intro" alt="动物介绍设计画布">
+      </div>
+      <div class="canvas-info">
+        <span class="canvas-tag">🌿 画布三 · 动物介绍</span>
+        <h3>动物介绍画布</h3>
+        <p>动物百科主题的信息展示画布，清新绿色系配合自然元素，构建沉浸式的动物知识浏览体验。</p>
+        <div class="canvas-footer">
+          <span class="canvas-size">1440 × 1024</span>
+          <span class="preview-btn">预览大图 →</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 连线图例 -->
+<div class="link-legend">
+  <div class="legend-item"><span class="dot" style="background:#e84393"></span>小猫画布 → 起点</div>
+  <div class="legend-item"><span class="dot" style="background:#e58e26"></span>小牛画布 → 中继节点</div>
+  <div class="legend-item"><span class="dot" style="background:#10ac84"></span>动物介绍 → 汇总页</div>
+  <div class="legend-item"><span class="dot" style="background:#6c5ce7"></span>流动虚线 → 设计流连线</div>
+</div>
+
+<!-- 预览模态框 -->
+<div class="modal-mask" id="modalMask">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <h3 id="modalTitle">画布预览</h3>
+        <div class="sub" id="modalSub">Canvas Preview</div>
+      </div>
+      <button class="modal-close" id="modalClose">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-img-wrap">
+        <img id="modalImg" src="" alt="预览大图">
+      </div>
+      <div class="modal-detail">
+        <span class="canvas-tag" id="modalTag">画布</span>
+        <h2 id="modalName">画布名称</h2>
+        <p class="desc" id="modalDesc">描述</p>
+        <div class="spec-list">
+          <div class="spec-item"><div class="k">尺寸</div><div class="v">1440 × 1024</div></div>
+          <div class="spec-item"><div class="k">格式</div><div class="v">PNG / Canvas</div></div>
+          <div class="spec-item"><div class="k">节点</div><div class="v" id="modalNode">-</div></div>
+          <div class="spec-item"><div class="k">连线状态</div><div class="v" style="color:#10ac84">● 已连接</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-links">
+      <span class="hint">🔗 该画布已加入连线流，可跳转至相邻画布：</span>
+      <div class="link-nav-btns" id="modalNav"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============ 画布数据 ============
+const canvases = [
+  {
+    id: 'cat',
+    name: '小猫主题画布',
+    tag: '🐱 画布一 · 小猫',
+    desc: '以可爱猫咪为主角的插画设计画布。粉紫渐变主色搭配圆润排版，营造温暖治愈的视觉氛围，适用于宠物品牌主视觉、萌系产品宣传页等场景。',
+    img: document.getElementById('img-cat').src,
+    theme: 'theme-cat'
+  },
+  {
+    id: 'cow',
+    name: '小牛主题画布',
+    tag: '🐮 画布二 · 小牛',
+    desc: '憨态可掬的小牛插画设计画布。暖橙色调与奶油底色相互映衬，田园风格的图形语言传递轻松活力，适合亲子、农场、乳制品等品牌调性。',
+    img: document.getElementById('img-cow').src,
+    theme: 'theme-cow'
+  },
+  {
+    id: 'intro',
+    name: '动物介绍画布',
+    tag: '🌿 画布三 · 动物介绍',
+    desc: '动物百科主题信息展示画布。清新绿色系结合自然叶脉元素，以卡片式布局组织动物知识内容，构建沉浸式的科普浏览体验。',
+    img: document.getElementById('img-intro').src,
+    theme: 'theme-intro'
+  }
+];
+
+// ============ 图片生成 ============
+const IMG_API = 'https://remote-pod.enterprise.trae.cn/api/ide/v1/text_to_image';
+const prompts = {
+  cat: 'Adorable cute kitten illustration for a design canvas, fluffy orange and white cat with big sparkling eyes, sitting pose, soft pastel pink and purple gradient background, modern flat illustration style, kawaii aesthetic, clean composition, high quality digital art',
+  cow: 'Cute little calf cow illustration for a design canvas, friendly cartoon cow with white and brown patches, big gentle eyes, sunny meadow background with warm orange tones, modern flat illustration style, cheerful and playful, clean composition, high quality digital art',
+  intro: 'Animal encyclopedia introduction page design, various cute wild animals collage including lion elephant giraffe panda and birds, fresh green nature theme with leaves and botanical elements, modern information layout, flat illustration style, educational and engaging, high quality digital art'
+};
+
+function buildImgUrl(prompt) {
+  return IMG_API + '?prompt=' + encodeURIComponent(prompt) + '&image_size=landscape_16_9';
+}
+
+document.getElementById('img-cat').src = buildImgUrl(prompts.cat);
+document.getElementById('img-cow').src = buildImgUrl(prompts.cow);
+document.getElementById('img-intro').src = buildImgUrl(prompts.intro);
+canvases[0].img = document.getElementById('img-cat').src;
+canvases[1].img = document.getElementById('img-cow').src;
+canvases[2].img = document.getElementById('img-intro').src;
+
+// ============ 连线绘制 ============
+const linkLayer = document.getElementById('linkLayer');
+const artboard = document.getElementById('artboard');
+
+function drawLinks() {
+  // 清空旧连线（保留 defs）
+  linkLayer.querySelectorAll('path.flow, circle.pulse, text.link-label').forEach(el => el.remove());
+
+  const boardRect = artboard.getBoundingClientRect();
+  const card1 = document.getElementById('card-cat').getBoundingClientRect();
+  const card2 = document.getElementById('card-cow').getBoundingClientRect();
+  const card3 = document.getElementById('card-intro').getBoundingClientRect();
+
+  linkLayer.setAttribute('viewBox', `0 0 ${boardRect.width} ${boardRect.height}`);
+  linkLayer.setAttribute('width', boardRect.width);
+  linkLayer.setAttribute('height', boardRect.height);
+
+  function centerY(r) { return r.top + r.height / 2 - boardRect.top; }
+
+  // 连线 1: 小猫 → 小牛
+  const x1 = card1.right - boardRect.left;
+  const y1 = centerY(card1);
+  const x2 = card2.left - boardRect.left;
+  const y2 = centerY(card2);
+
+  // 连线 2: 小牛 → 动物介绍
+  const x3 = card2.right - boardRect.left;
+  const y3 = centerY(card2);
+  const x4 = card3.left - boardRect.left;
+  const y4 = centerY(card3);
+
+  const links = [
+    { x1, y1, x2, y2, label: '设计流 A' },
+    { x1: x3, y1: y3, x2: x4, y2: y4, label: '设计流 B' }
+  ];
+
+  links.forEach(({x1, y1, x2, y2, label}, i) => {
+    // 贝塞尔曲线
+    const mx = (x1 + x2) / 2;
+    const d = `M ${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}`;
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', d);
+    path.setAttribute('class', 'flow');
+    path.setAttribute('marker-end', 'url(#arrow)');
+    linkLayer.appendChild(path);
+
+    // 起点脉冲圆
+    const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    c.setAttribute('cx', x1 + 6); c.setAttribute('cy', y1);
+    c.setAttribute('r', 5);
+    c.setAttribute('class', 'pulse');
+    c.style.opacity = 0.7;
+    linkLayer.appendChild(c);
+
+    // 流动小球动画
+    const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    dot.setAttribute('r', 4.5);
+    dot.setAttribute('fill', i === 0 ? '#e84393' : '#e58e26');
+    linkLayer.appendChild(dot);
+    animateDot(dot, path);
+
+    // 连线标签
+    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    text.setAttribute('x', mx);
+    text.setAttribute('y', (y1 + y2) / 2 - 10);
+    text.setAttribute('text-anchor', 'middle');
+    text.setAttribute('class', 'link-label');
+    text.textContent = label;
+    linkLayer.appendChild(text);
+  });
+}
+
+function animateDot(dot, path) {
+  const len = path.getTotalLength();
+  let t = 0;
+  function step() {
+    t += 0.006;
+    if (t > 1) t = 0;
+    const p = path.getPointAtLength(t * len);
+    dot.setAttribute('cx', p.x);
+    dot.setAttribute('cy', p.y);
+    requestAnimationFrame(step);
+  }
+  step();
+}
+
+window.addEventListener('resize', drawLinks);
+window.addEventListener('load', drawLinks);
+// 图片加载完成后重绘（布局可能变化）
+document.querySelectorAll('.canvas-img').forEach(img => {
+  img.addEventListener('load', drawLinks);
+  img.addEventListener('error', () => {
+    // 图片加载失败时显示占位渐变
+    img.style.background = 'linear-gradient(135deg, #dfe6e9, #b2bec3)';
+  });
+});
+
+// ============ 预览模态框 ============
+const modalMask = document.getElementById('modalMask');
+const cards = document.querySelectorAll('.canvas-card');
+
+function openModal(index) {
+  const c = canvases[index];
+  document.getElementById('modalTitle').textContent = c.name + ' · 预览';
+  document.getElementById('modalSub').textContent = 'Canvas ' + (index + 1) + ' / 3 · 已连线';
+  document.getElementById('modalImg').src = c.img;
+  const tagEl = document.getElementById('modalTag');
+  tagEl.textContent = c.tag;
+  tagEl.className = 'canvas-tag ' + c.theme.replace('theme-cat', '').replace('theme-cow', '').replace('theme-intro', '');
+  // 恢复 tag 样式
+  tagEl.style.cssText = index === 0 ? 'background:var(--cat-bg);color:#e84393'
+                       : index === 1 ? 'background:var(--cow-bg);color:#e58e26'
+                       : 'background:var(--intro-bg);color:#10ac84';
+  document.getElementById('modalName').textContent = c.name;
+  document.getElementById('modalDesc').textContent = c.desc;
+  document.getElementById('modalNode').textContent = index === 0 ? '起点 Node-A' : index === 1 ? '中继 Node-B' : '终点 Node-C';
+
+  // 连线导航按钮
+  const nav = document.getElementById('modalNav');
+  nav.innerHTML = '';
+  canvases.forEach((nc, ni) => {
+    if (ni === index) return;
+    const btn = document.createElement('button');
+    btn.className = 'nav-btn';
+    const dotColor = ni === 0 ? '#e84393' : ni === 1 ? '#e58e26' : '#10ac84';
+    btn.innerHTML = '<span class="dot" style="background:' + dotColor + '"></span>' + nc.name;
+    btn.onclick = () => openModal(ni);
+    nav.appendChild(btn);
+  });
+
+  // 高亮当前卡片
+  cards.forEach(cd => cd.classList.remove('active'));
+  cards[index].classList.add('active');
+
+  modalMask.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  modalMask.classList.remove('show');
+  document.body.style.overflow = '';
+  cards.forEach(cd => cd.classList.remove('active'));
+}
+
+cards.forEach(card => {
+  card.addEventListener('click', () => openModal(+card.dataset.index));
+});
+document.getElementById('modalClose').addEventListener('click', closeModal);
+modalMask.addEventListener('click', (e) => {
+  if (e.target === modalMask) closeModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+  if (modalMask.classList.contains('show')) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      const current = +document.querySelector('.canvas-card.active')?.dataset.index || 0;
+      const next = e.key === 'ArrowRight' ? (current + 1) % 3 : (current + 2) % 3;
+      openModal(next);
+    }
+  }
+});
+
+// 初始绘制
+setTimeout(drawLinks, 100);
+</script>
+</body>
+</html>
