@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>预览演示页面</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+    }
+    h1 { font-size: 3rem; margin: 0 0 16px; }
+    p { font-size: 1.2rem; opacity: 0.9; }
+    .card {
+      margin-top: 24px;
+      padding: 20px 32px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      backdrop-filter: blur(8px);
+    }
+    #time { font-size: 1.5rem; font-weight: bold; letter-spacing: 2px; }
+  </style>
+</head>
+<body>
+  <h1>Web 预览演示</h1>
+  <p>这是一个由 Python 起的简单静态服务</p>
+  <div class="card">
+    <p>当前时间</p>
+    <div id="time"></div>
+  </div>
+  <script>
+    setInterval(() => {
+      document.getElementById('time').textContent = new Date().toLocaleTimeString();
+    }, 1000);
+  </script>
+</body>
+</html>
