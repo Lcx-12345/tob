@@ -1,0 +1,11 @@
+{
+  "name": "工具箱演示数据",
+  "version": "1.0.0",
+  "tools": ["Write", "Read", "Edit", "Glob", "Grep", "DeleteFile"],
+  "formats": ["json", "csv", "yaml", "md", "html", "css", "py", "js"],
+  "active": true,
+  "metadata": {
+    "created": "2026-11-07",
+    "author": "GLM-5.3"
+  }
+}
