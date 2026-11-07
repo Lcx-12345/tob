@@ -1,0 +1,144 @@
+{
+  "data": [
+    {
+      "id": "page-index",
+      "title": "看图识动物",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1794022522498,
+      "devMetadata": {
+        "htmlSrc": "pages/index.html",
+        "interactions": [
+          {
+            "domId": "cta-start",
+            "targetPageId": "page-animal-cat",
+            "transitionLabel": "开始认识小猫"
+          },
+          {
+            "domId": "link-cat",
+            "targetPageId": "page-animal-cat",
+            "hideEdge": true,
+            "transitionLabel": "小猫"
+          },
+          {
+            "domId": "link-dog",
+            "targetPageId": "page-animal-dog",
+            "hideEdge": true,
+            "transitionLabel": "小狗"
+          },
+          {
+            "domId": "link-calf",
+            "targetPageId": "page-animal-calf",
+            "hideEdge": true,
+            "transitionLabel": "小牛"
+          }
+        ]
+      },
+      "canvasData": {
+        "x": 0,
+        "y": 0,
+        "group": 0
+      }
+    },
+    {
+      "id": "page-animal-cat",
+      "title": "拼接小猫",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1794022522498,
+      "devMetadata": {
+        "htmlSrc": "pages/animal-cat.html",
+        "interactions": [
+          {
+            "domId": "back-home",
+            "targetPageId": "page-index",
+            "hideEdge": true,
+            "transitionLabel": "返回目录"
+          },
+          {
+            "domId": "next-animal",
+            "targetPageId": "page-animal-dog",
+            "hideEdge": true,
+            "transitionLabel": "下一个动物"
+          }
+        ]
+      },
+      "canvasData": {
+        "x": 0,
+        "y": 0,
+        "group": 0
+      }
+    },
+    {
+      "id": "page-animal-dog",
+      "title": "拼接小狗",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1794022522498,
+      "devMetadata": {
+        "htmlSrc": "pages/animal-dog.html",
+        "interactions": [
+          {
+            "domId": "back-home",
+            "targetPageId": "page-index",
+            "hideEdge": true,
+            "transitionLabel": "返回目录"
+          },
+          {
+            "domId": "next-animal",
+            "targetPageId": "page-animal-calf",
+            "hideEdge": true,
+            "transitionLabel": "下一个动物"
+          }
+        ]
+      },
+      "canvasData": {
+        "x": 0,
+        "y": 0,
+        "group": 0
+      }
+    },
+    {
+      "id": "page-animal-calf",
+      "title": "拼接小牛",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1794022522498,
+      "devMetadata": {
+        "htmlSrc": "pages/animal-calf.html",
+        "interactions": [
+          {
+            "domId": "back-home",
+            "targetPageId": "page-index",
+            "hideEdge": true,
+            "transitionLabel": "返回目录"
+          },
+          {
+            "domId": "next-animal",
+            "targetPageId": "page-animal-cat",
+            "hideEdge": true,
+            "transitionLabel": "下一个动物"
+          }
+        ]
+      },
+      "canvasData": {
+        "x": 0,
+        "y": 0,
+        "group": 0
+      }
+    }
+  ],
+  "config": {
+    "autoLayout": true,
+    "deviceType": "desktop",
+    "projectName": "看图识动物 · 拼接画布",
+    "designLibrary": {
+      "name": "TraeCode Copy",
+      "id": "YXP2YV_8W2OE5D",
+      "version": 1,
+      "scope": "custom-global",
+      "path": "/data/user/design_libraries/TraeCode Copy",
+      "versionSource": "metadata.json"
+    }
+  }
+}

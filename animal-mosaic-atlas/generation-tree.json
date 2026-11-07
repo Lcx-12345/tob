@@ -1,0 +1,73 @@
+{
+  "projectName": "看图识动物 · 拼接画布",
+  "strategy": "shared-chrome-first",
+  "nodes": [
+    {
+      "id": "shared-header",
+      "kind": "partial",
+      "path": "partials/site-header.html",
+      "status": "generated",
+      "appliesTo": ["page-index", "page-animal-cat", "page-animal-dog", "page-animal-calf"]
+    },
+    {
+      "id": "shared-footer",
+      "kind": "partial",
+      "path": "partials/site-footer.html",
+      "status": "generated",
+      "appliesTo": ["page-index", "page-animal-cat", "page-animal-dog", "page-animal-calf"]
+    },
+    {
+      "id": "mosaic-cat",
+      "kind": "partial",
+      "path": "partials/mosaic-cat.html",
+      "status": "generated",
+      "appliesTo": ["page-index", "page-animal-cat"]
+    },
+    {
+      "id": "mosaic-dog",
+      "kind": "partial",
+      "path": "partials/mosaic-dog.html",
+      "status": "generated",
+      "appliesTo": ["page-index", "page-animal-dog"]
+    },
+    {
+      "id": "mosaic-calf",
+      "kind": "partial",
+      "path": "partials/mosaic-calf.html",
+      "status": "generated",
+      "appliesTo": ["page-index", "page-animal-calf"]
+    },
+    {
+      "id": "page-index",
+      "kind": "leaf",
+      "path": "pages/index.html",
+      "status": "pending",
+      "inherits": ["shared-header", "shared-footer", "mosaic-cat", "mosaic-dog", "mosaic-calf"],
+      "order": ["shared-header", "leaf-content", "shared-footer"]
+    },
+    {
+      "id": "page-animal-cat",
+      "kind": "leaf",
+      "path": "pages/animal-cat.html",
+      "status": "pending",
+      "inherits": ["shared-header", "shared-footer", "mosaic-cat"],
+      "order": ["shared-header", "leaf-content", "shared-footer"]
+    },
+    {
+      "id": "page-animal-dog",
+      "kind": "leaf",
+      "path": "pages/animal-dog.html",
+      "status": "pending",
+      "inherits": ["shared-header", "shared-footer", "mosaic-dog"],
+      "order": ["shared-header", "leaf-content", "shared-footer"]
+    },
+    {
+      "id": "page-animal-calf",
+      "kind": "leaf",
+      "path": "pages/animal-calf.html",
+      "status": "pending",
+      "inherits": ["shared-header", "shared-footer", "mosaic-calf"],
+      "order": ["shared-header", "leaf-content", "shared-footer"]
+    }
+  ]
+}

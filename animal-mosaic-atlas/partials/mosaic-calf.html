@@ -1,0 +1,71 @@
+<svg viewBox="0 0 400 400" width="100%" height="auto" role="img" aria-label="由绿色拼接拼片组成的小牛图案" style="display: block;">
+  <defs>
+    <clipPath id="calfHeadClip"><polygon points="118,98 146,74 254,74 282,98 282,194 254,218 146,218 118,194"></polygon></clipPath>
+    <clipPath id="calfBodyClip"><polygon points="150,214 250,214 304,346 96,346"></polygon></clipPath>
+    <pattern id="calfTileGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0 H0 V40" fill="none" stroke="var(--border-neutral-l1)" stroke-width="1"></path>
+    </pattern>
+    <pattern id="calfTileDots" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="20" cy="20" r="1" fill="var(--border-neutral-l2)"></circle>
+    </pattern>
+  </defs>
+
+  <rect width="400" height="400" fill="url(#calfTileGrid)"></rect>
+  <rect width="400" height="400" fill="url(#calfTileDots)"></rect>
+  <circle cx="200" cy="196" r="150" fill="var(--bg-base-tertiary)" opacity="0.55"></circle>
+
+  <g stroke="var(--bg-base-default)" stroke-width="5" stroke-linejoin="round">
+    <!-- tail -->
+    <polygon points="300,300 336,318 344,340 334,352 300,346" fill="var(--brand-green-800)"></polygon>
+    <polygon points="336,318 354,330 350,352 334,352" fill="var(--brand-green-300)"></polygon>
+
+    <!-- body -->
+    <polygon points="150,214 250,214 304,346 96,346" fill="var(--brand-green-600)"></polygon>
+    <g clip-path="url(#calfBodyClip)" stroke-width="4">
+      <polygon points="150,214 200,214 200,286 128,304" fill="var(--brand-green-900)"></polygon>
+      <polygon points="200,214 250,214 276,286 200,286" fill="var(--brand-green-600)"></polygon>
+      <polygon points="96,346 128,304 200,346" fill="var(--brand-green-900)"></polygon>
+      <polygon points="200,286 276,286 304,346 200,346" fill="var(--brand-green-600)"></polygon>
+      <polygon points="172,216 228,216 200,262" fill="var(--brand-green-300)"></polygon>
+    </g>
+
+    <!-- legs and hooves -->
+    <polygon points="138,300 178,300 178,346 138,346" fill="var(--brand-green-800)"></polygon>
+    <polygon points="222,300 262,300 262,346 222,346" fill="var(--brand-green-800)"></polygon>
+    <polygon points="138,330 178,330 178,348 138,348" fill="var(--text-secondary)" stroke-width="3"></polygon>
+    <polygon points="222,330 262,330 262,348 222,348" fill="var(--text-secondary)" stroke-width="3"></polygon>
+
+    <!-- horns -->
+    <polygon points="150,80 138,42 162,48 170,80" fill="var(--text-secondary)" stroke-width="3"></polygon>
+    <polygon points="250,80 262,42 238,48 230,80" fill="var(--text-secondary)" stroke-width="3"></polygon>
+
+    <!-- ears -->
+    <polygon points="120,120 78,102 68,128 118,152" fill="var(--brand-green-800)"></polygon>
+    <polygon points="280,120 322,102 332,128 282,152" fill="var(--brand-green-800)"></polygon>
+    <polygon points="122,126 88,114 82,130 120,144" fill="var(--brand-green-400)" stroke-width="3"></polygon>
+    <polygon points="278,126 312,114 318,130 280,144" fill="var(--brand-green-400)" stroke-width="3"></polygon>
+
+    <!-- head -->
+    <polygon points="118,98 146,74 254,74 282,98 282,194 254,218 146,218 118,194" fill="var(--brand-green-600)"></polygon>
+    <g clip-path="url(#calfHeadClip)" stroke-width="4">
+      <polygon points="118,98 200,74 200,132 118,150" fill="var(--brand-green-900)"></polygon>
+      <polygon points="200,74 282,98 282,150 200,132" fill="var(--brand-green-600)"></polygon>
+      <polygon points="118,150 200,132 200,218 146,218 118,194" fill="var(--brand-green-600)"></polygon>
+      <polygon points="200,132 282,150 282,194 254,218 200,218" fill="var(--brand-green-800)"></polygon>
+      <polygon points="146,88 186,82 176,108 142,110" fill="var(--brand-green-400)"></polygon>
+    </g>
+
+    <!-- muzzle -->
+    <polygon points="146,168 254,168 254,208 236,218 164,218 146,208" fill="var(--brand-green-300)" stroke-width="3"></polygon>
+  </g>
+
+  <!-- face -->
+  <g>
+    <circle cx="160" cy="138" r="13" fill="var(--text-default)"></circle>
+    <circle cx="240" cy="138" r="13" fill="var(--text-default)"></circle>
+    <circle cx="160" cy="139" r="5" fill="var(--brand-green-900)"></circle>
+    <circle cx="240" cy="139" r="5" fill="var(--brand-green-900)"></circle>
+    <ellipse cx="177" cy="194" rx="7" ry="9" fill="var(--brand-green-900)"></ellipse>
+    <ellipse cx="223" cy="194" rx="7" ry="9" fill="var(--brand-green-900)"></ellipse>
+  </g>
+</svg>

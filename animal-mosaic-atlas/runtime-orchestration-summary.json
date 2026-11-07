@@ -1,0 +1,924 @@
+{
+  "skillProvenance": {
+    "name": "solo-design",
+    "version": "0.1.3",
+    "version_source": "plugin package: trae-remote-official/trae-design/0.1.3/skills/solo-design/SKILL.md"
+  },
+  "designSource": {
+    "operatingMode": "library-bound",
+    "libraryIdentity": {
+      "name": "TraeCode Copy",
+      "id": "YXP2YV_8W2OE5D",
+      "version": 1,
+      "scope": "custom-global",
+      "path": "/data/user/design_libraries/TraeCode Copy",
+      "versionSource": "metadata.json"
+    },
+    "brandPrefix": "",
+    "cssFilePath": "/workspace/animal-mosaic-atlas/colors_and_type.css",
+    "componentCssPath": "/workspace/animal-mosaic-atlas/components.css",
+    "tokenFidelity": "strict",
+    "actualTokenNameReference": [
+      "--bg-base-default",
+      "--bg-base-secondary",
+      "--bg-base-tertiary",
+      "--bg-overlay-l1",
+      "--bg-overlay-l3",
+      "--bg-overlay-l4",
+      "--bg-brand",
+      "--bg-brand-hover",
+      "--text-default",
+      "--text-secondary",
+      "--text-tertiary",
+      "--text-onbrand",
+      "--icon-default",
+      "--icon-secondary",
+      "--border-neutral-l1",
+      "--border-neutral-l2",
+      "--border-brand",
+      "--radius-2",
+      "--radius-4",
+      "--radius-6",
+      "--radius-8",
+      "--radius-10",
+      "--radius-full",
+      "--spacer-4",
+      "--spacer-6",
+      "--spacer-8",
+      "--spacer-12",
+      "--spacer-16",
+      "--spacer-24",
+      "--spacer-32",
+      "--spacer-40",
+      "--heading-3xl-font-size",
+      "--heading-3xl-font-weight",
+      "--heading-3xl-line-height",
+      "--heading-xl-font-size",
+      "--heading-xl-font-weight",
+      "--heading-xl-line-height",
+      "--heading-lg-font-size",
+      "--heading-lg-font-weight",
+      "--heading-lg-line-height",
+      "--heading-sm-font-size",
+      "--heading-sm-font-weight",
+      "--heading-sm-line-height",
+      "--heading-xs-font-size",
+      "--heading-xs-font-weight",
+      "--heading-xs-line-height",
+      "--body-base-font-family",
+      "--body-base-font-size",
+      "--body-base-line-height",
+      "--body-sm-font-family",
+      "--body-sm-font-size",
+      "--body-sm-line-height",
+      "--body-xs-font-size",
+      "--body-xs-line-height",
+      "--code-editor-font-family",
+      "--brand-green-300",
+      "--brand-green-400",
+      "--brand-green-500",
+      "--brand-green-600",
+      "--brand-green-700",
+      "--brand-green-800",
+      "--brand-green-900",
+      "--status-success-default"
+    ],
+    "designDecisionSummary": "Dark Nimbus Core canvas at 1440. One brand hue only (--bg-brand / --brand-green scale). All three patchwork animals are drawn as inline SVG polygon mosaics built exclusively from brand-green steps, neutral surfaces and text tokens; seams use --bg-base-default. Components are limited to atoms, buttons, cards, tag, page-header and stat-card; no custom component CSS, only Tailwind utilities plus Library CSS variables.",
+    "componentIndexSummary": [
+      "atoms: shared layout/typesetting utilities (.row, .col, .grid-*, .stack-*, .mono, .ds-hero-title, .ds-section-title)",
+      "buttons: .ds-btn variants including brand and ghost",
+      "cards: .ds-card surface container",
+      "tag: .ds-tag pills",
+      "page-header: title + description block",
+      "stat-card: compact metric block"
+    ],
+    "uiKitSummary": "ui_kits/dev-explorer/index.html used for structural reference only (titlebar + rail + sidebar + content rhythm). Its 1184px shell must not be copied.",
+    "allowedComponents": [
+      "atoms",
+      "buttons",
+      "cards",
+      "tag",
+      "page-header",
+      "stat-card"
+    ],
+    "forbiddenInventedComponents": [
+      "custom mosaic component classes",
+      "custom navigation classes",
+      "custom card variants"
+    ],
+    "componentPlan": [
+      {
+        "slug": "atoms",
+        "previewFile": "/data/user/design_libraries/TraeCode Copy/preview/component-atoms.html",
+        "contractFile": "/data/user/design_libraries/TraeCode Copy/components/atoms.json"
+      },
+      {
+        "slug": "buttons",
+        "previewFile": "/data/user/design_libraries/TraeCode Copy/preview/component-buttons.html",
+        "contractFile": "/data/user/design_libraries/TraeCode Copy/components/buttons.json"
+      },
+      {
+        "slug": "cards",
+        "previewFile": "/data/user/design_libraries/TraeCode Copy/preview/component-cards.html",
+        "contractFile": "/data/user/design_libraries/TraeCode Copy/components/cards.json"
+      },
+      {
+        "slug": "tag",
+        "previewFile": "/data/user/design_libraries/TraeCode Copy/preview/component-tag.html",
+        "contractFile": "/data/user/design_libraries/TraeCode Copy/components/tag.json"
+      },
+      {
+        "slug": "page-header",
+        "previewFile": "/data/user/design_libraries/TraeCode Copy/preview/component-page-header.html",
+        "contractFile": "/data/user/design_libraries/TraeCode Copy/components/page-header.json"
+      },
+      {
+        "slug": "stat-card",
+        "previewFile": "/data/user/design_libraries/TraeCode Copy/preview/component-stat-card.html",
+        "contractFile": "/data/user/design_libraries/TraeCode Copy/components/stat-card.json"
+      }
+    ]
+  },
+  "project": {
+    "resolvedLane": "library_bound",
+    "operatingMode": "library-bound",
+    "deviceType": "desktop",
+    "viewportMode": "fluid",
+    "language": "zh-CN",
+    "selectedIntentWorkflowRead": true,
+    "contextRequirementsLoaded": [
+      {
+        "path": "shared-runtime/runtime-boundaries/lane-runtime-contracts.md",
+        "readStatus": "loaded",
+        "bodyRead": true
+      },
+      {
+        "path": "shared-runtime/agent-dispatch-runtime/lane-dispatch-index.md",
+        "readStatus": "loaded",
+        "bodyRead": true
+      },
+      {
+        "path": "delivery-quality/page-rendering-quality-gate.md",
+        "readStatus": "loaded",
+        "bodyRead": true
+      },
+      {
+        "path": "delivery-quality/design-artifact-validation.md",
+        "readStatus": "loaded",
+        "bodyRead": true
+      },
+      {
+        "path": "delivery-quality/delivery-evidence-contract.md",
+        "readStatus": "loaded",
+        "bodyRead": true
+      }
+    ],
+    "contextReadScope": "Selected library_bound lane only: INTENT_WORKFLOW.md plus its declared Context Requirements, the library-bound runtime files, the Library evidence files, and the project scaffolding produced in this run.",
+    "sharedProjectShellContract": {
+      "pages": [
+        "page-index",
+        "page-animal-cat",
+        "page-animal-dog",
+        "page-animal-calf"
+      ],
+      "headerFragment": "partials/site-header.html",
+      "footerFragment": "partials/site-footer.html",
+      "activeNavKey": "none",
+      "navPolicy": "Header carries identity only (mark + wordmark + Library tag + animal count). No page-specific nav link, so no active-state drift across leaves. Detail-page return link lives in the leaf body with data-dom-id=\"back-home\".",
+      "footerPolicy": "Identical real footer copy on every page: 拼接图案 · 看图识动物 plus the tiles-only note.",
+      "mobileNavigation": null
+    },
+    "generationTree": {
+      "path": "generation-tree.json",
+      "strategy": "shared-chrome-first",
+      "sharedFragments": [
+        "partials/site-header.html",
+        "partials/site-footer.html",
+        "partials/mosaic-cat.html",
+        "partials/mosaic-dog.html",
+        "partials/mosaic-calf.html"
+      ],
+      "leafPages": [
+        "pages/index.html",
+        "pages/animal-cat.html",
+        "pages/animal-dog.html",
+        "pages/animal-calf.html"
+      ],
+      "status": "shared fragments generated before leaf dispatch"
+    },
+    "visualNorthStar": "A dark gallery wall where three animals are rebuilt from flat green patches. Each page reads like a museum label: large patchwork specimen on the left, a short identification card on the right.",
+    "visualQualityCheckpoints": [
+      {
+        "dimension": "visual-anchor",
+        "decision": "The patchwork animal SVG is the single focal object on every page, framed by a bordered specimen panel on --bg-base-secondary."
+      },
+      {
+        "dimension": "information-hierarchy",
+        "decision": "Animal name first, Latin name second, one-line trait summary third, identification keys and patch legend last."
+      },
+      {
+        "dimension": "composition-structure",
+        "decision": "Desktop split: 55% specimen panel / 45% label column, 1px token border between them, 32px gutters; single column stack below 900px."
+      },
+      {
+        "dimension": "implementation-strategy",
+        "decision": "Inline SVG polygons with Library color variables and --bg-base-default seam strokes; no bitmap assets, no custom CSS classes, no canvas-wide shadows."
+      }
+    ],
+    "validationRunDiscipline": {
+      "maxFullValidationRuns": 2,
+      "softWarningsTriggerRepair": false,
+      "blockingRepairMode": "targeted-once"
+    },
+    "lowValueCallWatchdog": {
+      "applies": true,
+      "noProgressNextAction": "enter_readiness_or_blocked_summary"
+    },
+    "interactionPlan": [
+      {
+        "from": "page-index",
+        "domId": "cta-start",
+        "to": "page-animal-cat",
+        "hideEdge": false,
+        "label": "开始认识小猫"
+      },
+      {
+        "from": "page-index",
+        "domId": "link-cat",
+        "to": "page-animal-cat",
+        "hideEdge": true,
+        "label": "小猫"
+      },
+      {
+        "from": "page-index",
+        "domId": "link-dog",
+        "to": "page-animal-dog",
+        "hideEdge": true,
+        "label": "小狗"
+      },
+      {
+        "from": "page-index",
+        "domId": "link-calf",
+        "to": "page-animal-calf",
+        "hideEdge": true,
+        "label": "小牛"
+      },
+      {
+        "from": "page-animal-cat",
+        "domId": "back-home",
+        "to": "page-index",
+        "hideEdge": true,
+        "label": "返回目录"
+      },
+      {
+        "from": "page-animal-cat",
+        "domId": "next-animal",
+        "to": "page-animal-dog",
+        "hideEdge": true,
+        "label": "下一个动物"
+      },
+      {
+        "from": "page-animal-dog",
+        "domId": "back-home",
+        "to": "page-index",
+        "hideEdge": true,
+        "label": "返回目录"
+      },
+      {
+        "from": "page-animal-dog",
+        "domId": "next-animal",
+        "to": "page-animal-calf",
+        "hideEdge": true,
+        "label": "下一个动物"
+      },
+      {
+        "from": "page-animal-calf",
+        "domId": "back-home",
+        "to": "page-index",
+        "hideEdge": true,
+        "label": "返回目录"
+      },
+      {
+        "from": "page-animal-calf",
+        "domId": "next-animal",
+        "to": "page-animal-cat",
+        "hideEdge": true,
+        "label": "下一个动物"
+      }
+    ],
+    "cssPreflightEvidence": {
+      "prefixMode": "prefixless",
+      "brandPrefix": "",
+      "evidence": "TraeCode Copy library exposes verbatim --bg-*/--text-* tokens without --color-* portable aliases"
+    },
+    "dispatchPreflightManifest": [
+      {
+        "recorded_at": "2026-11-07T03:36:02.451Z",
+        "generatedBy": "build-page-dispatch-manifest.mjs",
+        "packetType": "LibraryBoundPagePacket",
+        "laneContract": {
+          "resolvedLane": "library_bound",
+          "packetType": "LibraryBoundPagePacket",
+          "pageRuntimeGuide": "intent-workflows/intent-page-library-bound/library-bound-page-runtime.md",
+          "dispatchContract": "intent-workflows/intent-page-library-bound/dispatch-contract.md"
+        },
+        "taskLinePresent": true,
+        "outputPathPresent": true,
+        "sharedTemplate": "intent-workflows/intent-page-library-bound/library-bound-page-runtime.md",
+        "nodeId": "page-index",
+        "htmlSrc": "pages/index.html",
+        "supplementaryReads": [],
+        "allowedWritePaths": [
+          "pages/index.html",
+          "assets/"
+        ],
+        "forbiddenWriteRoots": [
+          "*.design",
+          "runtime-orchestration-summary.json",
+          "validation-report.json",
+          "finish-readiness-report.json",
+          "restore-contract-report.json",
+          "page-generation-summary.json"
+        ],
+        "toolPolicy": {
+          "todoWriteAllowed": false,
+          "validationScriptsAllowed": false,
+          "previewAllowed": false,
+          "helperScriptsAllowed": false,
+          "designFileWriteAllowed": false,
+          "allowedWritePaths": [
+            "pages/index.html",
+            "assets/"
+          ]
+        },
+        "skillRuntime": {
+          "skillDir": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design",
+          "deterministicToolDir": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling",
+          "toolPaths": {
+            "applyHtmlHeadContract": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/apply-html-head-contract.mjs",
+            "recordDispatchCompletion": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/record-dispatch-completion.mjs",
+            "buildPageDispatchManifest": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/build-page-dispatch-manifest.mjs",
+            "validateDesignWorkspace": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/validate-design-workspace.mjs",
+            "validateFinishReadiness": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/validate-finish-readiness.mjs",
+            "validateRestoreContract": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/validate-restore-contract.mjs"
+          },
+          "requiredForPageSubAgent": [
+            "applyHtmlHeadContract",
+            "recordDispatchCompletion"
+          ],
+          "pathInjection": "absolute",
+          "pathContract": "Do not use {SKILL_DIR} placeholders inside Page Sub-Agent packets; use toolPaths.* absolute paths.",
+          "commandTemplates": {
+            "recordDispatchCompletion": "node '/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/record-dispatch-completion.mjs' '/workspace/animal-mosaic-atlas' --node-id='page-index' --html-src='pages/index.html' --status=completed --changed-files=<comma-separated-project-relative-files> --trace-digest=<main-agent-runtime-trace-digest> --tool-ledger-json=<tool-ledger-json-or-file>"
+          }
+        },
+        "cssFilePath": "/workspace/animal-mosaic-atlas/colors_and_type.css",
+        "htmlFilePath": "/workspace/animal-mosaic-atlas/pages/index.html",
+        "brandPrefix": "",
+        "aestheticsMode": "library-bound",
+        "toolDisciplineBlockPresent": true,
+        "fillHtmlHeadCommand": "node '/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/apply-html-head-contract.mjs' '/workspace/animal-mosaic-atlas/colors_and_type.css' '/workspace/animal-mosaic-atlas/pages/index.html' --title='看图识动物' --lang='zh-CN' --prefix='' --replace-head",
+        "headFillMode": "replace-head-after-body",
+        "viewportMode": "fluid",
+        "completionSchemaExpected": "full",
+        "restoreFields": null,
+        "restoreContractStatus": null,
+        "restoreCompactPacket": null,
+        "deterministicCommands": null,
+        "sourceAuthorityLock": null,
+        "preDispatchFileHashes": {
+          "animal-mosaic-atlas.design": "451aa51f135738ba50b91a6bd7822f82b191995bde05a74289ccea8539db2c37"
+        },
+        "contextPreflight": {
+          "workflowPath": "intent-workflows/intent-page-library-bound/INTENT_WORKFLOW.md",
+          "requiredContextFiles": [
+            "shared-runtime/runtime-boundaries/lane-runtime-contracts.md",
+            "shared-runtime/agent-dispatch-runtime/lane-dispatch-index.md",
+            "delivery-quality/page-rendering-quality-gate.md",
+            "delivery-quality/design-artifact-validation.md",
+            "delivery-quality/delivery-evidence-contract.md"
+          ],
+          "optionalContextFiles": [
+            "visual-experience/visual-experience-guidelines.md"
+          ],
+          "passed": true
+        },
+        "pageSliceOnly": true,
+        "requiredFieldsPresent": true,
+        "missingFields": [],
+        "fillHtmlHeadCommandValid": true,
+        "mobileNavigation": {
+          "required": false,
+          "appliesToThisPage": false,
+          "canonicalHtmlIncluded": false,
+          "missingFields": []
+        },
+        "persistedToSummary": true,
+        "taskQueryAudited": false,
+        "proofSource": "summary-only",
+        "largeWorkflowFilesInTaskQuery": null
+      },
+      {
+        "recorded_at": "2026-11-07T03:36:02.451Z",
+        "generatedBy": "build-page-dispatch-manifest.mjs",
+        "packetType": "LibraryBoundPagePacket",
+        "laneContract": {
+          "resolvedLane": "library_bound",
+          "packetType": "LibraryBoundPagePacket",
+          "pageRuntimeGuide": "intent-workflows/intent-page-library-bound/library-bound-page-runtime.md",
+          "dispatchContract": "intent-workflows/intent-page-library-bound/dispatch-contract.md"
+        },
+        "taskLinePresent": true,
+        "outputPathPresent": true,
+        "sharedTemplate": "intent-workflows/intent-page-library-bound/library-bound-page-runtime.md",
+        "nodeId": "page-animal-cat",
+        "htmlSrc": "pages/animal-cat.html",
+        "supplementaryReads": [],
+        "allowedWritePaths": [
+          "pages/animal-cat.html",
+          "assets/"
+        ],
+        "forbiddenWriteRoots": [
+          "*.design",
+          "runtime-orchestration-summary.json",
+          "validation-report.json",
+          "finish-readiness-report.json",
+          "restore-contract-report.json",
+          "page-generation-summary.json"
+        ],
+        "toolPolicy": {
+          "todoWriteAllowed": false,
+          "validationScriptsAllowed": false,
+          "previewAllowed": false,
+          "helperScriptsAllowed": false,
+          "designFileWriteAllowed": false,
+          "allowedWritePaths": [
+            "pages/animal-cat.html",
+            "assets/"
+          ]
+        },
+        "skillRuntime": {
+          "skillDir": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design",
+          "deterministicToolDir": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling",
+          "toolPaths": {
+            "applyHtmlHeadContract": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/apply-html-head-contract.mjs",
+            "recordDispatchCompletion": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/record-dispatch-completion.mjs",
+            "buildPageDispatchManifest": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/build-page-dispatch-manifest.mjs",
+            "validateDesignWorkspace": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/validate-design-workspace.mjs",
+            "validateFinishReadiness": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/validate-finish-readiness.mjs",
+            "validateRestoreContract": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/validate-restore-contract.mjs"
+          },
+          "requiredForPageSubAgent": [
+            "applyHtmlHeadContract",
+            "recordDispatchCompletion"
+          ],
+          "pathInjection": "absolute",
+          "pathContract": "Do not use {SKILL_DIR} placeholders inside Page Sub-Agent packets; use toolPaths.* absolute paths.",
+          "commandTemplates": {
+            "recordDispatchCompletion": "node '/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/record-dispatch-completion.mjs' '/workspace/animal-mosaic-atlas' --node-id='page-animal-cat' --html-src='pages/animal-cat.html' --status=completed --changed-files=<comma-separated-project-relative-files> --trace-digest=<main-agent-runtime-trace-digest> --tool-ledger-json=<tool-ledger-json-or-file>"
+          }
+        },
+        "cssFilePath": "/workspace/animal-mosaic-atlas/colors_and_type.css",
+        "htmlFilePath": "/workspace/animal-mosaic-atlas/pages/animal-cat.html",
+        "brandPrefix": "",
+        "aestheticsMode": "library-bound",
+        "toolDisciplineBlockPresent": true,
+        "fillHtmlHeadCommand": "node '/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/apply-html-head-contract.mjs' '/workspace/animal-mosaic-atlas/colors_and_type.css' '/workspace/animal-mosaic-atlas/pages/animal-cat.html' --title='拼接小猫' --lang='zh-CN' --prefix='' --replace-head",
+        "headFillMode": "replace-head-after-body",
+        "viewportMode": "fluid",
+        "completionSchemaExpected": "full",
+        "restoreFields": null,
+        "restoreContractStatus": null,
+        "restoreCompactPacket": null,
+        "deterministicCommands": null,
+        "sourceAuthorityLock": null,
+        "preDispatchFileHashes": {
+          "animal-mosaic-atlas.design": "451aa51f135738ba50b91a6bd7822f82b191995bde05a74289ccea8539db2c37"
+        },
+        "contextPreflight": {
+          "workflowPath": "intent-workflows/intent-page-library-bound/INTENT_WORKFLOW.md",
+          "requiredContextFiles": [
+            "shared-runtime/runtime-boundaries/lane-runtime-contracts.md",
+            "shared-runtime/agent-dispatch-runtime/lane-dispatch-index.md",
+            "delivery-quality/page-rendering-quality-gate.md",
+            "delivery-quality/design-artifact-validation.md",
+            "delivery-quality/delivery-evidence-contract.md"
+          ],
+          "optionalContextFiles": [
+            "visual-experience/visual-experience-guidelines.md"
+          ],
+          "passed": true
+        },
+        "pageSliceOnly": true,
+        "requiredFieldsPresent": true,
+        "missingFields": [],
+        "fillHtmlHeadCommandValid": true,
+        "mobileNavigation": {
+          "required": false,
+          "appliesToThisPage": false,
+          "canonicalHtmlIncluded": false,
+          "missingFields": []
+        },
+        "persistedToSummary": true,
+        "taskQueryAudited": false,
+        "proofSource": "summary-only",
+        "largeWorkflowFilesInTaskQuery": null
+      },
+      {
+        "recorded_at": "2026-11-07T03:36:02.451Z",
+        "generatedBy": "build-page-dispatch-manifest.mjs",
+        "packetType": "LibraryBoundPagePacket",
+        "laneContract": {
+          "resolvedLane": "library_bound",
+          "packetType": "LibraryBoundPagePacket",
+          "pageRuntimeGuide": "intent-workflows/intent-page-library-bound/library-bound-page-runtime.md",
+          "dispatchContract": "intent-workflows/intent-page-library-bound/dispatch-contract.md"
+        },
+        "taskLinePresent": true,
+        "outputPathPresent": true,
+        "sharedTemplate": "intent-workflows/intent-page-library-bound/library-bound-page-runtime.md",
+        "nodeId": "page-animal-dog",
+        "htmlSrc": "pages/animal-dog.html",
+        "supplementaryReads": [],
+        "allowedWritePaths": [
+          "pages/animal-dog.html",
+          "assets/"
+        ],
+        "forbiddenWriteRoots": [
+          "*.design",
+          "runtime-orchestration-summary.json",
+          "validation-report.json",
+          "finish-readiness-report.json",
+          "restore-contract-report.json",
+          "page-generation-summary.json"
+        ],
+        "toolPolicy": {
+          "todoWriteAllowed": false,
+          "validationScriptsAllowed": false,
+          "previewAllowed": false,
+          "helperScriptsAllowed": false,
+          "designFileWriteAllowed": false,
+          "allowedWritePaths": [
+            "pages/animal-dog.html",
+            "assets/"
+          ]
+        },
+        "skillRuntime": {
+          "skillDir": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design",
+          "deterministicToolDir": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling",
+          "toolPaths": {
+            "applyHtmlHeadContract": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/apply-html-head-contract.mjs",
+            "recordDispatchCompletion": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/record-dispatch-completion.mjs",
+            "buildPageDispatchManifest": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/build-page-dispatch-manifest.mjs",
+            "validateDesignWorkspace": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/validate-design-workspace.mjs",
+            "validateFinishReadiness": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/validate-finish-readiness.mjs",
+            "validateRestoreContract": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/validate-restore-contract.mjs"
+          },
+          "requiredForPageSubAgent": [
+            "applyHtmlHeadContract",
+            "recordDispatchCompletion"
+          ],
+          "pathInjection": "absolute",
+          "pathContract": "Do not use {SKILL_DIR} placeholders inside Page Sub-Agent packets; use toolPaths.* absolute paths.",
+          "commandTemplates": {
+            "recordDispatchCompletion": "node '/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/record-dispatch-completion.mjs' '/workspace/animal-mosaic-atlas' --node-id='page-animal-dog' --html-src='pages/animal-dog.html' --status=completed --changed-files=<comma-separated-project-relative-files> --trace-digest=<main-agent-runtime-trace-digest> --tool-ledger-json=<tool-ledger-json-or-file>"
+          }
+        },
+        "cssFilePath": "/workspace/animal-mosaic-atlas/colors_and_type.css",
+        "htmlFilePath": "/workspace/animal-mosaic-atlas/pages/animal-dog.html",
+        "brandPrefix": "",
+        "aestheticsMode": "library-bound",
+        "toolDisciplineBlockPresent": true,
+        "fillHtmlHeadCommand": "node '/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/apply-html-head-contract.mjs' '/workspace/animal-mosaic-atlas/colors_and_type.css' '/workspace/animal-mosaic-atlas/pages/animal-dog.html' --title='拼接小狗' --lang='zh-CN' --prefix='' --replace-head",
+        "headFillMode": "replace-head-after-body",
+        "viewportMode": "fluid",
+        "completionSchemaExpected": "full",
+        "restoreFields": null,
+        "restoreContractStatus": null,
+        "restoreCompactPacket": null,
+        "deterministicCommands": null,
+        "sourceAuthorityLock": null,
+        "preDispatchFileHashes": {
+          "animal-mosaic-atlas.design": "451aa51f135738ba50b91a6bd7822f82b191995bde05a74289ccea8539db2c37"
+        },
+        "contextPreflight": {
+          "workflowPath": "intent-workflows/intent-page-library-bound/INTENT_WORKFLOW.md",
+          "requiredContextFiles": [
+            "shared-runtime/runtime-boundaries/lane-runtime-contracts.md",
+            "shared-runtime/agent-dispatch-runtime/lane-dispatch-index.md",
+            "delivery-quality/page-rendering-quality-gate.md",
+            "delivery-quality/design-artifact-validation.md",
+            "delivery-quality/delivery-evidence-contract.md"
+          ],
+          "optionalContextFiles": [
+            "visual-experience/visual-experience-guidelines.md"
+          ],
+          "passed": true
+        },
+        "pageSliceOnly": true,
+        "requiredFieldsPresent": true,
+        "missingFields": [],
+        "fillHtmlHeadCommandValid": true,
+        "mobileNavigation": {
+          "required": false,
+          "appliesToThisPage": false,
+          "canonicalHtmlIncluded": false,
+          "missingFields": []
+        },
+        "persistedToSummary": true,
+        "taskQueryAudited": false,
+        "proofSource": "summary-only",
+        "largeWorkflowFilesInTaskQuery": null
+      },
+      {
+        "recorded_at": "2026-11-07T03:36:02.451Z",
+        "generatedBy": "build-page-dispatch-manifest.mjs",
+        "packetType": "LibraryBoundPagePacket",
+        "laneContract": {
+          "resolvedLane": "library_bound",
+          "packetType": "LibraryBoundPagePacket",
+          "pageRuntimeGuide": "intent-workflows/intent-page-library-bound/library-bound-page-runtime.md",
+          "dispatchContract": "intent-workflows/intent-page-library-bound/dispatch-contract.md"
+        },
+        "taskLinePresent": true,
+        "outputPathPresent": true,
+        "sharedTemplate": "intent-workflows/intent-page-library-bound/library-bound-page-runtime.md",
+        "nodeId": "page-animal-calf",
+        "htmlSrc": "pages/animal-calf.html",
+        "supplementaryReads": [],
+        "allowedWritePaths": [
+          "pages/animal-calf.html",
+          "assets/"
+        ],
+        "forbiddenWriteRoots": [
+          "*.design",
+          "runtime-orchestration-summary.json",
+          "validation-report.json",
+          "finish-readiness-report.json",
+          "restore-contract-report.json",
+          "page-generation-summary.json"
+        ],
+        "toolPolicy": {
+          "todoWriteAllowed": false,
+          "validationScriptsAllowed": false,
+          "previewAllowed": false,
+          "helperScriptsAllowed": false,
+          "designFileWriteAllowed": false,
+          "allowedWritePaths": [
+            "pages/animal-calf.html",
+            "assets/"
+          ]
+        },
+        "skillRuntime": {
+          "skillDir": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design",
+          "deterministicToolDir": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling",
+          "toolPaths": {
+            "applyHtmlHeadContract": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/apply-html-head-contract.mjs",
+            "recordDispatchCompletion": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/record-dispatch-completion.mjs",
+            "buildPageDispatchManifest": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/build-page-dispatch-manifest.mjs",
+            "validateDesignWorkspace": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/validate-design-workspace.mjs",
+            "validateFinishReadiness": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/validate-finish-readiness.mjs",
+            "validateRestoreContract": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/validate-restore-contract.mjs"
+          },
+          "requiredForPageSubAgent": [
+            "applyHtmlHeadContract",
+            "recordDispatchCompletion"
+          ],
+          "pathInjection": "absolute",
+          "pathContract": "Do not use {SKILL_DIR} placeholders inside Page Sub-Agent packets; use toolPaths.* absolute paths.",
+          "commandTemplates": {
+            "recordDispatchCompletion": "node '/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/record-dispatch-completion.mjs' '/workspace/animal-mosaic-atlas' --node-id='page-animal-calf' --html-src='pages/animal-calf.html' --status=completed --changed-files=<comma-separated-project-relative-files> --trace-digest=<main-agent-runtime-trace-digest> --tool-ledger-json=<tool-ledger-json-or-file>"
+          }
+        },
+        "cssFilePath": "/workspace/animal-mosaic-atlas/colors_and_type.css",
+        "htmlFilePath": "/workspace/animal-mosaic-atlas/pages/animal-calf.html",
+        "brandPrefix": "",
+        "aestheticsMode": "library-bound",
+        "toolDisciplineBlockPresent": true,
+        "fillHtmlHeadCommand": "node '/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/apply-html-head-contract.mjs' '/workspace/animal-mosaic-atlas/colors_and_type.css' '/workspace/animal-mosaic-atlas/pages/animal-calf.html' --title='拼接小牛' --lang='zh-CN' --prefix='' --replace-head",
+        "headFillMode": "replace-head-after-body",
+        "viewportMode": "fluid",
+        "completionSchemaExpected": "full",
+        "restoreFields": null,
+        "restoreContractStatus": null,
+        "restoreCompactPacket": null,
+        "deterministicCommands": null,
+        "sourceAuthorityLock": null,
+        "preDispatchFileHashes": {
+          "animal-mosaic-atlas.design": "451aa51f135738ba50b91a6bd7822f82b191995bde05a74289ccea8539db2c37"
+        },
+        "contextPreflight": {
+          "workflowPath": "intent-workflows/intent-page-library-bound/INTENT_WORKFLOW.md",
+          "requiredContextFiles": [
+            "shared-runtime/runtime-boundaries/lane-runtime-contracts.md",
+            "shared-runtime/agent-dispatch-runtime/lane-dispatch-index.md",
+            "delivery-quality/page-rendering-quality-gate.md",
+            "delivery-quality/design-artifact-validation.md",
+            "delivery-quality/delivery-evidence-contract.md"
+          ],
+          "optionalContextFiles": [
+            "visual-experience/visual-experience-guidelines.md"
+          ],
+          "passed": true
+        },
+        "pageSliceOnly": true,
+        "requiredFieldsPresent": true,
+        "missingFields": [],
+        "fillHtmlHeadCommandValid": true,
+        "mobileNavigation": {
+          "required": false,
+          "appliesToThisPage": false,
+          "canonicalHtmlIncluded": false,
+          "missingFields": []
+        },
+        "persistedToSummary": true,
+        "taskQueryAudited": false,
+        "proofSource": "summary-only",
+        "largeWorkflowFilesInTaskQuery": null
+      }
+    ],
+    "readScopeLedger": [
+      {
+        "actor": "page-sub-agent",
+        "lane": "library_bound",
+        "path": "intent-workflows/intent-page-library-bound/library-bound-page-runtime.md",
+        "reason": "page runtime guide",
+        "scopeClass": "page-runtime",
+        "declaredBeforeRead": true,
+        "recordedAt": "2026-11-07T03:36:02.451Z",
+        "nodeId": "page-index",
+        "htmlSrc": "pages/index.html"
+      },
+      {
+        "actor": "page-sub-agent",
+        "lane": "library_bound",
+        "path": "intent-workflows/intent-page-library-bound/dispatch-contract.md",
+        "reason": "dispatch contract",
+        "scopeClass": "dispatch-contract",
+        "declaredBeforeRead": true,
+        "recordedAt": "2026-11-07T03:36:02.451Z",
+        "nodeId": "page-index",
+        "htmlSrc": "pages/index.html"
+      }
+    ],
+    "expectedDispatches": [
+      {
+        "nodeId": "page-index",
+        "pageId": "page-index",
+        "targetPageId": "page-index",
+        "htmlSrc": "pages/index.html",
+        "packetType": "LibraryBoundPagePacket",
+        "status": "completed",
+        "changedFiles": [
+          "pages/index.html"
+        ],
+        "toolCallLedger": {
+          "source": "main-agent-runtime-trace",
+          "traceDigest": "8da57f0868064d3e9c3ea43869a125d4",
+          "todoWriteCalls": 0,
+          "previewCalls": 0,
+          "validationScriptCalls": 0,
+          "helperScriptWrites": 0
+        },
+        "recordedAt": "2026-11-07T03:42:35.946Z",
+        "source": "record-dispatch-completion.mjs"
+      },
+      {
+        "nodeId": "page-animal-cat",
+        "pageId": "page-animal-cat",
+        "targetPageId": "page-animal-cat",
+        "htmlSrc": "pages/animal-cat.html",
+        "packetType": "LibraryBoundPagePacket",
+        "status": "completed",
+        "changedFiles": [
+          "pages/animal-cat.html"
+        ],
+        "toolCallLedger": {
+          "source": "main-agent-runtime-trace",
+          "traceDigest": "9f422e1359de4d72a081780bd491aafe",
+          "todoWriteCalls": 0,
+          "previewCalls": 0,
+          "validationScriptCalls": 0,
+          "helperScriptWrites": 0
+        },
+        "recordedAt": "2026-11-07T03:45:15.472Z",
+        "source": "record-dispatch-completion.mjs"
+      },
+      {
+        "nodeId": "page-animal-dog",
+        "pageId": "page-animal-dog",
+        "targetPageId": "page-animal-dog",
+        "htmlSrc": "pages/animal-dog.html",
+        "packetType": "LibraryBoundPagePacket",
+        "status": "completed",
+        "changedFiles": [
+          "pages/animal-dog.html"
+        ],
+        "toolCallLedger": {
+          "source": "main-agent-runtime-trace",
+          "traceDigest": "e795c63a0962471297f11b613bb0ef21",
+          "todoWriteCalls": 0,
+          "previewCalls": 0,
+          "validationScriptCalls": 0,
+          "helperScriptWrites": 0
+        },
+        "recordedAt": "2026-11-07T03:46:10.491Z",
+        "source": "record-dispatch-completion.mjs"
+      },
+      {
+        "nodeId": "page-animal-calf",
+        "pageId": "page-animal-calf",
+        "targetPageId": "page-animal-calf",
+        "htmlSrc": "pages/animal-calf.html",
+        "packetType": "LibraryBoundPagePacket",
+        "status": "completed",
+        "changedFiles": [
+          "pages/animal-calf.html"
+        ],
+        "toolCallLedger": {
+          "source": "main-agent-runtime-trace",
+          "traceDigest": "dfaf432db9e238830e86d202386d1297f444127b90329f564fd6d659565e29c7",
+          "todoWriteCalls": 0,
+          "previewCalls": 0,
+          "validationScriptCalls": 0,
+          "helperScriptWrites": 0
+        },
+        "recordedAt": "2026-11-07T03:41:37.534Z",
+        "source": "record-dispatch-completion.mjs"
+      }
+    ],
+    "mainAgentPostDispatchMutations": [
+      {
+        "path": "animal-mosaic-atlas.design",
+        "reason": "Main Agent registered page interactions and page nodes after all four page dispatches completed",
+        "owner": "main-agent",
+        "recordedAt": "2026-11-07T03:42:35.946Z",
+        "source": "record-dispatch-completion.mjs"
+      },
+      {
+        "path": "pages/animal-dog.html",
+        "reason": "Main Agent requested a post-dispatch consistency polish (species label, key-row separators, stats table) so all three detail pages share one composition",
+        "owner": "main-agent",
+        "recordedAt": "2026-11-07T03:45:15.359Z",
+        "source": "record-dispatch-completion.mjs"
+      },
+      {
+        "path": "pages/animal-cat.html",
+        "reason": "Main Agent requested a post-dispatch consistency polish (stats table + key-row separators) so all three detail pages share one composition",
+        "owner": "main-agent",
+        "recordedAt": "2026-11-07T03:45:15.472Z",
+        "source": "record-dispatch-completion.mjs"
+      },
+      {
+        "path": "pages/animal-dog.html",
+        "reason": "Main Agent aligned the two remaining stat cells to the stacked value/label pattern and unified the key-row index color with the cat and calf pages",
+        "owner": "main-agent",
+        "recordedAt": "2026-11-07T03:46:10.491Z",
+        "source": "record-dispatch-completion.mjs"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "nodeId": "page-index",
+      "htmlSrc": "pages/index.html",
+      "title": "看图识动物",
+      "language": "zh-CN",
+      "viewportMode": "fluid",
+      "mobileNavigationApplies": false,
+      "mobileNavigationOmitReason": "Desktop canvas with a single header identity bar; no mobile bottom navigation is part of this deliverable.",
+      "allowedWritePaths": []
+    },
+    {
+      "nodeId": "page-animal-cat",
+      "htmlSrc": "pages/animal-cat.html",
+      "title": "拼接小猫",
+      "language": "zh-CN",
+      "viewportMode": "fluid",
+      "mobileNavigationApplies": false,
+      "mobileNavigationOmitReason": "Desktop canvas with a single header identity bar; no mobile bottom navigation is part of this deliverable.",
+      "allowedWritePaths": []
+    },
+    {
+      "nodeId": "page-animal-dog",
+      "htmlSrc": "pages/animal-dog.html",
+      "title": "拼接小狗",
+      "language": "zh-CN",
+      "viewportMode": "fluid",
+      "mobileNavigationApplies": false,
+      "mobileNavigationOmitReason": "Desktop canvas with a single header identity bar; no mobile bottom navigation is part of this deliverable.",
+      "allowedWritePaths": []
+    },
+    {
+      "nodeId": "page-animal-calf",
+      "htmlSrc": "pages/animal-calf.html",
+      "title": "拼接小牛",
+      "language": "zh-CN",
+      "viewportMode": "fluid",
+      "mobileNavigationApplies": false,
+      "mobileNavigationOmitReason": "Desktop canvas with a single header identity bar; no mobile bottom navigation is part of this deliverable.",
+      "allowedWritePaths": []
+    }
+  ],
+  "expectedDispatches": []
+}

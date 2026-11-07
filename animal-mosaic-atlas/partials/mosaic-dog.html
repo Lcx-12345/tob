@@ -1,0 +1,70 @@
+<svg viewBox="0 0 400 400" width="100%" height="auto" role="img" aria-label="由绿色拼接拼片组成的小狗图案" style="display: block;">
+  <defs>
+    <clipPath id="dogHeadClip"><polygon points="120,100 148,76 252,76 280,100 280,192 252,216 148,216 120,192"></polygon></clipPath>
+    <clipPath id="dogBodyClip"><polygon points="164,210 236,210 292,346 108,346"></polygon></clipPath>
+    <pattern id="dogTileGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0 H0 V40" fill="none" stroke="var(--border-neutral-l1)" stroke-width="1"></path>
+    </pattern>
+    <pattern id="dogTileDots" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="20" cy="20" r="1" fill="var(--border-neutral-l2)"></circle>
+    </pattern>
+  </defs>
+
+  <rect width="400" height="400" fill="url(#dogTileGrid)"></rect>
+  <rect width="400" height="400" fill="url(#dogTileDots)"></rect>
+  <circle cx="200" cy="196" r="150" fill="var(--bg-base-tertiary)" opacity="0.55"></circle>
+
+  <g stroke="var(--bg-base-default)" stroke-width="5" stroke-linejoin="round">
+    <!-- tail -->
+    <polygon points="286,296 322,258 338,238 352,248 330,278 300,338" fill="var(--brand-green-600)"></polygon>
+    <polygon points="330,278 352,248 364,254 344,290" fill="var(--brand-green-300)"></polygon>
+
+    <!-- body -->
+    <polygon points="164,210 236,210 292,346 108,346" fill="var(--brand-green-600)"></polygon>
+    <g clip-path="url(#dogBodyClip)" stroke-width="4">
+      <polygon points="164,210 200,210 200,276 140,276" fill="var(--brand-green-900)"></polygon>
+      <polygon points="200,210 236,210 262,276 200,276" fill="var(--brand-green-600)"></polygon>
+      <polygon points="140,276 200,276 200,346 108,346" fill="var(--brand-green-600)"></polygon>
+      <polygon points="200,276 262,276 292,346 200,346" fill="var(--brand-green-900)"></polygon>
+      <polygon points="176,212 224,212 200,258" fill="var(--brand-green-400)"></polygon>
+    </g>
+
+    <!-- legs and paws -->
+    <polygon points="146,292 184,292 184,346 146,346" fill="var(--brand-green-800)"></polygon>
+    <polygon points="216,292 254,292 254,346 216,346" fill="var(--brand-green-800)"></polygon>
+    <polygon points="140,332 188,332 188,348 140,348" fill="var(--brand-green-400)"></polygon>
+    <polygon points="212,332 260,332 260,348 212,348" fill="var(--brand-green-400)"></polygon>
+
+    <!-- collar -->
+    <polygon points="160,212 240,212 240,232 160,232" fill="var(--brand-green-300)" stroke-width="3"></polygon>
+    <circle cx="200" cy="238" r="9" fill="var(--brand-green-500)" stroke-width="3"></circle>
+
+    <!-- ears -->
+    <polygon points="126,102 88,168 96,214 132,198 142,124" fill="var(--brand-green-800)"></polygon>
+    <polygon points="274,102 312,168 304,214 268,198 258,124" fill="var(--brand-green-800)"></polygon>
+    <polygon points="128,116 104,170 112,196 130,182" fill="var(--brand-green-400)" stroke-width="3"></polygon>
+    <polygon points="272,116 296,170 288,196 270,182" fill="var(--brand-green-400)" stroke-width="3"></polygon>
+
+    <!-- head -->
+    <polygon points="120,100 148,76 252,76 280,100 280,192 252,216 148,216 120,192" fill="var(--brand-green-600)"></polygon>
+    <g clip-path="url(#dogHeadClip)" stroke-width="4">
+      <polygon points="120,100 200,76 200,130 120,148" fill="var(--brand-green-900)"></polygon>
+      <polygon points="200,76 280,100 280,148 200,130" fill="var(--brand-green-600)"></polygon>
+      <polygon points="120,148 200,130 200,216 148,216 120,192" fill="var(--brand-green-600)"></polygon>
+      <polygon points="200,130 280,148 280,192 252,216 200,216" fill="var(--brand-green-800)"></polygon>
+    </g>
+
+    <!-- muzzle -->
+    <polygon points="156,164 244,164 244,206 224,216 176,216 156,206" fill="var(--brand-green-300)" stroke-width="3"></polygon>
+    <polygon points="186,158 214,158 214,174 200,182 186,174" fill="var(--brand-green-900)" stroke-width="3"></polygon>
+  </g>
+
+  <!-- face -->
+  <g>
+    <circle cx="164" cy="136" r="13" fill="var(--text-default)"></circle>
+    <circle cx="236" cy="136" r="13" fill="var(--text-default)"></circle>
+    <circle cx="164" cy="137" r="5" fill="var(--brand-green-900)"></circle>
+    <circle cx="236" cy="137" r="5" fill="var(--brand-green-900)"></circle>
+    <path d="M200 182 V190 M200 190 Q192 196 186 190 M200 190 Q208 196 214 190" fill="none" stroke="var(--brand-green-900)" stroke-width="3" stroke-linecap="round"></path>
+  </g>
+</svg>
