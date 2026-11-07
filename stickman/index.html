@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>火柴人跑酷</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #1a1a2e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: -apple-system, "Microsoft YaHei", sans-serif;
+  }
+  h1 { color: #fff; margin-bottom: 12px; letter-spacing: 2px; }
+  .tips { color: #888; font-size: 13px; margin-bottom: 10px; }
+  canvas {
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,.5);
+    background: linear-gradient(#87ceeb, #e0f7ff);
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<h1>🏃 火柴人跑酷</h1>
+<div class="tips">点击画面 / 按空格键 跳跃，躲避障碍物！</div>
+<canvas id="game" width="800" height="400"></canvas>
+<script>
+const canvas = document.getElementById('game');
+const ctx = canvas.getContext('2d');
+const W = canvas.width, H = canvas.height, GROUND = H - 60;
+
+// 游戏状态
+let state = 'start'; // start / playing / over
+let score = 0, best = 0, speed = 6;
+let obstacles = [], clouds = [], frames = 0;
+
+// 火柴人
+const man = { x: 120, y: GROUND, vy: 0, jumping: false };
+const GRAVITY = 0.9, JUMP = -16;
+
+// 障碍物类型
+const TYPES = [
+  { w: 18, h: 40, kind: 'box' },   // 木箱
+  { w: 40, h: 40, kind: 'box' },
+  { w: 60, h: 35, kind: 'cactus' } // 仙人掌
+];
+
+function reset() {
+  obstacles = []; score = 0; speed = 6; frames = 0;
+  man.y = GROUND; man.vy = 0; man.jumping = false;
+  state = 'playing';
+}
+
+function jump() {
+  if (state === 'start') { reset(); return; }
+  if (state === 'over') { reset(); return; }
+  if (!man.jumping) { man.vy = JUMP; man.jumping = true; }
+}
+
+// 初始化云朵
+for (let i = 0; i < 4; i++) {
+  clouds.push({ x: Math.random() * W, y: 40 + Math.random() * 100, s: 0.4 + Math.random() * 0.6 });
+}
+
+function spawnObstacle() {
+  if (frames % Math.max(45, 90 - score) !== 0) return;
+  const t = TYPES[Math.floor(Math.random() * TYPES.length)];
+  obstacles.push({ x: W + 50, w: t.w, h: t.h, kind: t.kind });
+}
+
+function update() {
+  if (state !== 'playing') return;
+  frames++;
+  score += 0.05 * speed * 0.3;
+  speed = Math.min(14, 6 + score * 0.02);
+
+  // 物理
+  man.vy += GRAVITY;
+  man.y += man.vy;
+  if (man.y >= GROUND) { man.y = GROUND; man.vy = 0; man.jumping = false; }
+
+  // 云朵
+  clouds.forEach(c => {
+    c.x -= c.s;
+    if (c.x < -80) { c.x = W + 80; c.y = 40 + Math.random() * 100; }
+  });
+
+  spawnObstacle();
+
+  // 障碍物移动与碰撞
+  for (let i = obstacles.length - 1; i >= 0; i--) {
+    const o = obstacles[i];
+    o.x -= speed;
+    if (o.x + o.w < 0) { obstacles.splice(i, 1); continue; }
+    // 碰撞检测（火柴人身体近似为一个矩形）
+    const mx = man.x - 12, mw = 24, my = man.y - 78, mh = 78;
+    if (mx < o.x + o.w && mx + mw > o.x && my < GROUND - o.h + o.h && my + mh > GROUND - o.h) {
+      state = 'over';
+      best = Math.max(best, Math.floor(score));
+    }
+  }
+}
+
+function drawStickman(x, y, t) {
+  const running = state === 'playing' && !man.jumping;
+  const swing = running ? Math.sin(t * 0.25) * 14 : 0;
+  const legSwing = running ? Math.sin(t * 0.25) : 0;
+  const bounce = running ? Math.abs(Math.sin(t * 0.25)) * 3 : 0;
+  const hy = y - 66 - bounce; // 头部中心
+  const neckY = hy + 13;
+  const hipY = y - 28 - bounce;
+
+  ctx.strokeStyle = '#222';
+  ctx.lineWidth = 4.5;
+  ctx.lineCap = 'round';
+
+  // 头
+  ctx.beginPath();
+  ctx.arc(x, hy, 11, 0, Math.PI * 2);
+  ctx.stroke();
+
+  // 身体
+  ctx.beginPath();
+  ctx.moveTo(x, neckY);
+  ctx.lineTo(x, hipY);
+  ctx.stroke();
+
+  // 手臂（跑动摆动 / 跳跃上举）
+  ctx.beginPath();
+  if (man.jumping) {
+    ctx.moveTo(x, neckY + 4);
+    ctx.lineTo(x - 16, neckY - 12);
+    ctx.moveTo(x, neckY + 4);
+    ctx.lineTo(x + 16, neckY - 12);
+  } else {
+    ctx.moveTo(x, neckY + 4);
+    ctx.lineTo(x + swing, neckY + 22);
+    ctx.moveTo(x, neckY + 4);
+    ctx.lineTo(x - swing, neckY + 22);
+  }
+  ctx.stroke();
+
+  // 腿
+  ctx.beginPath();
+  if (man.jumping) {
+    ctx.moveTo(x, hipY);
+    ctx.lineTo(x - 12, hipY + 20);
+    ctx.lineTo(x - 14, y);
+    ctx.moveTo(x, hipY);
+    ctx.lineTo(x + 12, hipY + 18);
+    ctx.lineTo(x + 16, y - 4);
+  } else {
+    ctx.moveTo(x, hipY);
+    ctx.lineTo(x + legSwing * 12, hipY + 15);
+    ctx.lineTo(x + legSwing * 18, y);
+    ctx.moveTo(x, hipY);
+    ctx.lineTo(x - legSwing * 12, hipY + 15);
+    ctx.lineTo(x - legSwing * 18, y);
+  }
+  ctx.stroke();
+}
+
+function drawObstacle(o) {
+  if (o.kind === 'cactus') {
+    ctx.fillStyle = '#2e7d32';
+    ctx.fillRect(o.x, GROUND - o.h, o.w, o.h);
+    ctx.fillStyle = '#1b5e20';
+    ctx.fillRect(o.x + 8, GROUND - o.h - 10, 10, 14);
+    ctx.fillRect(o.x + o.w - 16, GROUND - o.h - 6, 9, 12);
+  } else {
+    ctx.fillStyle = '#8d6e63';
+    ctx.fillRect(o.x, GROUND - o.h, o.w, o.h);
+    ctx.strokeStyle = '#5d4037';
+    ctx.lineWidth = 3;
+    ctx.strokeRect(o.x + 1.5, GROUND - o.h + 1.5, o.w - 3, o.h - 3);
+    ctx.beginPath();
+    ctx.moveTo(o.x, GROUND - o.h / 2);
+    ctx.lineTo(o.x + o.w, GROUND - o.h / 2);
+    ctx.stroke();
+  }
+}
+
+function draw() {
+  // 天空
+  const sky = ctx.createLinearGradient(0, 0, 0, H);
+  sky.addColorStop(0, '#87ceeb');
+  sky.addColorStop(1, '#e0f7ff');
+  ctx.fillStyle = sky;
+  ctx.fillRect(0, 0, W, H);
+
+  // 太阳
+  ctx.fillStyle = '#ffd54f';
+  ctx.beginPath();
+  ctx.arc(W - 90, 70, 32, 0, Math.PI * 2);
+  ctx.fill();
+
+  // 云
+  ctx.fillStyle = 'rgba(255,255,255,.9)';
+  clouds.forEach(c => {
+    ctx.beginPath();
+    ctx.arc(c.x, c.y, 16 * c.s, 0, Math.PI * 2);
+    ctx.arc(c.x + 18 * c.s, c.y + 4 * c.s, 12 * c.s, 0, Math.PI * 2);
+    ctx.arc(c.x - 16 * c.s, c.y + 5 * c.s, 11 * c.s, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  // 地面
+  ctx.fillStyle = '#c8a27a';
+  ctx.fillRect(0, GROUND, W, H - GROUND);
+  ctx.fillStyle = '#8d6e63';
+  ctx.fillRect(0, GROUND, W, 6);
+
+  // 跑道纹路（滚动效果）
+  ctx.strokeStyle = 'rgba(93,64,55,.4)';
+  ctx.lineWidth = 2;
+  for (let i = 0; i < 8; i++) {
+    const lx = (W - ((frames * speed * 0.5 + i * 110) % (W + 110))) ;
+    ctx.beginPath();
+    ctx.moveTo(lx, GROUND + 18);
+    ctx.lineTo(lx - 30, GROUND + 34);
+    ctx.stroke();
+  }
+
+  // 障碍物
+  obstacles.forEach(drawObstacle);
+
+  // 火柴人
+  drawStickman(man.x, man.y, frames);
+
+  // 分数
+  ctx.fillStyle = '#333';
+  ctx.font = 'bold 18px sans-serif';
+  ctx.textAlign = 'left';
+  ctx.fillText('得分: ' + Math.floor(score), 16, 30);
+  ctx.fillText('最佳: ' + best, 16, 52);
+
+  // 状态提示
+  ctx.textAlign = 'center';
+  if (state === 'start') {
+    ctx.fillStyle = 'rgba(0,0,0,.55)';
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 34px sans-serif';
+    ctx.fillText('🏃 火柴人跑酷', W / 2, H / 2 - 20);
+    ctx.font = '18px sans-serif';
+    ctx.fillText('点击画面或按空格键开始', W / 2, H / 2 + 20);
+  } else if (state === 'over') {
+    ctx.fillStyle = 'rgba(200,30,30,.45)';
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 34px sans-serif';
+    ctx.fillText('游戏结束！得分: ' + Math.floor(score), W / 2, H / 2 - 20);
+    ctx.font = '18px sans-serif';
+    ctx.fillText('点击画面或按空格键重新开始', W / 2, H / 2 + 20);
+  }
+}
+
+function loop() {
+  update();
+  draw();
+  requestAnimationFrame(loop);
+}
+
+canvas.addEventListener('mousedown', jump);
+canvas.addEventListener('touchstart', e => { e.preventDefault(); jump(); });
+document.addEventListener('keydown', e => {
+  if (e.code === 'Space' || e.code === 'ArrowUp') { e.preventDefault(); jump(); }
+});
+
+loop();
+</script>
+</body>
+</html>
