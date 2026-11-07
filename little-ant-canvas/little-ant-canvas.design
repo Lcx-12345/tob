@@ -1,0 +1,70 @@
+{
+  "name": "小蚂蚁画布",
+  "version": 1,
+  "description": "一只小蚂蚁的主题展示画布",
+  "data": [
+    {
+      "id": "page-index",
+      "title": "小蚂蚁",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1794049200000,
+      "devMetadata": {
+        "htmlSrc": "pages/index.html",
+        "interactions": []
+      },
+      "canvasData": {
+        "x": 0,
+        "y": 0,
+        "group": 0
+      }
+    },
+    {
+      "id": "image-001",
+      "title": "小蚂蚁主视觉",
+      "type": "image",
+      "version": 1,
+      "createdAt": 1794036102188,
+      "devMetadata": {
+        "imageSrc": "assets/hero-ant.jpg"
+      },
+      "canvasData": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "image-002",
+      "title": "搬运树叶",
+      "type": "image",
+      "version": 1,
+      "createdAt": 1794036102189,
+      "devMetadata": {
+        "imageSrc": "assets/ant-carrying-leaf.jpg"
+      },
+      "canvasData": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "image-003",
+      "title": "蚂蚁协作",
+      "type": "image",
+      "version": 1,
+      "createdAt": 1794036102190,
+      "devMetadata": {
+        "imageSrc": "assets/ant-teamwork.jpg"
+      },
+      "canvasData": {
+        "x": 0,
+        "y": 0
+      }
+    }
+  ],
+  "config": {
+    "autoLayout": true,
+    "deviceType": "desktop",
+    "projectName": "小蚂蚁画布"
+  }
+}
