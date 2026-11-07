@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>搬运树叶</title>
+    <style id="theme-vars">
+/* ============================================================
+   小蚂蚁画布 · 主题色与字体
+   品牌前缀: ant
+   色彩方向: 奶油暖底 + 暖赭陶土主色（大地色系，单一品牌色相）
+   ============================================================ */
+
+:root {
+  /* —— 品牌主色（唯一品牌色相：暖赭陶土）—— */
+  --ant-primary: #b4552d;
+  --ant-primary-foreground: #fff8f2;
+
+  /* —— 中性表面（奶油暖底）—— */
+  --ant-background: #faf6ef;
+  --ant-foreground: #3b2a20;
+  --ant-card: #fffdf9;
+  --ant-card-foreground: #3b2a20;
+  --ant-popover: #fffdf9;
+  --ant-popover-foreground: #3b2a20;
+  --ant-muted: #f1e8db;
+  --ant-muted-foreground: #85705f;
+
+  /* —— 边框与控件 —— */
+  --ant-border: #e8dccb;
+  --ant-input: #e8dccb;
+  --ant-ring: #b4552d;
+
+  /* —— 圆角体系 —— */
+  --ant-radius-sm: 4px;
+  --ant-radius-md: 8px;
+  --ant-radius-lg: 16px;
+
+  /* —— 扩展墨色层级与表面 —— */
+  --ant-ink-2: #6e5a4b;
+  --ant-ink-3: #9c8878;
+  --ant-surface-2: #f6efe4;
+  --ant-line: #e8dccb;
+
+  /* —— 阴影（静态卡片仅用极浅阴影，深阴影 reserved for 浮层）—— */
+  --ant-shadow-1: 0 1px 2px rgba(59, 42, 32, 0.05), 0 1px 1px rgba(59, 42, 32, 0.03);
+  --ant-shadow-2: 0 8px 24px -8px rgba(59, 42, 32, 0.16);
+
+  /* —— 字体（中文无衬线默认栈）—— */
+  --ant-font-sans: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--ant-background);
+    --color-foreground: var(--ant-foreground);
+    --color-card: var(--ant-card);
+    --color-card-foreground: var(--ant-card-foreground);
+    --color-popover: var(--ant-popover);
+    --color-popover-foreground: var(--ant-popover-foreground);
+    --color-primary: var(--ant-primary);
+    --color-primary-foreground: var(--ant-primary-foreground);
+    --color-muted: var(--ant-muted);
+    --color-muted-foreground: var(--ant-muted-foreground);
+    --color-border: var(--ant-border);
+    --color-input: var(--ant-input);
+    --color-ring: var(--ant-ring);
+    --radius-sm: var(--ant-radius-sm);
+    --radius-md: var(--ant-radius-md);
+    --radius-lg: var(--ant-radius-lg);
+  }
+  @layer base {
+    body { background: var(--ant-background); color: var(--ant-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style id="semantic-token-fallback">
+      .bg-background { background-color: var(--ant-background); }
+      .text-background { color: var(--ant-background); }
+      .border-background { border-color: var(--ant-background); }
+      .ring-background { --tw-ring-color: var(--ant-background); }
+      .bg-foreground { background-color: var(--ant-foreground); }
+      .text-foreground { color: var(--ant-foreground); }
+      .border-foreground { border-color: var(--ant-foreground); }
+      .ring-foreground { --tw-ring-color: var(--ant-foreground); }
+      .bg-card { background-color: var(--ant-card); }
+      .text-card { color: var(--ant-card); }
+      .border-card { border-color: var(--ant-card); }
+      .ring-card { --tw-ring-color: var(--ant-card); }
+      .bg-card-foreground { background-color: var(--ant-card-foreground); }
+      .text-card-foreground { color: var(--ant-card-foreground); }
+      .border-card-foreground { border-color: var(--ant-card-foreground); }
+      .ring-card-foreground { --tw-ring-color: var(--ant-card-foreground); }
+      .bg-popover { background-color: var(--ant-popover); }
+      .text-popover { color: var(--ant-popover); }
+      .border-popover { border-color: var(--ant-popover); }
+      .ring-popover { --tw-ring-color: var(--ant-popover); }
+      .bg-popover-foreground { background-color: var(--ant-popover-foreground); }
+      .text-popover-foreground { color: var(--ant-popover-foreground); }
+      .border-popover-foreground { border-color: var(--ant-popover-foreground); }
+      .ring-popover-foreground { --tw-ring-color: var(--ant-popover-foreground); }
+      .bg-primary { background-color: var(--ant-primary); }
+      .text-primary { color: var(--ant-primary); }
+      .border-primary { border-color: var(--ant-primary); }
+      .ring-primary { --tw-ring-color: var(--ant-primary); }
+      .bg-primary-foreground { background-color: var(--ant-primary-foreground); }
+      .text-primary-foreground { color: var(--ant-primary-foreground); }
+      .border-primary-foreground { border-color: var(--ant-primary-foreground); }
+      .ring-primary-foreground { --tw-ring-color: var(--ant-primary-foreground); }
+      .bg-muted { background-color: var(--ant-muted); }
+      .text-muted { color: var(--ant-muted); }
+      .border-muted { border-color: var(--ant-muted); }
+      .ring-muted { --tw-ring-color: var(--ant-muted); }
+      .bg-muted-foreground { background-color: var(--ant-muted-foreground); }
+      .text-muted-foreground { color: var(--ant-muted-foreground); }
+      .border-muted-foreground { border-color: var(--ant-muted-foreground); }
+      .ring-muted-foreground { --tw-ring-color: var(--ant-muted-foreground); }
+      .bg-border { background-color: var(--ant-border); }
+      .text-border { color: var(--ant-border); }
+      .border-border { border-color: var(--ant-border); }
+      .ring-border { --tw-ring-color: var(--ant-border); }
+      .bg-input { background-color: var(--ant-input); }
+      .text-input { color: var(--ant-input); }
+      .border-input { border-color: var(--ant-input); }
+      .ring-input { --tw-ring-color: var(--ant-input); }
+      .bg-ring { background-color: var(--ant-ring); }
+      .text-ring { color: var(--ant-ring); }
+      .border-ring { border-color: var(--ant-ring); }
+      .ring-ring { --tw-ring-color: var(--ant-ring); }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+    <main>
+      <style>
+        /* ===== 搬运树叶 · 页面样式（critical-layout：纯 CSS 撑起结构，不依赖运行时编译） ===== */
+        body { margin: 0; font-family: var(--ant-font-sans); }
+        main { display: block; }
+        main h1, main h2, main h3, main p, main ul, main figure { margin: 0; }
+        main ul { padding: 0; list-style: none; }
+        main img { display: block; width: 100%; height: auto; }
+        main h1, main h2, main h3 { text-wrap: balance; }
+        svg.lucide { stroke-width: 1.5; }
+        i[data-lucide] { display: inline-flex; flex: none; }
+
+        /* —— 版心（桌面 12 栏容器，最大宽约 1160px） —— */
+        .page-shell { width: min(1160px, 100% - clamp(2.5rem, 6vw, 6rem)); margin-inline: auto; }
+
+        /* —— 图标尺寸（16 / 20） —— */
+        .tag-icon { width: 16px; height: 16px; color: var(--ant-primary); }
+        .stat-icon { width: 20px; height: 20px; color: var(--ant-ink-3); }
+        .footer-icon { width: 16px; height: 16px; color: var(--ant-primary); }
+
+        /* ===== Hero：超大留白首屏 ===== */
+        .hero { padding-block: clamp(5rem, 11vw, 8.75rem); }
+        .hero-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+        .hero-copy { grid-column: span 6; }
+        .hero-figure { grid-column: span 6; }
+        .hero-tags { display: flex; flex-wrap: wrap; gap: 0.625rem; }
+        .tag { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.375rem 0.75rem; border: 1px solid var(--ant-border); border-radius: var(--ant-radius-md); background: var(--ant-card); color: var(--ant-ink-2); font-size: 0.8125rem; font-weight: 500; line-height: 1.4; }
+        .hero-title { margin-top: 1.75rem; font-size: clamp(3.25rem, 7.5vw, 5.5rem); font-weight: 700; line-height: 1.2; letter-spacing: 0.02em; color: var(--ant-foreground); }
+        .hero-title::after { content: ""; display: inline-block; width: 0.13em; height: 0.13em; margin-left: 0.12em; border-radius: 50%; background: var(--ant-primary); }
+        .hero-lead { margin-top: 1.25rem; max-width: 24em; font-size: clamp(1.0625rem, 1.6vw, 1.1875rem); line-height: 1.75; color: var(--ant-ink-2); }
+        .hero-figure img { aspect-ratio: 1 / 1; object-fit: cover; border: 1px solid var(--ant-border); border-radius: var(--ant-radius-lg); transition: transform 0.3s ease; }
+        .hero-figure img:hover { transform: scale(1.02); }
+
+        /* ===== 搬运小档案：中密度信息段（7:5 图文两栏 + 分隔线统计） ===== */
+        .profile { padding-block: clamp(4rem, 8vw, 6.5rem); background: var(--ant-surface-2); }
+        .profile-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+        .profile-copy { grid-column: span 7; }
+        .profile-figure { grid-column: span 5; }
+        .section-title { font-size: clamp(1.625rem, 3vw, 2.125rem); font-weight: 700; line-height: 1.25; color: var(--ant-foreground); }
+        .profile-lead { margin-top: 0.875rem; max-width: 26em; font-size: 1.0625rem; line-height: 1.75; color: var(--ant-ink-2); }
+        .stat-list { margin-top: 2.25rem; border-bottom: 1px solid var(--ant-line); }
+        .stat-item { padding: 1.125rem 0; border-top: 1px solid var(--ant-line); border-radius: var(--ant-radius-md); transition: background-color 0.25s ease; }
+        .stat-item:hover { background-color: var(--ant-card); }
+        .stat-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+        .stat-value { font-size: clamp(1.75rem, 3vw, 2.375rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; color: var(--ant-foreground); font-variant-numeric: tabular-nums; }
+        .stat-unit { margin-left: 0.3em; font-size: 0.45em; font-weight: 500; color: var(--ant-ink-3); }
+        .stat-label { margin-top: 0.375rem; font-size: 0.875rem; line-height: 1.5; color: var(--ant-muted-foreground); }
+        .stat-icon { transition: color 0.25s ease; }
+        .stat-item:hover .stat-icon { color: var(--ant-primary); }
+        .profile-figure img { aspect-ratio: 1 / 1; object-fit: cover; border: 1px solid var(--ant-border); border-radius: var(--ant-radius-lg); }
+
+        /* ===== 页脚 ===== */
+        .site-footer { padding-block: clamp(2.75rem, 5vw, 3.75rem); border-top: 1px solid var(--ant-line); }
+        .footer-inner { display: flex; flex-direction: column; gap: 0.5rem; }
+        .footer-brand { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9375rem; font-weight: 500; line-height: 1.5; color: var(--ant-foreground); }
+        .footer-note { font-size: 0.875rem; line-height: 1.7; color: var(--ant-muted-foreground); }
+
+        /* —— 响应式：平板 8 栏 —— */
+        @media (max-width: 1023px) {
+          .hero-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+          .hero-copy, .hero-figure { grid-column: span 4; }
+          .profile-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+          .profile-copy { grid-column: span 5; }
+          .profile-figure { grid-column: span 3; }
+        }
+
+        /* —— 响应式：移动端单列堆叠 —— */
+        @media (max-width: 767px) {
+          .hero { padding-block: clamp(3.25rem, 12vw, 5rem); }
+          .hero-grid, .profile-grid { grid-template-columns: minmax(0, 1fr); }
+          .hero-copy, .hero-figure, .profile-copy, .profile-figure { grid-column: 1 / -1; }
+        }
+
+        /* —— 动效降级 —— */
+        @media (prefers-reduced-motion: reduce) {
+          .hero-figure img, .stat-item, .stat-icon { transition: none; }
+          .hero-figure img:hover { transform: none; }
+        }
+      </style>
+
+      <!-- Hero：超大留白首屏 -->
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="page-shell hero-grid">
+          <div class="hero-copy">
+            <div class="hero-tags">
+              <span class="tag"><i data-lucide="leaf" class="tag-icon" aria-hidden="true"></i>自然观察</span>
+              <span class="tag"><i data-lucide="dumbbell" class="tag-icon" aria-hidden="true"></i>大力士</span>
+            </div>
+            <h1 class="hero-title" id="hero-title">搬运树叶</h1>
+            <p class="hero-lead">一片叶子，既是伞，也是口粮——草叶下的大力士，正在搬运的路上。</p>
+          </div>
+          <figure class="hero-figure">
+            <img src="../assets/ant-carrying-leaf.jpg" alt="头顶举着大片绿叶的小蚂蚁，绘本风插画">
+          </figure>
+        </div>
+      </section>
+
+      <!-- 搬运小档案：7:5 图文两栏 + 分隔线式统计 -->
+      <section class="profile" aria-labelledby="profile-title">
+        <div class="page-shell profile-grid">
+          <div class="profile-copy">
+            <h2 class="section-title" id="profile-title">搬运小档案</h2>
+            <p class="profile-lead">个子小小，力气大大。每一次搬运，都是一场稳稳当当的远行。</p>
+            <ul class="stat-list">
+              <li class="stat-item">
+                <div class="stat-row">
+                  <span class="stat-value">3–25<span class="stat-unit">毫米</span></span>
+                  <i data-lucide="ruler" class="stat-icon" aria-hidden="true"></i>
+                </div>
+                <p class="stat-label">常见蚂蚁身长</p>
+              </li>
+              <li class="stat-item">
+                <div class="stat-row">
+                  <span class="stat-value">50<span class="stat-unit">倍</span></span>
+                  <i data-lucide="dumbbell" class="stat-icon" aria-hidden="true"></i>
+                </div>
+                <p class="stat-label">可举起约自身体重的物体</p>
+              </li>
+              <li class="stat-item">
+                <div class="stat-row">
+                  <span class="stat-value">1<span class="stat-unit">片</span></span>
+                  <i data-lucide="leaf" class="stat-icon" aria-hidden="true"></i>
+                </div>
+                <p class="stat-label">举过头顶的绿叶，比身体大出好几圈</p>
+              </li>
+              <li class="stat-item">
+                <div class="stat-row">
+                  <span class="stat-value">2<span class="stat-unit">种身份</span></span>
+                  <i data-lucide="umbrella" class="stat-icon" aria-hidden="true"></i>
+                </div>
+                <p class="stat-label">一片叶子，路上是伞，到家是口粮</p>
+              </li>
+            </ul>
+          </div>
+          <figure class="profile-figure">
+            <img src="../assets/ant-carrying-leaf.jpg" alt="小蚂蚁头顶稳稳举着一片绿叶，走在回家的路上">
+          </figure>
+        </div>
+      </section>
+
+      <!-- 页脚 -->
+      <footer class="site-footer">
+        <div class="page-shell footer-inner">
+          <p class="footer-brand"><i data-lucide="sprout" class="footer-icon" aria-hidden="true"></i>小蚂蚁画布 · 自然观察系列</p>
+          <p class="footer-note">观察微小生命，记录大地的颜色。</p>
+        </div>
+      </footer>
+    </main>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

@@ -1,7 +1,4 @@
 {
-  "name": "小蚂蚁画布",
-  "version": 1,
-  "description": "一只小蚂蚁的主题展示画布",
   "data": [
     {
       "id": "page-index",
@@ -9,14 +6,69 @@
       "type": "page",
       "version": 1,
       "createdAt": 1794049200000,
-      "devMetadata": {
-        "htmlSrc": "pages/index.html",
-        "interactions": []
-      },
       "canvasData": {
         "x": 0,
         "y": 0,
+        "group": 0,
+        "layoutSnapshot": {
+          "version": 1,
+          "contentHeight": 2496,
+          "viewportWidth": 1440,
+          "sourceHash": "fnv1a-3c34aefb",
+          "measuredAt": 1794036914814
+        }
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/index.html",
+        "interactions": []
+      }
+    },
+    {
+      "id": "page-hero-ant",
+      "title": "小蚂蚁主视觉",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1794050400000,
+      "canvasData": {
+        "x": 480,
+        "y": 0,
         "group": 0
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/hero-ant.html",
+        "interactions": []
+      }
+    },
+    {
+      "id": "page-ant-carrying-leaf",
+      "title": "搬运树叶",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1794050400001,
+      "canvasData": {
+        "x": 960,
+        "y": 0,
+        "group": 0
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/ant-carrying-leaf.html",
+        "interactions": []
+      }
+    },
+    {
+      "id": "page-ant-teamwork",
+      "title": "蚂蚁协作",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1794050400002,
+      "canvasData": {
+        "x": 1440,
+        "y": 0,
+        "group": 0
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/ant-teamwork.html",
+        "interactions": []
       }
     },
     {
@@ -25,12 +77,16 @@
       "type": "image",
       "version": 1,
       "createdAt": 1794036102188,
-      "devMetadata": {
-        "imageSrc": "assets/hero-ant.jpg"
-      },
       "canvasData": {
         "x": 0,
-        "y": 0
+        "y": 373,
+        "naturalSize": {
+          "width": 2240,
+          "height": 1680
+        }
+      },
+      "devMetadata": {
+        "imageSrc": "assets/hero-ant.jpg"
       }
     },
     {
@@ -39,12 +95,16 @@
       "type": "image",
       "version": 1,
       "createdAt": 1794036102189,
+      "canvasData": {
+        "x": 480,
+        "y": 373,
+        "naturalSize": {
+          "width": 1920,
+          "height": 1920
+        }
+      },
       "devMetadata": {
         "imageSrc": "assets/ant-carrying-leaf.jpg"
-      },
-      "canvasData": {
-        "x": 0,
-        "y": 0
       }
     },
     {
@@ -53,12 +113,16 @@
       "type": "image",
       "version": 1,
       "createdAt": 1794036102190,
+      "canvasData": {
+        "x": 960,
+        "y": 373,
+        "naturalSize": {
+          "width": 1920,
+          "height": 1920
+        }
+      },
       "devMetadata": {
         "imageSrc": "assets/ant-teamwork.jpg"
-      },
-      "canvasData": {
-        "x": 0,
-        "y": 0
       }
     }
   ],

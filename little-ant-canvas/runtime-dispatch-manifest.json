@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-11-07T07:22:46.228Z",
+  "generated_at": "2026-11-07T08:20:04.840Z",
   "source": "build-page-dispatch-manifest.mjs",
-  "mode": "free-fast",
+  "mode": "existing-edit",
   "summary_path": "runtime-orchestration-summary.json",
   "skillProvenance": {
     "name": "solo-design",
@@ -12,23 +12,29 @@
   },
   "dispatchPreflightManifest": [
     {
-      "recorded_at": "2026-11-07T07:22:46.225Z",
+      "recorded_at": "2026-11-07T08:20:04.836Z",
       "generatedBy": "build-page-dispatch-manifest.mjs",
-      "packetType": "FreePagePacket",
+      "packetType": "ExistingEditPagePacket",
       "laneContract": {
-        "resolvedLane": "free_exploration",
-        "packetType": "FreePagePacket",
-        "pageRuntimeGuide": "intent-workflows/intent-page-free-exploration/free-exploration-page-runtime.md",
-        "dispatchContract": "intent-workflows/intent-page-free-exploration/dispatch-contract.md"
+        "resolvedLane": "existing_edit_add_comparison",
+        "packetType": "ExistingEditPagePacket",
+        "pageRuntimeGuide": "intent-workflows/intent-project-mutation/existing-edit-page-runtime.md",
+        "dispatchContract": "intent-workflows/intent-project-mutation/existing-edit-dispatch-contract.md"
       },
       "taskLinePresent": true,
       "outputPathPresent": true,
-      "sharedTemplate": "intent-workflows/intent-page-free-exploration/free-exploration-page-runtime.md",
-      "nodeId": "page-index",
-      "htmlSrc": "pages/index.html",
-      "supplementaryReads": [],
+      "sharedTemplate": "intent-workflows/intent-project-mutation/existing-edit-page-runtime.md",
+      "nodeId": "page-hero-ant",
+      "htmlSrc": "pages/hero-ant.html",
+      "supplementaryReads": [
+        {
+          "path": "shared-runtime/agent-dispatch-runtime/shared-page-rendering-kernel.md",
+          "reason": "突变 lane 声明的共享渲染内核（Declared Load），页面子代理必须遵守其通用规则与完成 JSON 基线",
+          "ownerLane": "existing_edit_add_comparison"
+        }
+      ],
       "allowedWritePaths": [
-        "pages/index.html",
+        "pages/hero-ant.html",
         "assets/"
       ],
       "forbiddenWriteRoots": [
@@ -46,7 +52,7 @@
         "helperScriptsAllowed": false,
         "designFileWriteAllowed": false,
         "allowedWritePaths": [
-          "pages/index.html",
+          "pages/hero-ant.html",
           "assets/"
         ]
       },
@@ -68,37 +74,265 @@
         "pathInjection": "absolute",
         "pathContract": "Do not use {SKILL_DIR} placeholders inside Page Sub-Agent packets; use toolPaths.* absolute paths.",
         "commandTemplates": {
-          "recordDispatchCompletion": "node '/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/record-dispatch-completion.mjs' '/workspace/little-ant-canvas' --node-id='page-index' --html-src='pages/index.html' --status=completed --changed-files=<comma-separated-project-relative-files> --trace-digest=<main-agent-runtime-trace-digest> --tool-ledger-json=<tool-ledger-json-or-file>"
+          "recordDispatchCompletion": "node '/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/record-dispatch-completion.mjs' '/workspace/little-ant-canvas' --node-id='page-hero-ant' --html-src='pages/hero-ant.html' --status=completed --changed-files=<comma-separated-project-relative-files> --trace-digest=<main-agent-runtime-trace-digest> --tool-ledger-json=<tool-ledger-json-or-file>"
         }
       },
       "cssFilePath": "/workspace/little-ant-canvas/colors_and_type.css",
-      "htmlFilePath": "/workspace/little-ant-canvas/pages/index.html",
+      "htmlFilePath": "/workspace/little-ant-canvas/pages/hero-ant.html",
       "brandPrefix": "ant",
       "aestheticsMode": "free-explore",
       "toolDisciplineBlockPresent": true,
-      "fillHtmlHeadCommand": "node '/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/apply-html-head-contract.mjs' '/workspace/little-ant-canvas/colors_and_type.css' '/workspace/little-ant-canvas/pages/index.html' --title='小蚂蚁' --lang='zh-CN' --prefix='ant'",
+      "fillHtmlHeadCommand": "node '/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/apply-html-head-contract.mjs' '/workspace/little-ant-canvas/colors_and_type.css' '/workspace/little-ant-canvas/pages/hero-ant.html' --title='小蚂蚁主视觉' --lang='zh-CN' --prefix='ant'",
       "headFillMode": "skeleton-first",
       "viewportMode": "document-scroll",
-      "completionSchemaExpected": "compact",
+      "completionSchemaExpected": "full",
       "restoreFields": null,
       "restoreContractStatus": null,
       "restoreCompactPacket": null,
       "deterministicCommands": null,
       "sourceAuthorityLock": null,
       "preDispatchFileHashes": {
-        "little-ant-canvas.design": "a6ab59ab73509dd284f663d65efd789d8ab47acbd70b1b34f35253f9e5f097c0"
+        "little-ant-canvas.design": "ea8835a7f842f889f877a5fe87676f53dab9f24eb17a5cb5b7f65a6c261297d9"
       },
       "contextPreflight": {
-        "workflowPath": "intent-workflows/intent-page-free-exploration/INTENT_WORKFLOW.md",
+        "workflowPath": "intent-workflows/intent-project-mutation/INTENT_WORKFLOW.md",
         "requiredContextFiles": [
           "shared-runtime/runtime-boundaries/lane-runtime-contracts.md",
           "shared-runtime/agent-dispatch-runtime/lane-dispatch-index.md",
+          "shared-runtime/agent-dispatch-runtime/shared-page-rendering-kernel.md",
           "delivery-quality/page-rendering-quality-gate.md",
           "delivery-quality/design-artifact-validation.md",
-          "delivery-quality/delivery-evidence-contract.md",
+          "delivery-quality/delivery-evidence-contract.md"
+        ],
+        "optionalContextFiles": [
           "visual-experience/visual-experience-guidelines.md"
         ],
-        "optionalContextFiles": [],
+        "passed": true
+      },
+      "pageSliceOnly": true,
+      "requiredFieldsPresent": true,
+      "missingFields": [],
+      "fillHtmlHeadCommandValid": true,
+      "mobileNavigation": {
+        "required": false,
+        "appliesToThisPage": false,
+        "canonicalHtmlIncluded": false,
+        "missingFields": []
+      },
+      "persistedToSummary": true,
+      "taskQueryAudited": false,
+      "proofSource": "summary-only",
+      "largeWorkflowFilesInTaskQuery": null
+    },
+    {
+      "recorded_at": "2026-11-07T08:20:04.836Z",
+      "generatedBy": "build-page-dispatch-manifest.mjs",
+      "packetType": "ExistingEditPagePacket",
+      "laneContract": {
+        "resolvedLane": "existing_edit_add_comparison",
+        "packetType": "ExistingEditPagePacket",
+        "pageRuntimeGuide": "intent-workflows/intent-project-mutation/existing-edit-page-runtime.md",
+        "dispatchContract": "intent-workflows/intent-project-mutation/existing-edit-dispatch-contract.md"
+      },
+      "taskLinePresent": true,
+      "outputPathPresent": true,
+      "sharedTemplate": "intent-workflows/intent-project-mutation/existing-edit-page-runtime.md",
+      "nodeId": "page-ant-carrying-leaf",
+      "htmlSrc": "pages/ant-carrying-leaf.html",
+      "supplementaryReads": [
+        {
+          "path": "shared-runtime/agent-dispatch-runtime/shared-page-rendering-kernel.md",
+          "reason": "突变 lane 声明的共享渲染内核（Declared Load），页面子代理必须遵守其通用规则与完成 JSON 基线",
+          "ownerLane": "existing_edit_add_comparison"
+        }
+      ],
+      "allowedWritePaths": [
+        "pages/ant-carrying-leaf.html",
+        "assets/"
+      ],
+      "forbiddenWriteRoots": [
+        "*.design",
+        "runtime-orchestration-summary.json",
+        "validation-report.json",
+        "finish-readiness-report.json",
+        "restore-contract-report.json",
+        "page-generation-summary.json"
+      ],
+      "toolPolicy": {
+        "todoWriteAllowed": false,
+        "validationScriptsAllowed": false,
+        "previewAllowed": false,
+        "helperScriptsAllowed": false,
+        "designFileWriteAllowed": false,
+        "allowedWritePaths": [
+          "pages/ant-carrying-leaf.html",
+          "assets/"
+        ]
+      },
+      "skillRuntime": {
+        "skillDir": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design",
+        "deterministicToolDir": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling",
+        "toolPaths": {
+          "applyHtmlHeadContract": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/apply-html-head-contract.mjs",
+          "recordDispatchCompletion": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/record-dispatch-completion.mjs",
+          "buildPageDispatchManifest": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/build-page-dispatch-manifest.mjs",
+          "validateDesignWorkspace": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/validate-design-workspace.mjs",
+          "validateFinishReadiness": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/validate-finish-readiness.mjs",
+          "validateRestoreContract": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/validate-restore-contract.mjs"
+        },
+        "requiredForPageSubAgent": [
+          "applyHtmlHeadContract",
+          "recordDispatchCompletion"
+        ],
+        "pathInjection": "absolute",
+        "pathContract": "Do not use {SKILL_DIR} placeholders inside Page Sub-Agent packets; use toolPaths.* absolute paths.",
+        "commandTemplates": {
+          "recordDispatchCompletion": "node '/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/record-dispatch-completion.mjs' '/workspace/little-ant-canvas' --node-id='page-ant-carrying-leaf' --html-src='pages/ant-carrying-leaf.html' --status=completed --changed-files=<comma-separated-project-relative-files> --trace-digest=<main-agent-runtime-trace-digest> --tool-ledger-json=<tool-ledger-json-or-file>"
+        }
+      },
+      "cssFilePath": "/workspace/little-ant-canvas/colors_and_type.css",
+      "htmlFilePath": "/workspace/little-ant-canvas/pages/ant-carrying-leaf.html",
+      "brandPrefix": "ant",
+      "aestheticsMode": "free-explore",
+      "toolDisciplineBlockPresent": true,
+      "fillHtmlHeadCommand": "node '/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/apply-html-head-contract.mjs' '/workspace/little-ant-canvas/colors_and_type.css' '/workspace/little-ant-canvas/pages/ant-carrying-leaf.html' --title='搬运树叶' --lang='zh-CN' --prefix='ant'",
+      "headFillMode": "skeleton-first",
+      "viewportMode": "document-scroll",
+      "completionSchemaExpected": "full",
+      "restoreFields": null,
+      "restoreContractStatus": null,
+      "restoreCompactPacket": null,
+      "deterministicCommands": null,
+      "sourceAuthorityLock": null,
+      "preDispatchFileHashes": {
+        "little-ant-canvas.design": "ea8835a7f842f889f877a5fe87676f53dab9f24eb17a5cb5b7f65a6c261297d9"
+      },
+      "contextPreflight": {
+        "workflowPath": "intent-workflows/intent-project-mutation/INTENT_WORKFLOW.md",
+        "requiredContextFiles": [
+          "shared-runtime/runtime-boundaries/lane-runtime-contracts.md",
+          "shared-runtime/agent-dispatch-runtime/lane-dispatch-index.md",
+          "shared-runtime/agent-dispatch-runtime/shared-page-rendering-kernel.md",
+          "delivery-quality/page-rendering-quality-gate.md",
+          "delivery-quality/design-artifact-validation.md",
+          "delivery-quality/delivery-evidence-contract.md"
+        ],
+        "optionalContextFiles": [
+          "visual-experience/visual-experience-guidelines.md"
+        ],
+        "passed": true
+      },
+      "pageSliceOnly": true,
+      "requiredFieldsPresent": true,
+      "missingFields": [],
+      "fillHtmlHeadCommandValid": true,
+      "mobileNavigation": {
+        "required": false,
+        "appliesToThisPage": false,
+        "canonicalHtmlIncluded": false,
+        "missingFields": []
+      },
+      "persistedToSummary": true,
+      "taskQueryAudited": false,
+      "proofSource": "summary-only",
+      "largeWorkflowFilesInTaskQuery": null
+    },
+    {
+      "recorded_at": "2026-11-07T08:20:04.836Z",
+      "generatedBy": "build-page-dispatch-manifest.mjs",
+      "packetType": "ExistingEditPagePacket",
+      "laneContract": {
+        "resolvedLane": "existing_edit_add_comparison",
+        "packetType": "ExistingEditPagePacket",
+        "pageRuntimeGuide": "intent-workflows/intent-project-mutation/existing-edit-page-runtime.md",
+        "dispatchContract": "intent-workflows/intent-project-mutation/existing-edit-dispatch-contract.md"
+      },
+      "taskLinePresent": true,
+      "outputPathPresent": true,
+      "sharedTemplate": "intent-workflows/intent-project-mutation/existing-edit-page-runtime.md",
+      "nodeId": "page-ant-teamwork",
+      "htmlSrc": "pages/ant-teamwork.html",
+      "supplementaryReads": [
+        {
+          "path": "shared-runtime/agent-dispatch-runtime/shared-page-rendering-kernel.md",
+          "reason": "突变 lane 声明的共享渲染内核（Declared Load），页面子代理必须遵守其通用规则与完成 JSON 基线",
+          "ownerLane": "existing_edit_add_comparison"
+        }
+      ],
+      "allowedWritePaths": [
+        "pages/ant-teamwork.html",
+        "assets/"
+      ],
+      "forbiddenWriteRoots": [
+        "*.design",
+        "runtime-orchestration-summary.json",
+        "validation-report.json",
+        "finish-readiness-report.json",
+        "restore-contract-report.json",
+        "page-generation-summary.json"
+      ],
+      "toolPolicy": {
+        "todoWriteAllowed": false,
+        "validationScriptsAllowed": false,
+        "previewAllowed": false,
+        "helperScriptsAllowed": false,
+        "designFileWriteAllowed": false,
+        "allowedWritePaths": [
+          "pages/ant-teamwork.html",
+          "assets/"
+        ]
+      },
+      "skillRuntime": {
+        "skillDir": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design",
+        "deterministicToolDir": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling",
+        "toolPaths": {
+          "applyHtmlHeadContract": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/apply-html-head-contract.mjs",
+          "recordDispatchCompletion": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/record-dispatch-completion.mjs",
+          "buildPageDispatchManifest": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/build-page-dispatch-manifest.mjs",
+          "validateDesignWorkspace": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/validate-design-workspace.mjs",
+          "validateFinishReadiness": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/validate-finish-readiness.mjs",
+          "validateRestoreContract": "/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/validate-restore-contract.mjs"
+        },
+        "requiredForPageSubAgent": [
+          "applyHtmlHeadContract",
+          "recordDispatchCompletion"
+        ],
+        "pathInjection": "absolute",
+        "pathContract": "Do not use {SKILL_DIR} placeholders inside Page Sub-Agent packets; use toolPaths.* absolute paths.",
+        "commandTemplates": {
+          "recordDispatchCompletion": "node '/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/record-dispatch-completion.mjs' '/workspace/little-ant-canvas' --node-id='page-ant-teamwork' --html-src='pages/ant-teamwork.html' --status=completed --changed-files=<comma-separated-project-relative-files> --trace-digest=<main-agent-runtime-trace-digest> --tool-ledger-json=<tool-ledger-json-or-file>"
+        }
+      },
+      "cssFilePath": "/workspace/little-ant-canvas/colors_and_type.css",
+      "htmlFilePath": "/workspace/little-ant-canvas/pages/ant-teamwork.html",
+      "brandPrefix": "ant",
+      "aestheticsMode": "free-explore",
+      "toolDisciplineBlockPresent": true,
+      "fillHtmlHeadCommand": "node '/data/user/plugins/trae-remote-official/trae-design/0.1.3/skills/solo-design/shared-runtime/deterministic-tooling/apply-html-head-contract.mjs' '/workspace/little-ant-canvas/colors_and_type.css' '/workspace/little-ant-canvas/pages/ant-teamwork.html' --title='蚂蚁协作' --lang='zh-CN' --prefix='ant'",
+      "headFillMode": "skeleton-first",
+      "viewportMode": "document-scroll",
+      "completionSchemaExpected": "full",
+      "restoreFields": null,
+      "restoreContractStatus": null,
+      "restoreCompactPacket": null,
+      "deterministicCommands": null,
+      "sourceAuthorityLock": null,
+      "preDispatchFileHashes": {
+        "little-ant-canvas.design": "ea8835a7f842f889f877a5fe87676f53dab9f24eb17a5cb5b7f65a6c261297d9"
+      },
+      "contextPreflight": {
+        "workflowPath": "intent-workflows/intent-project-mutation/INTENT_WORKFLOW.md",
+        "requiredContextFiles": [
+          "shared-runtime/runtime-boundaries/lane-runtime-contracts.md",
+          "shared-runtime/agent-dispatch-runtime/lane-dispatch-index.md",
+          "shared-runtime/agent-dispatch-runtime/shared-page-rendering-kernel.md",
+          "delivery-quality/page-rendering-quality-gate.md",
+          "delivery-quality/design-artifact-validation.md",
+          "delivery-quality/delivery-evidence-contract.md"
+        ],
+        "optionalContextFiles": [
+          "visual-experience/visual-experience-guidelines.md"
+        ],
         "passed": true
       },
       "pageSliceOnly": true,
@@ -118,6 +352,8 @@
     }
   ],
   "deterministicCommandsByPage": {
-    "pages/index.html": {}
+    "pages/hero-ant.html": {},
+    "pages/ant-carrying-leaf.html": {},
+    "pages/ant-teamwork.html": {}
   }
 }

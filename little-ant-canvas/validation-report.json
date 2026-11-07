@@ -83,16 +83,19 @@
     ]
   },
   "projectFileHashes": {
-    "little-ant-canvas.design": "a6ab59ab73509dd284f663d65efd789d8ab47acbd70b1b34f35253f9e5f097c0",
+    "little-ant-canvas.design": "ea8835a7f842f889f877a5fe87676f53dab9f24eb17a5cb5b7f65a6c261297d9",
     "colors_and_type.css": "7a2c05b11070db59709548f16b1d4c413efbcc42863d801d5802cfada4990cd8",
-    "runtime-orchestration-summary.json": "d36c0a53dd1a220ad8348b0084575d6b0074e2ec6b8695e64dac6ccbd1a2b57c",
+    "runtime-orchestration-summary.json": "fb75a39bb97c25dea84d2d7ede412f008ba10707667260c4d2a8516a2c91c002",
+    "pages/ant-carrying-leaf.html": "5c83ec161836cc1155839759dcc573ca4d77daeb82674208d28518bad175cda9",
+    "pages/ant-teamwork.html": "de43c99901e372b9db2e52fa83f07734b2ef6420d16528ba3af56dde1ad80812",
+    "pages/hero-ant.html": "e0bb3fc6f28a2dd31f37e559dc34f856bfd540526681f928e210bee3aba89f5a",
     "pages/index.html": "244d9cc282b0c6b12701f4ad6a751ae306f0c252373736845934ed4d7431a46a",
     "assets/ant-carrying-leaf.jpg": "404077d84705c93485ddae93cd492dc1373cdfa3eb9a781562e768b4cf22b377",
     "assets/ant-teamwork.jpg": "b95e2bcc3411ac356175e32f66a874718ab15d13c5be42558284e538aaba6794",
     "assets/hero-ant.jpg": "d0a4129ac2017afbdb1f3a5dc8666c834a5f89e66e1a9c45d9d4d1da75e76835"
   },
   "designDir": "/workspace/little-ant-canvas",
-  "expectedPages": 1,
+  "expectedPages": 4,
   "requireInteractions": null,
-  "checkedAt": "2026-11-07T07:33:57.066Z"
+  "checkedAt": "2026-11-07T08:28:13.766Z"
 }
