@@ -36,26 +36,34 @@
     border-bottom: 1px solid #ececf0;
     display: flex;
     align-items: center;
-    padding: 0 28px;
-    gap: 24px;
+    padding: 0 clamp(8px, 2vw, 28px);
+    gap: clamp(6px, 1.6vw, 24px);
+    height: clamp(44px, 5vw, 64px);
     position: sticky; top: 0; z-index: 40;
   }
   .doc-title {
-    font-size: 17px;
+    font-size: clamp(11px, 1.4vw, 17px);
     font-weight: 700;
-    min-width: 140px;
-    display: flex; align-items: center; gap: 10px;
+    min-width: 0;
+    white-space: nowrap;
+    display: flex; align-items: center; gap: clamp(5px, .8vw, 10px);
   }
   .doc-title .doc-ico {
-    width: 30px; height: 30px; border-radius: 9px;
+    width: clamp(20px, 2.6vw, 30px);
+    height: clamp(20px, 2.6vw, 30px);
+  }
+  .doc-title .doc-ico svg { width: clamp(11px, 1.4vw, 17px); height: clamp(11px, 1.4vw, 17px); }
+  .doc-title .doc-ico {
+    border-radius: 9px;
     background: linear-gradient(135deg, #7b7bff, #b388ff);
     display:flex; align-items:center; justify-content:center;
     color:#fff;
   }
-  .tool-actions { display:flex; gap:12px; flex:1; justify-content:center; }
+  .tool-actions { display:flex; gap:clamp(5px, .9vw, 12px); flex:1; justify-content:center; }
   .tool-btn {
-    width: 46px; height: 46px;
-    border-radius: 13px;
+    width: clamp(28px, 3.4vw, 46px);
+    height: clamp(28px, 3.4vw, 46px);
+    border-radius: clamp(8px, 1vw, 13px);
     border: 1px solid #e8e9ee;
     background: #f7f8fa;
     cursor: pointer;
@@ -65,58 +73,59 @@
   }
   .tool-btn:hover { background:#eef0f4; transform: translateY(-2px); }
   .tool-btn.active { background: var(--ink); color:#fff; border-color:var(--ink); }
-  .tool-btn svg { width:20px; height:20px; }
+  .tool-btn svg { width: clamp(12px, 1.5vw, 20px); height: clamp(12px, 1.5vw, 20px); }
   .export-btn {
     display:flex; align-items:center; gap:8px;
-    padding: 0 20px; height: 44px;
-    border:none; border-radius: 12px;
+    padding: 0 clamp(8px, 1.4vw, 20px); height: clamp(30px, 3.4vw, 44px);
+    border:none; border-radius: clamp(8px, .9vw, 12px);
     background: var(--ink); color:#fff;
-    font-size: 14px; font-weight: 600;
+    font-size: clamp(10px, 1.1vw, 14px); font-weight: 600;
+    white-space: nowrap;
     cursor:pointer; transition: all .2s;
   }
   .export-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(22,24,35,.25); }
-  .export-btn svg { width:16px; height:16px; }
+  .export-btn svg { width: clamp(11px, 1.2vw, 16px); height: clamp(11px, 1.2vw, 16px); }
 
   /* ============ 画布工作区 ============ */
   .canvas-area {
-    padding: 56px 40px 30px;
+    padding: clamp(12px, 3vw, 56px) clamp(6px, 2vw, 40px) clamp(10px, 2vw, 30px);
     display:flex; flex-direction:column; align-items:center;
   }
   .board {
     position: relative;
     width: min(1080px, 100%);
     background: var(--board-bg);
-    border-radius: 22px;
+    border-radius: clamp(10px, 1.6vw, 22px);
     border: 1px solid #ececf0;
     box-shadow: 0 18px 60px rgba(20,24,40,.08);
-    padding: 74px 60px 70px;
+    padding: clamp(38px, 5vw, 74px) clamp(10px, 4vw, 60px) clamp(24px, 5vw, 70px);
     overflow: visible;
   }
   .columns {
     display:flex;
     align-items:flex-start;
     justify-content:center;
-    gap: clamp(30px, 6vw, 96px);
+    gap: clamp(20px, 3.2vw, 96px);
     position: relative;
     z-index: 2;
   }
-  .col { display:flex; flex-direction:column; align-items:center; gap:16px; }
+  .col { display:flex; flex-direction:column; align-items:center; gap: clamp(6px, 1.2vw, 16px); }
 
   /* 画布标签 */
   .chip {
-    display:inline-flex; align-items:center; gap:7px;
+    display:inline-flex; align-items:center; gap:clamp(3px, .5vw, 7px);
     background: var(--chip-bg);
     border: 1px solid #e9ebf0;
     border-radius: 999px;
-    padding: 8px 16px;
-    font-size: 13.5px; font-weight: 600;
+    padding: clamp(3px, .55vw, 8px) clamp(6px, 1.1vw, 16px);
+    font-size: clamp(7.5px, 1.05vw, 13.5px); font-weight: 600;
     color: #3c404a;
     white-space: nowrap;
     transition: all .25s;
   }
-  .chip svg { width:14px; height:14px; color:#6b7080; }
+  .chip svg { width:clamp(8px, .95vw, 14px); height:clamp(8px, .95vw, 14px); color:#6b7080; }
   .chip .chip-id {
-    font-size: 10.5px; font-weight: 500;
+    font-size: clamp(6px, .78vw, 10.5px); font-weight: 500;
     color:#9aa0ad; font-family:'SF Mono',Consolas,monospace;
     margin-left: 2px;
   }
@@ -129,14 +138,14 @@
   /* 黑色画布卡片（手机壳外框） */
   .art-card {
     background: #000;
-    border-radius: 18px;
-    padding: 18px;
+    border-radius: clamp(8px, 1.2vw, 18px);
+    padding: clamp(5px, 1.1vw, 18px);
     box-shadow: 0 14px 40px rgba(0,0,0,.28);
     cursor: pointer;
     transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s;
   }
-  .art-card.size-l { width: 252px; }
-  .art-card.size-m { width: 222px; }
+  .art-card.size-l { width: clamp(86px, 22.5vw, 252px); }
+  .art-card.size-m { width: clamp(74px, 19.6vw, 222px); }
   .art-card:hover { transform: translateY(-6px); }
   .art-card.pulse {
     transform: translateY(-8px) scale(1.035);
@@ -154,14 +163,14 @@
     position: relative;
     width: 100%;
     aspect-ratio: 9 / 19.4;
-    border-radius: 26px;
+    border-radius: clamp(10px, 2.2vw, 26px);
     border: 1.5px solid #33363f;
     overflow: hidden;
     background: var(--dy-bg);
-    font-size: 11px;
+    font-size: clamp(4.4px, .88vw, 11px);
     color: var(--dy-text);
   }
-  .phone.sm { font-size: 9.6px; }
+  .phone.sm { font-size: clamp(3.9px, .77vw, 9.6px); }
   .phone .notch {
     position:absolute; top:.7em; left:50%; transform:translateX(-50%);
     width: 5.4em; height: 1.5em;
@@ -395,8 +404,8 @@
     background:#fff;
     border:1px solid #e2e4ea;
     border-radius:99px;
-    padding:3px 10px;
-    font-size:11px; font-weight:700;
+    padding: clamp(1px, .28vw, 3px) clamp(4px, .8vw, 10px);
+    font-size: clamp(6.5px, .82vw, 11px); font-weight:700;
     color:#6b7080;
     white-space:nowrap;
     box-shadow:0 3px 10px rgba(0,0,0,.08);
@@ -410,9 +419,11 @@
 
   /* 底部提示条 */
   .hint-bar {
-    margin-top:26px;
-    display:flex; gap:26px; flex-wrap:wrap; justify-content:center;
-    font-size:12.5px; color:#7c818c;
+    margin-top: clamp(10px, 1.6vw, 26px);
+    display:flex; gap: clamp(8px, 1.6vw, 26px); flex-wrap:wrap; justify-content:center;
+    font-size: clamp(8.5px, 1vw, 12.5px); color:#7c818c;
+    padding: 0 clamp(6px, 2vw, 0px);
+    text-align:center;
   }
   .hint-bar b { color:#3c404a; font-weight:700; }
   .hint-bar .kbd {
@@ -440,10 +451,16 @@
     border-radius:4px;
   }
 
-  @media (max-width: 900px) {
-    .columns { flex-direction:column; align-items:center; }
-    .board { padding: 50px 24px; }
-    .links { display:none; }
+  /* 窄屏（IDE 预览面板）也保持三机横排 + 连线，仅精简文字 */
+  @media (max-width: 760px) {
+    .chip .chip-id { display: none; }
+    .hint-bar span:nth-child(3) { display: none; }
+    .link-pill { font-size: 6.5px; padding: 1px 4px; }
+  }
+  @media (max-width: 520px) {
+    .chip svg { display: none; }
+    .link-pill { font-size: 6px; }
+    .toast { font-size: 11px; padding: 8px 14px; bottom: 12px; }
   }
 </style>
 </head>
@@ -791,7 +808,8 @@ function drawLinks() {
   };
 
   const cat = rel(chipOf('cat')), cow = rel(chipOf('cow')), intro = rel(chipOf('intro'));
-  const GAP = 14;
+  const GAP = Math.max(8, Math.min(16, bRect.width * 0.014));
+  const arcH = Math.max(26, Math.min(56, bRect.width * 0.052));
 
   function makePath(d, type, label, lx, ly, marker) {
     const p = el('path', {
@@ -834,11 +852,11 @@ function drawLinks() {
   // ③ 动物介绍 → 小猫（顶部弧线）
   const sx = intro.cx, sy = intro.t - 2;
   const ex = cat.cx, ey = cat.t - 2;
-  const topY = Math.min(sy, ey) - 56;
+  const topY = Math.min(sy, ey) - arcH;
   makePath(
     `M ${sx} ${sy} C ${sx} ${topY}, ${ex} ${topY}, ${ex} ${ey}`,
     'jump', '档案总览 →',
-    (sx + ex) / 2 - 40, topY - 22, 'end'
+    (sx + ex) / 2 - 40, topY - Math.max(12, arcH * 0.42), 'end'
   );
 }
 
