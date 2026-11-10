@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>动物画布 · 3 张画布连线预览</title>
+<style>
+  /* ============ 抖音深色设计 Token ============ */
+  :root {
+    --dy-bg: #161823;
+    --dy-bg-2: #1f2230;
+    --dy-card: #232634;
+    --dy-line: rgba(255,255,255,.08);
+    --dy-text: #fefefe;
+    --dy-sub: rgba(255,255,255,.55);
+    --dy-red: #fe2c55;
+    --dy-cyan: #25f4ee;
+    --ink: #161823;
+    --ink-2: #8a8f99;
+    --board-bg: #ffffff;
+    --chip-bg: #f6f7f9;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { height:100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: #eceef1;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ============ 设计工具顶栏 ============ */
+  .workspace-header {
+    height: 64px;
+    background: #fff;
+    border-bottom: 1px solid #ececf0;
+    display: flex;
+    align-items: center;
+    padding: 0 clamp(8px, 2vw, 28px);
+    gap: clamp(6px, 1.6vw, 24px);
+    height: clamp(44px, 5vw, 64px);
+    position: sticky; top: 0; z-index: 40;
+  }
+  .doc-title {
+    font-size: clamp(11px, 1.4vw, 17px);
+    font-weight: 700;
+    min-width: 0;
+    white-space: nowrap;
+    display: flex; align-items: center; gap: clamp(5px, .8vw, 10px);
+  }
+  .doc-title .doc-ico {
+    width: clamp(20px, 2.6vw, 30px);
+    height: clamp(20px, 2.6vw, 30px);
+  }
+  .doc-title .doc-ico svg { width: clamp(11px, 1.4vw, 17px); height: clamp(11px, 1.4vw, 17px); }
+  .doc-title .doc-ico {
+    border-radius: 9px;
+    background: linear-gradient(135deg, #7b7bff, #b388ff);
+    display:flex; align-items:center; justify-content:center;
+    color:#fff;
+  }
+  .tool-actions { display:flex; gap:clamp(5px, .9vw, 12px); flex:1; justify-content:center; }
+  .tool-btn {
+    width: clamp(28px, 3.4vw, 46px);
+    height: clamp(28px, 3.4vw, 46px);
+    border-radius: clamp(8px, 1vw, 13px);
+    border: 1px solid #e8e9ee;
+    background: #f7f8fa;
+    cursor: pointer;
+    display:flex; align-items:center; justify-content:center;
+    color:#3c404a;
+    transition: all .2s ease;
+  }
+  .tool-btn:hover { background:#eef0f4; transform: translateY(-2px); }
+  .tool-btn.active { background: var(--ink); color:#fff; border-color:var(--ink); }
+  .tool-btn svg { width: clamp(12px, 1.5vw, 20px); height: clamp(12px, 1.5vw, 20px); }
+  .export-btn {
+    display:flex; align-items:center; gap:8px;
+    padding: 0 clamp(8px, 1.4vw, 20px); height: clamp(30px, 3.4vw, 44px);
+    border:none; border-radius: clamp(8px, .9vw, 12px);
+    background: var(--ink); color:#fff;
+    font-size: clamp(10px, 1.1vw, 14px); font-weight: 600;
+    white-space: nowrap;
+    cursor:pointer; transition: all .2s;
+  }
+  .export-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(22,24,35,.25); }
+  .export-btn svg { width: clamp(11px, 1.2vw, 16px); height: clamp(11px, 1.2vw, 16px); }
+
+  /* ============ 画布工作区 ============ */
+  .canvas-area {
+    padding: clamp(12px, 3vw, 56px) clamp(6px, 2vw, 40px) clamp(10px, 2vw, 30px);
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .board {
+    position: relative;
+    width: min(1080px, 100%);
+    background: var(--board-bg);
+    border-radius: clamp(10px, 1.6vw, 22px);
+    border: 1px solid #ececf0;
+    box-shadow: 0 18px 60px rgba(20,24,40,.08);
+    padding: clamp(38px, 5vw, 74px) clamp(10px, 4vw, 60px) clamp(24px, 5vw, 70px);
+    overflow: visible;
+  }
+  .columns {
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    gap: clamp(20px, 3.2vw, 96px);
+    position: relative;
+    z-index: 2;
+  }
+  .col { display:flex; flex-direction:column; align-items:center; gap: clamp(6px, 1.2vw, 16px); }
+
+  /* 画布标签 */
+  .chip {
+    display:inline-flex; align-items:center; gap:clamp(3px, .5vw, 7px);
+    background: var(--chip-bg);
+    border: 1px solid #e9ebf0;
+    border-radius: 999px;
+    padding: clamp(3px, .55vw, 8px) clamp(6px, 1.1vw, 16px);
+    font-size: clamp(7.5px, 1.05vw, 13.5px); font-weight: 600;
+    color: #3c404a;
+    white-space: nowrap;
+    transition: all .25s;
+  }
+  .chip svg { width:clamp(8px, .95vw, 14px); height:clamp(8px, .95vw, 14px); color:#6b7080; }
+  .chip .chip-id {
+    font-size: clamp(6px, .78vw, 10.5px); font-weight: 500;
+    color:#9aa0ad; font-family:'SF Mono',Consolas,monospace;
+    margin-left: 2px;
+  }
+  .col.hot .chip {
+    background: var(--ink); color:#fff; border-color:var(--ink);
+    box-shadow: 0 6px 18px rgba(22,24,35,.25);
+  }
+  .col.hot .chip svg, .col.hot .chip .chip-id { color: rgba(255,255,255,.8); }
+
+  /* 黑色画布卡片（手机壳外框） */
+  .art-card {
+    background: #000;
+    border-radius: clamp(8px, 1.2vw, 18px);
+    padding: clamp(5px, 1.1vw, 18px);
+    box-shadow: 0 14px 40px rgba(0,0,0,.28);
+    cursor: pointer;
+    transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s;
+  }
+  .art-card.size-l { width: clamp(86px, 22.5vw, 252px); }
+  .art-card.size-m { width: clamp(74px, 19.6vw, 222px); }
+  .art-card:hover { transform: translateY(-6px); }
+  .art-card.pulse {
+    transform: translateY(-8px) scale(1.035);
+    box-shadow: 0 0 0 3px rgba(37,244,238,.7), 0 0 0 8px rgba(37,244,238,.18), 0 24px 60px rgba(0,0,0,.4);
+  }
+  .art-card.pulse.pulse-red {
+    box-shadow: 0 0 0 3px rgba(254,44,85,.75), 0 0 0 8px rgba(254,44,85,.18), 0 24px 60px rgba(0,0,0,.4);
+  }
+  .art-card.selected {
+    box-shadow: 0 0 0 3px rgba(22,24,35,.9), 0 0 0 8px rgba(22,24,35,.12), 0 24px 60px rgba(0,0,0,.4);
+  }
+
+  /* ============ 手机壳 ============ */
+  .phone {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 9 / 19.4;
+    border-radius: clamp(10px, 2.2vw, 26px);
+    border: 1.5px solid #33363f;
+    overflow: hidden;
+    background: var(--dy-bg);
+    font-size: clamp(4.4px, .88vw, 11px);
+    color: var(--dy-text);
+  }
+  .phone.sm { font-size: clamp(3.9px, .77vw, 9.6px); }
+  .phone .notch {
+    position:absolute; top:.7em; left:50%; transform:translateX(-50%);
+    width: 5.4em; height: 1.5em;
+    background:#000; border-radius:99px; z-index: 20;
+  }
+
+  /* 状态栏 */
+  .statusbar {
+    position:absolute; top:0; left:0; right:0;
+    display:flex; justify-content:space-between; align-items:center;
+    padding: .9em 1.4em 0;
+    font-size: .95em; font-weight:600;
+    z-index: 15;
+  }
+  .statusbar .sb-icons { display:flex; gap:.35em; align-items:center; }
+  .statusbar svg { width:1.1em; height:1.1em; fill:#fff; }
+
+  /* 信息流屏幕 */
+  .screen-feed {
+    position:absolute; inset:0;
+    background:
+      radial-gradient(120% 60% at 78% 12%, rgba(254,44,85,.32), transparent 55%),
+      radial-gradient(120% 70% at 12% 88%, rgba(37,244,238,.24), transparent 55%),
+      linear-gradient(180deg, #1b1e2b 0%, #0e1017 100%);
+  }
+  /* 顶部标签栏 */
+  .feed-top {
+    position:absolute; top:3.2em; left:0; right:0;
+    display:flex; align-items:center; justify-content:center; gap:1.8em;
+    z-index: 14;
+  }
+  .feed-top .tab { font-size:1.15em; color:rgba(255,255,255,.45); font-weight:600; }
+  .feed-top .tab.on { color:#fff; font-size:1.35em; font-weight:700; position:relative; }
+  .feed-top .tab.on::after {
+    content:''; position:absolute; left:50%; bottom:-.35em; transform:translateX(-50%);
+    width:1.4em; height:.25em; border-radius:99px; background:#fff;
+  }
+  .feed-top .search { position:absolute; right:1.4em; width:1.5em; height:1.5em; }
+  .feed-top .search svg { width:100%; height:100%; stroke:#fff; fill:none; stroke-width:2; }
+
+  /* 中央动物 + 霓虹光晕 */
+  .feed-hero {
+    position:absolute; top:0; left:0; right:0; bottom:0;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .halo { position:absolute; border-radius:50%; filter: blur(22px); }
+  .halo.red { width:11em; height:11em; background: rgba(254,44,85,.45); transform: translate(-1.2em,-1em); }
+  .halo.cyan { width:10em; height:10em; background: rgba(37,244,238,.35); transform: translate(1.4em,1.2em); }
+  .animal-emoji {
+    position:relative; z-index:2;
+    font-size: 7.6em;
+    line-height:1;
+    filter: drop-shadow(0 0 .6em rgba(254,44,85,.55)) drop-shadow(0 .12em .25em rgba(0,0,0,.6));
+    user-select:none;
+  }
+
+  /* 右侧互动栏 */
+  .action-rail {
+    position:absolute; right:.9em; bottom:7.6em;
+    display:flex; flex-direction:column; align-items:center; gap:1.35em;
+    z-index: 14;
+  }
+  .rail-item { display:flex; flex-direction:column; align-items:center; gap:.25em; }
+  .rail-item svg { width:2.5em; height:2.5em; }
+  .rail-item .num { font-size:.92em; color:#fff; text-shadow:0 1px 2px rgba(0,0,0,.5); }
+  .rail-avatar {
+    width:3.5em; height:3.5em; border-radius:50%;
+    border:.2em solid #fff;
+    background:#333;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.7em; position:relative; margin-bottom:.4em;
+  }
+  .rail-avatar .follow {
+    position:absolute; bottom:-.7em; left:50%; transform:translateX(-50%);
+    width:1.3em; height:1.3em; border-radius:50%;
+    background:var(--dy-red); color:#fff;
+    font-size:.8em; display:flex;align-items:center;justify-content:center;
+    font-weight:700;
+  }
+  .music-disc {
+    width:3.5em; height:3.5em; border-radius:50%;
+    background: conic-gradient(#111, #444, #111, #444, #111);
+    border:.25em solid #222;
+    display:flex;align-items:center;justify-content:center;
+    animation: spin 4s linear infinite;
+  }
+  .music-disc .note { font-size:1.3em; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* 底部文案 */
+  .feed-bottom {
+    position:absolute; left:1.3em; right:6.2em; bottom:4.6em;
+    z-index:14;
+  }
+  .feed-bottom .author { font-size:1.18em; font-weight:700; text-shadow:0 1px 3px rgba(0,0,0,.6); }
+  .feed-bottom .copy {
+    margin-top:.45em; font-size:1.02em; line-height:1.5;
+    color:rgba(255,255,255,.92);
+    text-shadow:0 1px 3px rgba(0,0,0,.6);
+  }
+  .feed-bottom .music-row {
+    margin-top:.7em; display:flex; align-items:center; gap:.5em;
+    font-size:.95em; color:rgba(255,255,255,.8);
+  }
+  .feed-bottom .music-row .marquee {
+    overflow:hidden; white-space:nowrap; width:100%;
+  }
+
+  /* 底部导航 */
+  .feed-nav {
+    position:absolute; left:0; right:0; bottom:0;
+    height:4.2em;
+    background: rgba(0,0,0,.35);
+    display:flex; align-items:center; justify-content:space-around;
+    z-index:14;
+    border-top:.5px solid rgba(255,255,255,.06);
+  }
+  .feed-nav .nav-i { display:flex; flex-direction:column; align-items:center; gap:.15em; color:rgba(255,255,255,.75); font-size:.82em; }
+  .feed-nav .nav-i svg { width:1.7em; height:1.7em; }
+  .feed-nav .nav-i.on { color:#fff; font-weight:700; }
+  .feed-nav .nav-plus {
+    width:3.4em; height:2.1em; border-radius:.55em;
+    background: linear-gradient(90deg, var(--dy-cyan) 0%, #fff 48%, var(--dy-red) 100%);
+    display:flex; align-items:center; justify-content:center;
+    color:#000; font-size:1.7em; font-weight:800;
+  }
+
+  /* ============ 档案页手机屏（动物介绍） ============ */
+  .screen-profile {
+    position:absolute; inset:0;
+    background: linear-gradient(180deg,#191b26 0%, #0f1118 60%, #0d0e14 100%);
+    padding: 3.4em 1.2em 1.2em;
+    display:flex; flex-direction:column;
+    overflow:hidden;
+  }
+  .profile-head { display:flex; align-items:center; justify-content:space-between; }
+  .profile-head .back { font-size:1.5em; font-weight:700; }
+  .profile-head .p-title { font-size:1.1em; font-weight:700; letter-spacing:.1em; }
+  .profile-head .more { font-size:1.4em; letter-spacing:.15em; }
+
+  .profile-kicker {
+    margin-top:1.1em; font-size:.82em; letter-spacing:.28em;
+    color: var(--dy-cyan); font-weight:700;
+  }
+  .profile-title {
+    margin-top:.35em; font-size:1.95em; line-height:1.25; font-weight:800;
+  }
+  .profile-title .grad {
+    background: linear-gradient(90deg, var(--dy-red), var(--dy-cyan));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .profile-sub {
+    margin-top:.55em; font-size:.92em; line-height:1.55; color:var(--dy-sub);
+  }
+
+  .profile-grid {
+    margin-top:1.05em; display:grid; grid-template-columns:1fr 1fr; gap:.7em;
+  }
+  .p-card {
+    background: var(--dy-card);
+    border:1px solid var(--dy-line);
+    border-radius: .9em;
+    padding:.85em;
+    cursor:pointer;
+    transition: all .2s;
+  }
+  .p-card:hover { border-color: var(--dy-cyan); transform: translateY(-.2em); }
+  .p-card .pc-emoji {
+    height:3.1em; border-radius:.6em;
+    display:flex;align-items:center;justify-content:center;
+    font-size:2em;
+    margin-bottom:.5em;
+  }
+  .p-card.cat .pc-emoji { background: radial-gradient(circle at 60% 30%, rgba(254,44,85,.35), transparent 70%), #1a1d28; }
+  .p-card.cow .pc-emoji { background: radial-gradient(circle at 40% 70%, rgba(37,244,238,.3), transparent 70%), #1a1d28; }
+  .p-card .pc-name { font-size:1em; font-weight:700; }
+  .p-card .pc-tag { font-size:.78em; color:var(--dy-sub); margin-top:.15em; display:flex; align-items:center; gap:.35em; }
+  .p-card .pc-tag .link-ico { width:.8em; height:.8em; }
+
+  .profile-stats {
+    margin-top:.95em;
+    background: var(--dy-card);
+    border:1px solid var(--dy-line);
+    border-radius:.9em;
+    display:flex;
+  }
+  .stat { flex:1; text-align:center; padding:.8em .2em; }
+  .stat + .stat { border-left:1px solid var(--dy-line); }
+  .stat .n { font-size:1.35em; font-weight:800; }
+  .stat .n.rd { color: var(--dy-red); }
+  .stat .n.cy { color: var(--dy-cyan); }
+  .stat .l { font-size:.75em; color:var(--dy-sub); margin-top:.15em; }
+
+  .cta {
+    margin-top:1em;
+    width:100%;
+    border:none; border-radius:1em;
+    padding:1.05em 0;
+    font-size:1.08em; font-weight:800;
+    color:#fff;
+    background: linear-gradient(90deg, var(--dy-red), #ff5e7e);
+    box-shadow: 0 .6em 1.6em rgba(254,44,85,.35);
+    cursor:pointer;
+  }
+  .cta:active { transform: scale(.97); }
+
+  /* ============ SVG 连线层 ============ */
+  .links {
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    pointer-events:none;
+    overflow:visible;
+    z-index: 3;
+  }
+  .links path {
+    fill:none;
+    stroke: #c9ccd6;
+    stroke-width:2;
+    transition: stroke .3s, stroke-width .3s;
+  }
+  .links path.flow {
+    stroke-width:3;
+    stroke-dasharray: 9 7;
+    animation: dash 1s linear infinite;
+  }
+  .links path.flow.mut { stroke: var(--dy-red); }
+  .links path.flow.jump { stroke: var(--dy-cyan); }
+  @keyframes dash { to { stroke-dashoffset: -32; } }
+
+  .link-pill {
+    background:#fff;
+    border:1px solid #e2e4ea;
+    border-radius:99px;
+    padding: clamp(1px, .28vw, 3px) clamp(4px, .8vw, 10px);
+    font-size: clamp(6.5px, .82vw, 11px); font-weight:700;
+    color:#6b7080;
+    white-space:nowrap;
+    box-shadow:0 3px 10px rgba(0,0,0,.08);
+    opacity:0; transform: scale(.8);
+    transition: all .25s;
+    display:inline-flex; align-items:center; gap:4px;
+  }
+  .link-pill.show { opacity:1; transform:scale(1); }
+  .link-pill.mut { color:var(--dy-red); border-color:rgba(254,44,85,.4); }
+  .link-pill.jump { color:#08a7a2; border-color:rgba(37,244,238,.55); }
+
+  /* 底部提示条 */
+  .hint-bar {
+    margin-top: clamp(10px, 1.6vw, 26px);
+    display:flex; gap: clamp(8px, 1.6vw, 26px); flex-wrap:wrap; justify-content:center;
+    font-size: clamp(8.5px, 1vw, 12.5px); color:#7c818c;
+    padding: 0 clamp(6px, 2vw, 0px);
+    text-align:center;
+  }
+  .hint-bar b { color:#3c404a; font-weight:700; }
+  .hint-bar .kbd {
+    background:#fff; border:1px solid #dde0e7; border-bottom-width:2px;
+    border-radius:6px; padding:1px 7px; font-size:11px; font-weight:700;
+  }
+
+  /* Toast */
+  .toast {
+    position:fixed; left:50%; bottom:34px; transform:translateX(-50%) translateY(20px);
+    background:#161823; color:#fff;
+    padding:12px 22px; border-radius:99px;
+    font-size:13px; font-weight:600;
+    box-shadow:0 12px 36px rgba(0,0,0,.3);
+    opacity:0; pointer-events:none;
+    transition: all .3s;
+    z-index:80;
+    display:flex; align-items:center; gap:8px;
+  }
+  .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+  [contenteditable="true"]:focus {
+    outline:2px dashed var(--dy-cyan);
+    outline-offset:3px;
+    border-radius:4px;
+  }
+
+  /* 窄屏（IDE 预览面板）也保持三机横排 + 连线，仅精简文字 */
+  @media (max-width: 760px) {
+    .chip .chip-id { display: none; }
+    .hint-bar span:nth-child(3) { display: none; }
+    .link-pill { font-size: 6.5px; padding: 1px 4px; }
+  }
+  @media (max-width: 520px) {
+    .chip svg { display: none; }
+    .link-pill { font-size: 6px; }
+    .toast { font-size: 11px; padding: 8px 14px; bottom: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ 顶栏（设计工具） ============ -->
+<header class="workspace-header">
+  <div class="doc-title">
+    <span class="doc-ico">
+      <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><circle cx="6" cy="6" r="2"/>
+      </svg>
+    </span>
+    动物画布
+  </div>
+
+  <div class="tool-actions">
+    <!-- 播放：开始连线预览 -->
+    <button class="tool-btn" id="btnPlay" title="开始连线预览">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+    </button>
+    <!-- 重置 -->
+    <button class="tool-btn" id="btnReset" title="重置连线状态">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/>
+      </svg>
+    </button>
+    <!-- 反向预览 -->
+    <button class="tool-btn" id="btnShuffle" title="反向连线预览">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17 3l4 4-4 4"/><path d="M21 7H9a4 4 0 0 0-4 4"/>
+        <path d="M7 21l-4-4 4-4"/><path d="M3 17h12a4 4 0 0 0 4-4"/>
+      </svg>
+    </button>
+    <!-- 更多 -->
+    <button class="tool-btn" id="btnMore" title="更多">
+      <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+    </button>
+  </div>
+
+  <button class="export-btn" id="btnExport">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/>
+    </svg>
+    导出
+  </button>
+</header>
+
+<!-- ============ 画布工作区 ============ -->
+<main class="canvas-area">
+  <div class="board" id="board">
+
+    <!-- 连线 SVG -->
+    <svg class="links" id="linkSvg">
+      <defs>
+        <marker id="arr-gray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="#c9ccd6"/>
+        </marker>
+        <marker id="arr-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="#fe2c55"/>
+        </marker>
+        <marker id="arr-cyan" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="#15b8b3"/>
+        </marker>
+      </defs>
+      <!-- path + pill 由 JS 生成 -->
+    </svg>
+
+    <div class="columns">
+
+      <!-- ========= 画布一：小猫（信息流） ========= -->
+      <section class="col" id="col-cat" data-col="cat">
+        <div class="chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/>
+          </svg>
+          <span contenteditable="true">小猫</span>
+          <span class="chip-id">page-cat</span>
+        </div>
+
+        <div class="art-card size-l" data-card="cat">
+          <div class="phone">
+            <div class="notch"></div>
+            <div class="screen-feed">
+              <div class="statusbar">
+                <span>9:41</span>
+                <span class="sb-icons">
+                  <svg viewBox="0 0 16 12"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="4.5" y="4.5" width="3" height="7.5" rx="1"/><rect x="9" y="2" width="3" height="10" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1" opacity=".4"/></svg>
+                  <svg viewBox="0 0 16 12"><path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM3.5 5.2a6.4 6.4 0 0 1 9 0M1 2.8a10 10 0 0 1 14 0" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>
+                  <svg viewBox="0 0 24 12"><rect x="1" y="1.5" width="19" height="9" rx="2.5" fill="none" stroke="#fff" stroke-width="1"/><rect x="3" y="3.5" width="13" height="5" rx="1.2"/><rect x="21.5" y="4" width="2" height="4" rx="1"/></svg>
+                </span>
+              </div>
+
+              <div class="feed-top">
+                <span class="tab">关注</span>
+                <span class="tab on">推荐</span>
+                <span class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3" stroke-linecap="round"/></svg></span>
+              </div>
+
+              <div class="feed-hero">
+                <span class="halo red"></span>
+                <span class="halo cyan"></span>
+                <span class="animal-emoji">🐱</span>
+              </div>
+
+              <div class="action-rail">
+                <div class="rail-item">
+                  <div class="rail-avatar">🐱<span class="follow">+</span></div>
+                </div>
+                <div class="rail-item">
+                  <svg viewBox="0 0 24 24" fill="#fe2c55"><path d="M12 21s-7.5-4.6-10-9.3C.4 8.4 2 4.8 5.5 4.5c2-.2 3.5.9 4.5 2.3 1-1.4 2.5-2.5 4.5-2.3 3.5.3 5.1 3.9 3.5 7.2C19.5 16.4 12 21 12 21z"/></svg>
+                  <span class="num">128.6w</span>
+                </div>
+                <div class="rail-item">
+                  <svg viewBox="0 0 24 24"><path d="M4 4h16v11H8l-4 4V4z" stroke="#fff" stroke-width="1.6" fill="rgba(255,255,255,.12)"/></svg>
+                  <span class="num">3,204</span>
+                </div>
+                <div class="rail-item">
+                  <svg viewBox="0 0 24 24" fill="#ffd60a"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3 1.1-6.5L2.6 9.3l6.5-.9z"/></svg>
+                  <span class="num">8,916</span>
+                </div>
+                <div class="rail-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 3v13"/><path d="M7 8l5-5 5 5"/></svg>
+                  <span class="num">分享</span>
+                </div>
+                <div class="rail-item">
+                  <div class="music-disc"><span class="note">🎵</span></div>
+                </div>
+              </div>
+
+              <div class="feed-bottom">
+                <div class="author" contenteditable="true">@橘猫年糕</div>
+                <div class="copy" contenteditable="true">霓虹灯下的小猫咪也太治愈了🐱 红青光晕刚刚好 #云吸猫 #小奶猫日常</div>
+                <div class="music-row">🎵 <span class="marquee" contenteditable="true">原声 - 橘猫年糕 · 猫咪专属BGM</span></div>
+              </div>
+
+              <div class="feed-nav">
+                <span class="nav-i on">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3 2 11h3v9h5v-6h4v6h5v-9h3z"/></svg>首页
+                </span>
+                <span class="nav-i">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20c.7-3.4 3-5 5.5-5s4.8 1.6 5.5 5" stroke-linecap="round"/><circle cx="17" cy="9" r="2.6"/><path d="M16 15.2c2.4.3 4 1.9 4.6 4.3" stroke-linecap="round"/></svg>朋友
+                </span>
+                <span class="nav-plus">+</span>
+                <span class="nav-i">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4L3 21l1.1-8.5A8.4 8.4 0 1 1 21 11.5z"/></svg>消息
+                </span>
+                <span class="nav-i">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.4 4.5-6 8-6s7 1.6 8 6" stroke-linecap="round"/></svg>我
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========= 画布二：小牛（信息流） ========= -->
+      <section class="col" id="col-cow" data-col="cow">
+        <div class="chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 13a5 5 0 0 0 7.5.5l2.5 2.5a5 5 0 0 1-7-7l-3-3"/><path d="M14 11a5 5 0 0 0-7.5-.5L4 8a5 5 0 0 1 7 7l3 3"/>
+          </svg>
+          <span contenteditable="true">小牛</span>
+          <span class="chip-id">page-cow</span>
+        </div>
+
+        <div class="art-card size-m" data-card="cow">
+          <div class="phone sm">
+            <div class="notch"></div>
+            <div class="screen-feed">
+              <div class="statusbar">
+                <span>9:41</span>
+                <span class="sb-icons">
+                  <svg viewBox="0 0 16 12"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="4.5" y="4.5" width="3" height="7.5" rx="1"/><rect x="9" y="2" width="3" height="10" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1" opacity=".4"/></svg>
+                  <svg viewBox="0 0 16 12"><path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM3.5 5.2a6.4 6.4 0 0 1 9 0M1 2.8a10 10 0 0 1 14 0" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>
+                  <svg viewBox="0 0 24 12"><rect x="1" y="1.5" width="19" height="9" rx="2.5" fill="none" stroke="#fff" stroke-width="1"/><rect x="3" y="3.5" width="13" height="5" rx="1.2"/><rect x="21.5" y="4" width="2" height="4" rx="1"/></svg>
+                </span>
+              </div>
+
+              <div class="feed-top">
+                <span class="tab">关注</span>
+                <span class="tab on">推荐</span>
+                <span class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3" stroke-linecap="round"/></svg></span>
+              </div>
+
+              <div class="feed-hero">
+                <span class="halo red"></span>
+                <span class="halo cyan"></span>
+                <span class="animal-emoji">🐮</span>
+              </div>
+
+              <div class="action-rail">
+                <div class="rail-item">
+                  <div class="rail-avatar">🐮<span class="follow">+</span></div>
+                </div>
+                <div class="rail-item">
+                  <svg viewBox="0 0 24 24" fill="#fe2c55"><path d="M12 21s-7.5-4.6-10-9.3C.4 8.4 2 4.8 5.5 4.5c2-.2 3.5.9 4.5 2.3 1-1.4 2.5-2.5 4.5-2.3 3.5.3 5.1 3.9 3.5 7.2C19.5 16.4 12 21 12 21z"/></svg>
+                  <span class="num">96.2w</span>
+                </div>
+                <div class="rail-item">
+                  <svg viewBox="0 0 24 24"><path d="M4 4h16v11H8l-4 4V4z" stroke="#fff" stroke-width="1.6" fill="rgba(255,255,255,.12)"/></svg>
+                  <span class="num">2,487</span>
+                </div>
+                <div class="rail-item">
+                  <svg viewBox="0 0 24 24" fill="#ffd60a"><path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3 1.1-6.5L2.6 9.3l6.5-.9z"/></svg>
+                  <span class="num">6,302</span>
+                </div>
+                <div class="rail-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 3v13"/><path d="M7 8l5-5 5 5"/></svg>
+                  <span class="num">分享</span>
+                </div>
+                <div class="rail-item">
+                  <div class="music-disc"><span class="note">🎵</span></div>
+                </div>
+              </div>
+
+              <div class="feed-bottom">
+                <div class="author" contenteditable="true">@牧场阿牛</div>
+                <div class="copy" contenteditable="true">牧场手记 Day12：清晨五点的露水最甜，哞～今天也是努力干饭的小牛🐄 #牧场手记</div>
+                <div class="music-row">🎵 <span class="marquee" contenteditable="true">田园轻音乐 - 牧场的早晨</span></div>
+              </div>
+
+              <div class="feed-nav">
+                <span class="nav-i on">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3 2 11h3v9h5v-6h4v6h5v-9h3z"/></svg>首页
+                </span>
+                <span class="nav-i">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20c.7-3.4 3-5 5.5-5s4.8 1.6 5.5 5" stroke-linecap="round"/><circle cx="17" cy="9" r="2.6"/><path d="M16 15.2c2.4.3 4 1.9 4.6 4.3" stroke-linecap="round"/></svg>朋友
+                </span>
+                <span class="nav-plus">+</span>
+                <span class="nav-i">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4L3 21l1.1-8.5A8.4 8.4 0 1 1 21 11.5z"/></svg>消息
+                </span>
+                <span class="nav-i">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.4 4.5-6 8-6s7 1.6 8 6" stroke-linecap="round"/></svg>我
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========= 画布三：动物介绍（深色档案页） ========= -->
+      <section class="col" id="col-intro" data-col="intro">
+        <div class="chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 13a5 5 0 0 0 7.5.5l2.5 2.5a5 5 0 0 1-7-7l-3-3"/><path d="M14 11a5 5 0 0 0-7.5-.5L4 8a5 5 0 0 1 7 7l3 3"/>
+          </svg>
+          <span contenteditable="true">动物介绍</span>
+          <span class="chip-id">page-animal-intro</span>
+        </div>
+
+        <div class="art-card size-m" data-card="intro">
+          <div class="phone sm">
+            <div class="notch"></div>
+            <div class="screen-profile">
+              <div class="profile-head">
+                <span class="back">‹</span>
+                <span class="p-title">动物档案</span>
+                <span class="more">···</span>
+              </div>
+
+              <div class="profile-kicker">ANIMAL PROFILE</div>
+              <div class="profile-title" contenteditable="true">认识我们的<br><span class="grad">动物朋友</span></div>
+              <div class="profile-sub" contenteditable="true">两位主角已上线，点开名片看看它们的日常故事与牧场手记。</div>
+
+              <div class="profile-grid">
+                <div class="p-card cat" data-link="cat">
+                  <div class="pc-emoji">🐱</div>
+                  <div class="pc-name" contenteditable="true">小猫咪</div>
+                  <div class="pc-tag">
+                    <svg class="link-ico" viewBox="0 0 24 24" fill="none" stroke="#25f4ee" stroke-width="2.2" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+                    橘猫 · 信息流
+                  </div>
+                </div>
+                <div class="p-card cow" data-link="cow">
+                  <div class="pc-emoji">🐮</div>
+                  <div class="pc-name" contenteditable="true">小牛</div>
+                  <div class="pc-tag">
+                    <svg class="link-ico" viewBox="0 0 24 24" fill="none" stroke="#25f4ee" stroke-width="2.2" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+                    牧场 · 手记
+                  </div>
+                </div>
+              </div>
+
+              <div class="profile-stats">
+                <div class="stat"><div class="n rd">2</div><div class="l">动物主角</div></div>
+                <div class="stat"><div class="n cy">12</div><div class="l">档案卡片</div></div>
+                <div class="stat"><div class="n">4</div><div class="l">牧场手记</div></div>
+              </div>
+
+              <button class="cta" contenteditable="true">进入动物名片 →</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <div class="hint-bar">
+    <span><b>编辑：</b>直接点击画布内文字即可改文案</span>
+    <span><b>预览：</b>点上方 <span class="kbd">▶</span> 播放连线动画，<span class="kbd">⇄</span> 反向播放</span>
+    <span><b>连线：</b>小猫 ↔ 小牛（互链）· 动物介绍 → 小猫 / 小牛（档案跳转）</span>
+  </div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   连线绘制：
+   ① 小猫 ↔ 小牛（互链，双向箭头）
+   ② 动物介绍 → 小牛（档案跳转）
+   ③ 动物介绍 → 小猫（顶部弧线，档案总览）
+   ========================================================= */
+const svg = document.getElementById('linkSvg');
+const board = document.getElementById('board');
+const NS = 'http://www.w3.org/2000/svg';
+
+const lines = []; // {path, pill, type:'mut'|'jump'}
+
+function el(tag, attrs = {}) {
+  const n = document.createElementNS(NS, tag);
+  for (const k in attrs) n.setAttribute(k, attrs[k]);
+  return n;
+}
+
+function drawLinks() {
+  // 清除旧节点
+  svg.querySelectorAll('path.link, foreignObject').forEach(n => n.remove());
+  lines.length = 0;
+  const bRect = board.getBoundingClientRect();
+  svg.setAttribute('viewBox', `0 0 ${bRect.width} ${bRect.height}`);
+
+  const chipOf = id => document.querySelector(`#col-${id} .chip`);
+  const rel = node => {
+    const r = node.getBoundingClientRect();
+    return {
+      l: r.left - bRect.left, r: r.right - bRect.left,
+      t: r.top - bRect.top, b: r.bottom - bRect.top,
+      cx: r.left - bRect.left + r.width / 2,
+      cy: r.top - bRect.top + r.height / 2
+    };
+  };
+
+  const cat = rel(chipOf('cat')), cow = rel(chipOf('cow')), intro = rel(chipOf('intro'));
+  const GAP = Math.max(8, Math.min(16, bRect.width * 0.014));
+  const arcH = Math.max(26, Math.min(56, bRect.width * 0.052));
+
+  function makePath(d, type, label, lx, ly, marker) {
+    const p = el('path', {
+      d, class: 'link ' + type,
+      'marker-start': marker === 'double' ? `url(#arr-${type === 'mut' ? 'red' : 'cyan'})` : '',
+      'marker-end': `url(#arr-${type === 'mut' ? 'red' : 'cyan'})`
+    });
+    svg.appendChild(p);
+
+    // 标签 pill
+    const fo = document.createElementNS(NS, 'foreignObject');
+    fo.setAttribute('x', lx); fo.setAttribute('y', ly);
+    fo.setAttribute('width', 110); fo.setAttribute('height', 30);
+    fo.style.overflow = 'visible';
+    const div = document.createElement('div');
+    div.className = `link-pill ${type}`;
+    div.innerHTML = label;
+    fo.appendChild(div);
+    svg.appendChild(fo);
+
+    lines.push({ path: p, pill: div, type });
+  }
+
+  // ① 小猫 ↔ 小牛
+  const y1 = cat.cy;
+  makePath(
+    `M ${cat.r + GAP} ${y1} L ${cow.l - GAP} ${y1}`,
+    'mut', '🔗 互链',
+    (cat.r + cow.l) / 2 - 30, y1 + 10, 'double'
+  );
+
+  // ② 动物介绍 → 小牛
+  const y2 = cow.cy;
+  makePath(
+    `M ${intro.l - GAP} ${y2} L ${cow.r + GAP} ${y2}`,
+    'jump', '档案跳转 →',
+    (cow.r + intro.l) / 2 - 40, y2 - 30, 'end'
+  );
+
+  // ③ 动物介绍 → 小猫（顶部弧线）
+  const sx = intro.cx, sy = intro.t - 2;
+  const ex = cat.cx, ey = cat.t - 2;
+  const topY = Math.min(sy, ey) - arcH;
+  makePath(
+    `M ${sx} ${sy} C ${sx} ${topY}, ${ex} ${topY}, ${ex} ${ey}`,
+    'jump', '档案总览 →',
+    (sx + ex) / 2 - 40, topY - Math.max(12, arcH * 0.42), 'end'
+  );
+}
+
+window.addEventListener('load', drawLinks);
+window.addEventListener('resize', drawLinks);
+
+/* ================= 交互：选中 / 脉冲 ================= */
+const cols = {
+  cat: document.getElementById('col-cat'),
+  cow: document.getElementById('col-cow'),
+  intro: document.getElementById('col-intro')
+};
+const cards = {
+  cat: document.querySelector('[data-card="cat"]'),
+  cow: document.querySelector('[data-card="cow"]'),
+  intro: document.querySelector('[data-card="intro"]')
+};
+
+function clearFX() {
+  Object.values(cols).forEach(c => c.classList.remove('hot'));
+  Object.values(cards).forEach(c => {
+    c.classList.remove('pulse','pulse-red','selected');
+  });
+  lines.forEach(l => { l.path.classList.remove('flow'); l.pill.classList.remove('show'); });
+}
+
+function pulseCard(id, red = false) {
+  const c = cards[id];
+  c.classList.add('pulse');
+  if (red) c.classList.add('pulse-red');
+  cols[id].classList.add('hot');
+}
+function showLine(idx) {
+  if (!lines[idx]) return;
+  lines[idx].path.classList.add('flow');
+  lines[idx].pill.classList.add('show');
+}
+
+/* 连线关系：cat↔cow=0, intro→cow=1, intro→cat=2 */
+const related = { cat: [0,2], cow: [0,1], intro: [1,2] };
+
+Object.entries(cards).forEach(([id, card]) => {
+  card.addEventListener('click', () => {
+    clearFX();
+    card.classList.add('selected');
+    cols[id].classList.add('hot');
+    related[id].forEach(showLine);
+    const names = { cat: '小猫 page-cat', cow: '小牛 page-cow', intro: '动物介绍 page-animal-intro' };
+    toast(`已高亮「${names[id]}」的全部连线`);
+  });
+});
+
+/* 档案页内的小名片 → 触发对应画布跳转提示 */
+document.querySelectorAll('.p-card[data-link]').forEach(pc => {
+  pc.addEventListener('click', () => {
+    const target = pc.dataset.link;
+    clearFX();
+    showLine(target === 'cat' ? 2 : 1);
+    pulseCard(target);
+    toast(`动物介绍 → ${target === 'cat' ? '小猫' : '小牛'}：档案跳转`);
+  });
+});
+
+/* ================= 播放连线预览（时序动画） ================= */
+const btnPlay = document.getElementById('btnPlay');
+const btnShuffle = document.getElementById('btnShuffle');
+const btnReset = document.getElementById('btnReset');
+let playing = false, timers = [];
+
+function schedule(fn, ms) { timers.push(setTimeout(fn, ms)); }
+function stopAll() {
+  timers.forEach(clearTimeout); timers = [];
+  playing = false;
+  btnPlay.classList.remove('active');
+  btnShuffle.classList.remove('active');
+  clearFX();
+}
+
+function playSequence(reverse = false) {
+  stopAll();
+  playing = true;
+  (reverse ? btnShuffle : btnPlay).classList.add('active');
+  toast(reverse ? '▶ 反向连线预览开始' : '▶ 连线预览开始');
+
+  // 正向：互链 → intro→cow → intro→cat
+  // 反向：intro→cat → intro→cow → 互链
+  const steps = reverse
+    ? [ () => { showLine(2); pulseCard('intro'); pulseCard('cat'); },
+        () => { clearFX(); showLine(1); pulseCard('intro'); pulseCard('cow'); },
+        () => { clearFX(); showLine(0); pulseCard('cat', true); pulseCard('cow', true); } ]
+    : [ () => { showLine(0); pulseCard('cat', true); pulseCard('cow', true); },
+        () => { clearFX(); showLine(1); pulseCard('intro'); pulseCard('cow'); },
+        () => { clearFX(); showLine(2); pulseCard('intro'); pulseCard('cat'); } ];
+
+  steps.forEach((fn, i) => schedule(fn, i * 1300));
+  schedule(() => { stopAll(); toast('✓ 连线预览完成'); }, 3 * 1300 + 1400);
+}
+
+btnPlay.addEventListener('click', () => playSequence(false));
+btnShuffle.addEventListener('click', () => playSequence(true));
+btnReset.addEventListener('click', () => { stopAll(); toast('已重置连线状态'); });
+document.getElementById('btnMore').addEventListener('click', () =>
+  toast('更多操作：画布内文字可直接编辑，结构 / 配色可改 CSS 变量'));
+
+/* ================= Toast ================= */
+const toastEl = document.getElementById('toast');
+let toastTimer;
+function toast(msg) {
+  toastEl.textContent = msg;
+  toastEl.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2200);
+}
+
+/* ================= 导出（单文件 HTML） ================= */
+document.getElementById('btnExport').addEventListener('click', () => {
+  const clone = document.documentElement.cloneNode(true);
+  const html = '<!DOCTYPE html>\n' + clone.outerHTML;
+  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = '动物画布-animal-canvas.html';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('✓ 已导出单文件 HTML');
+});
+
+/* 初始绘制（兜底） */
+setTimeout(drawLinks, 120);
+setTimeout(drawLinks, 600);
+</script>
+</body>
+</html>
